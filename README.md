@@ -1,2 +1,2 @@
-# FestivalGame
-축제용 게임
+# I Want To Be A Star(별이 되고 싶어요)
+2018 여주 세종고등학교 동아리 발표회용 종스크롤 점프게임
