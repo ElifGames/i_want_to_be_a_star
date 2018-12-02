@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestroyByTime : MonoBehaviour
- {
-    public float lifeTime;
-	// Use this for initialization
-	void Start () 
+namespace IWantToBeAStar
+{
+    public class DestroyByTime : MonoBehaviour
     {
-		Destroy(gameObject, lifeTime);
-	}
+        public float lifeTime;
+        // Use this for initialization
+        void Start()
+        {
+            Destroy(gameObject, lifeTime);
+        }
+    }
 }

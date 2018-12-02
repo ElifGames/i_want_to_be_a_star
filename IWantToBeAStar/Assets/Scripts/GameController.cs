@@ -2,39 +2,56 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+namespace IWantToBeAStar
 {
-    public GameObject hazard;
-    public Vector2 spawnValues;
-    public int hazardCount;
-    public float spawnWait;
-    public float startWait;
-    public float waveWait;
+    public class GameController : MonoBehaviour
+    {
+        public GameObject Hazard;
+        public Vector2 SpawnValues;
+        public int HazardCount;
+        public float SpawnWait;
+        public float StartWait;
+        public float WaveWait;
 
-    // Use this for initialization
-    void Start ()
-    {
-        StartCoroutine(SpawnWaves());
-    }
-	
-	// Update is called once per frame
-	void Update ()
-    {
-	}
+        public int CurrentWave;
 
-    IEnumerator SpawnWaves()
-    {
-        yield return new WaitForSeconds(startWait);
-        while (true)
+        // Use this for initialization
+        void Start()
         {
-            for (int i = 0; i < hazardCount; i++)
+            StartCoroutine(SpawnWaves());
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+        }
+
+        IEnumerator SpawnWaves()
+        {
+            // 게임 시작
+            yield return new WaitForSeconds(StartWait);
+            while (true)
             {
-                Vector2 spawnPosition = new Vector2(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y);
-                Quaternion spawnRotation = Quaternion.identity;
-                Instantiate(hazard, spawnPosition, spawnRotation);
-                yield return new WaitForSeconds(spawnWait);
+                // 한 웨이브 진행
+                for (int i = 0; i < HazardCount; i++)
+                {
+                    Vector2 spawnPosition = new Vector2
+                        (Random.Range(-SpawnValues.x, SpawnValues.x), SpawnValues.y);
+                    Quaternion spawnRotation = Quaternion.identity;
+                    Instantiate(Hazard, spawnPosition, spawnRotation);
+                    yield return new WaitForSeconds(SpawnWait);
+                }
+                // 한 웨이브 끝
+
+                // 다음 웨이브 준비
+                CurrentWave++;
+                HazardCount += 10;
+                if (SpawnWait > 0.05f)
+                {
+                    SpawnWait -= 0.01f;
+                }
+                yield return new WaitForSeconds(WaveWait);
             }
-            yield return new WaitForSeconds(waveWait);
         }
     }
 }
