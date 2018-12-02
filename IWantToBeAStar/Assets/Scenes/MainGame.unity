@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 210695981}
   m_Layer: 0
   m_Name: Background
-  m_TagString: Untagged
+  m_TagString: Background
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -258,27 +258,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 58549753172533422, guid: b661b6868e2fc9f4d8725a65d1404fed,
+    - target: {fileID: 212597879049584202, guid: b661b6868e2fc9f4d8725a65d1404fed,
         type: 2}
-      propertyPath: m_Radius
-      value: 0.38
-      objectReference: {fileID: 0}
-    - target: {fileID: 4348755196842488, guid: b661b6868e2fc9f4d8725a65d1404fed, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.07
-      objectReference: {fileID: 0}
-    - target: {fileID: 4348755196842488, guid: b661b6868e2fc9f4d8725a65d1404fed, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.07
-      objectReference: {fileID: 0}
-    - target: {fileID: 4348755196842488, guid: b661b6868e2fc9f4d8725a65d1404fed, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 0.07
-      objectReference: {fileID: 0}
-    - target: {fileID: 58549753172533422, guid: b661b6868e2fc9f4d8725a65d1404fed,
-        type: 2}
-      propertyPath: m_Offset.x
-      value: -0.12
+      propertyPath: m_SortingOrder
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b661b6868e2fc9f4d8725a65d1404fed, type: 2}

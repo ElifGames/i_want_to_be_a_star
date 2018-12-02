@@ -8,6 +8,7 @@ namespace IWantToBeAStar
     {
         public GameObject Hazard;
         public Vector2 SpawnValues;
+
         public int HazardCount;
         public float SpawnWait;
         public float StartWait;

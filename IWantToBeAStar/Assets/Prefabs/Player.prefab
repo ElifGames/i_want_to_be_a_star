@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114602584242742868}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54,7 +54,7 @@ Transform:
   m_GameObject: {fileID: 1280013506709416}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.07, y: 0.07, z: 0.07}
   m_Children: []
   m_Father: {fileID: 4804487618624880}
   m_RootOrder: 0
@@ -105,9 +105,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.17, y: 0}
+  m_Offset: {x: -0.14, y: -0.01}
   serializedVersion: 2
-  m_Radius: 0.71
+  m_Radius: 0.12145543
 --- !u!114 &114226110183074292
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e353809505cd5414c87b2fc0bae9fef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 0.5
   mapSize:
     xMin: -3.87
     xMax: 4.25
