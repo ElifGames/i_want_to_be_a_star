@@ -43,6 +43,8 @@
         "**/*.meta":true,
         "**/*.prefab":true,
         "**/*.unity":true,
+        "**/*.csproj":true,
+        "**/*.sln":true,
         "build/":true,
         "Build/":true,
         "Library/":true,
@@ -51,6 +53,11 @@
         "Obj/":true,
         "ProjectSettings/":true,
         "temp/":true,
-        "Temp/":true
+        "Temp/":true,
+        "Assets/Prefabs":true,
+        "Assets/Scenes":true,
+        "Assets/Textures":true,
+        "Packages/":true,
+        ".vs/":true,
     }
 }
