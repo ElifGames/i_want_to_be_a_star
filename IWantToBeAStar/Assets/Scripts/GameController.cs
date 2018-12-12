@@ -9,12 +9,11 @@ namespace IWantToBeAStar
         public GameObject Hazard;
         public Vector2 SpawnValues;
 
-        public int HazardCount;
+        public int HazardIncrease;
+        public int HazardCount = 10;
         public float SpawnWait;
         public float StartWait;
         public float WaveWait;
-
-        public int CurrentWave;
 
         // Use this for initialization
         void Start()
@@ -30,10 +29,12 @@ namespace IWantToBeAStar
         IEnumerator SpawnWaves()
         {
             // 게임 시작
+            GameData.Wave = 1;
             yield return new WaitForSeconds(StartWait);
             while (true)
             {
                 // 한 웨이브 진행
+                Debug.Log(GameData.Wave + "번째 웨이브 시작");
                 for (int i = 0; i < HazardCount; i++)
                 {
                     Vector2 spawnPosition = new Vector2
@@ -45,8 +46,8 @@ namespace IWantToBeAStar
                 // 한 웨이브 끝
 
                 // 다음 웨이브 준비
-                CurrentWave++;
-                HazardCount += 10;
+                GameData.Wave++;
+                HazardCount += HazardIncrease;
                 if (SpawnWait > 0.05f)
                 {
                     SpawnWait -= 0.01f;
