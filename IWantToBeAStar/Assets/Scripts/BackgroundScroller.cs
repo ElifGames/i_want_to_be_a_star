@@ -19,7 +19,7 @@ namespace IWantToBeAStar
             cam = Camera.main;
             heightCamera = 2f * cam.orthographicSize;
 
-            Sprites[0].sprite = GetBackground(BackgroundList.LowSky);
+            Sprites[0].sprite = BackgroundList.GroundToLowSky;
             Sprites[1].sprite = GetBackground(BackgroundList.LowSky);
             bgShuffleCount = 1;
             GameData.BgStatus = BackgroundStatus.LowSky;
@@ -45,6 +45,13 @@ namespace IWantToBeAStar
             }
         }
 
+        /// <summary>
+        /// 서로 다른 배경들을 번갈아가면서 반환합니다.
+        /// 예를 들어 <see cref="BackgroundStatus.LowSky"/>에서
+        /// 배경 3개를 번갈아가며 한번 호출될때마다 서로 다른 배경을 반환합니다.
+        /// </summary>
+        /// <param name="sprites"></param>
+        /// <returns></returns>
         private Sprite GetBackground(List<Sprite> sprites)
         {
             var returnValue = sprites[bgShuffleCount];
