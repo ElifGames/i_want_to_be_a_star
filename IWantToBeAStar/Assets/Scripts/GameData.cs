@@ -5,7 +5,8 @@ using System.Text;
 
 namespace IWantToBeAStar
 {
-    internal class GameData
+    [Serializable]
+    internal static class GameData
     {
         public static int Wave { get; set; }
         public static BackgroundStatus BgStatus { get; set; }

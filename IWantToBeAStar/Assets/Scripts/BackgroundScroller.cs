@@ -1,48 +1,155 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using System;
+
 namespace IWantToBeAStar
 {
-    public partial class BackgroundScroller : MonoBehaviour
+    public class BackgroundScroller : MonoBehaviour
     {
-        public float Speed = 1;
-        public SpriteRenderer[] Sprites = new SpriteRenderer[2];
+        #region Setting values
         public BackgroundList BackgroundList;
+        public SpriteRenderer FirstSprite;
+        public SpriteRenderer SecondSprite;
+        public float scrollSpeed;
+        #endregion
 
-        private float heightCamera;
+        private readonly float tileSizeY = 10.8f;
 
-        private Vector3 PositionCam;
-        private Camera cam;
-        private int bgShuffleCount;
+        private Vector3 startPosition;
+        private bool needBgChange = false;
+        private bool needBgReturn = false;
+        private BackgroundStatus ChangingTarget;
+        private int bgRotateCount = 0;
 
-        private void Start()
+        void Start()
         {
-            cam = Camera.main;
-            heightCamera = 2f * cam.orthographicSize;
 
-            Sprites[0].sprite = BackgroundList.GroundToLowSky;
-            Sprites[1].sprite = GetBackground(BackgroundList.LowSky);
-            bgShuffleCount = 1;
+            startPosition = transform.position;
+
+            GameController controller = FindObjectOfType<GameController>();
+            controller.WaveStarted += OnWaveStarted;
+
+            bgRotateCount = 0;
+
             GameData.BgStatus = BackgroundStatus.LowSky;
         }
 
-        private void Update()
+        void Update()
         {
-            foreach (var item in Sprites)
-            {
-                if (item.transform.position.y + item.bounds.size.y / 2 < cam.transform.position.y - heightCamera / 2)
-                {
-                    SpriteRenderer sprite = Sprites[0];
-                    foreach (var i in Sprites)
-                    {
-                        if (i.transform.position.y > sprite.transform.position.y)
-                            sprite = i;
-                    }
+            BackgroundScroll();
+        }
 
-                    item.transform.position = new Vector2(sprite.transform.position.x, (sprite.transform.position.y + (sprite.bounds.size.y / 2) + (item.bounds.size.y / 2)));
+        private void BackgroundScroll()
+        {
+            if (transform.position.y <= -tileSizeY)
+            {
+                FirstSprite.sprite = SecondSprite.sprite;
+
+                transform.position = startPosition;
+
+                Sprite ChangeSprite = null;
+
+                #region 배경 전환이 필요한 경우
+                if (needBgChange)
+                {
+                    if (!needBgReturn)
+                    {
+                        switch (ChangingTarget)
+                        {
+                            case BackgroundStatus.LowSky:
+                                {
+                                    ChangeSprite = GetBackground(BackgroundList.LowSky);
+                                    needBgReturn = false;
+                                    needBgChange = false;
+                                    GameData.BgStatus = BackgroundStatus.LowSky;
+                                    break;
+
+                                }
+                            case BackgroundStatus.HighSky:
+                                {
+                                    ChangeSprite = BackgroundList.LowSkyToHighSky;
+                                    needBgReturn = true;
+                                    GameData.BgStatus = BackgroundStatus.HighSky;
+                                    break;
+                                }
+                            case BackgroundStatus.Space:
+                                {
+                                    ChangeSprite = BackgroundList.HighSkyToSpace;
+                                    needBgReturn = true;
+                                    GameData.BgStatus = BackgroundStatus.Space;
+                                    break;
+                                }
+                        }
+                    }
+                    #region 배경 전환 이미지 들어간 후 다음 이미지 교체작업
+                    else
+                    {
+                        switch (ChangingTarget)
+                        {
+                            case BackgroundStatus.HighSky:
+                                ChangeSprite = GetBackground(BackgroundList.HighSky);
+                                break;
+                            case BackgroundStatus.Space:
+                                ChangeSprite = GetBackground(BackgroundList.Space);
+                                break;
+                        }
+
+                        needBgChange = false;
+                        needBgReturn = false;
+                    }
+                    #endregion
+                }
+                #endregion
+                else
+                {
+                    switch (GameData.BgStatus)
+                    {
+                        // case BackgroundStatus.Ground:
+
+                        case BackgroundStatus.LowSky:
+                            ChangeSprite = GetBackground(BackgroundList.LowSky);
+                            break;
+                        case BackgroundStatus.HighSky:
+                            ChangeSprite = GetBackground(BackgroundList.HighSky);
+                            break;
+                        case BackgroundStatus.Space:
+                            ChangeSprite = GetBackground(BackgroundList.Space);
+                            break;
+                    }
                 }
 
-                item.transform.Translate(new Vector2(0, Time.deltaTime * Speed * -1));
+                SecondSprite.sprite = ChangeSprite;
             }
+
+            transform.Translate(new Vector3(0, Time.deltaTime * scrollSpeed * -1, startPosition.z));
+        }
+
+        private void OnWaveStarted(object sender, EventArgs e)
+        {
+            StartCoroutine(WhenWaveStarted((e as WaveStartedEventArgs).WaveCount));
+        }
+
+        IEnumerator WhenWaveStarted(int waveCount)
+        {
+            Debug.Log("이벤트 메소드 실행");
+            switch (waveCount)
+            {
+                case 1:
+                    ChangingTarget = BackgroundStatus.LowSky;
+                    needBgChange = true;
+                    break;
+                case 5:
+                    ChangingTarget = BackgroundStatus.HighSky;
+                    needBgChange = true;
+                    break;
+                case 10:
+                    ChangingTarget = BackgroundStatus.Space;
+                    needBgChange = true;
+                    break;
+            }
+
+            yield return new WaitForSeconds(0.1f);
         }
 
         /// <summary>
@@ -54,22 +161,25 @@ namespace IWantToBeAStar
         /// <returns></returns>
         private Sprite GetBackground(List<Sprite> sprites)
         {
-            var returnValue = sprites[bgShuffleCount];
-            if (bgShuffleCount <= 3)
+            var returnValue = sprites[bgRotateCount];
+            if (bgRotateCount >= 2)
             {
-                bgShuffleCount = 1;
+                bgRotateCount = 0;
             }
             else
             {
-                bgShuffleCount++;
+                bgRotateCount++;
             }
+
             return returnValue;
         }
+
     }
 
-    [System.Serializable]
+    [Serializable]
     public class BackgroundList
     {
+        public Sprite Ground;
         public Sprite GroundToLowSky;
         public List<Sprite> LowSky = new List<Sprite>();
         public Sprite LowSkyToHighSky;
