@@ -1,18 +1,20 @@
-﻿using UnityEngine;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System;
+using UnityEngine;
 
 namespace IWantToBeAStar
 {
     public class BackgroundScroller : MonoBehaviour
     {
         #region Setting values
+
         public BackgroundList BackgroundList;
         public SpriteRenderer FirstSprite;
         public SpriteRenderer SecondSprite;
         public float scrollSpeed;
-        #endregion
+
+        #endregion Setting values
 
         private readonly float tileSizeY = 10.8f;
 
@@ -22,9 +24,8 @@ namespace IWantToBeAStar
         private BackgroundStatus ChangingTarget;
         private int bgRotateCount = 0;
 
-        void Start()
+        private void Start()
         {
-
             startPosition = transform.position;
 
             GameController controller = FindObjectOfType<GameController>();
@@ -35,7 +36,7 @@ namespace IWantToBeAStar
             GameData.BgStatus = BackgroundStatus.LowSky;
         }
 
-        void Update()
+        private void Update()
         {
             BackgroundScroll();
         }
@@ -51,6 +52,7 @@ namespace IWantToBeAStar
                 Sprite ChangeSprite = null;
 
                 #region 배경 전환이 필요한 경우
+
                 if (needBgChange)
                 {
                     if (!needBgReturn)
@@ -64,7 +66,6 @@ namespace IWantToBeAStar
                                     needBgChange = false;
                                     GameData.BgStatus = BackgroundStatus.LowSky;
                                     break;
-
                                 }
                             case BackgroundStatus.HighSky:
                                 {
@@ -82,7 +83,9 @@ namespace IWantToBeAStar
                                 }
                         }
                     }
+
                     #region 배경 전환 이미지 들어간 후 다음 이미지 교체작업
+
                     else
                     {
                         switch (ChangingTarget)
@@ -90,6 +93,7 @@ namespace IWantToBeAStar
                             case BackgroundStatus.HighSky:
                                 ChangeSprite = GetBackground(BackgroundList.HighSky);
                                 break;
+
                             case BackgroundStatus.Space:
                                 ChangeSprite = GetBackground(BackgroundList.Space);
                                 break;
@@ -98,9 +102,12 @@ namespace IWantToBeAStar
                         needBgChange = false;
                         needBgReturn = false;
                     }
-                    #endregion
+
+                    #endregion 배경 전환 이미지 들어간 후 다음 이미지 교체작업
                 }
-                #endregion
+
+                #endregion 배경 전환이 필요한 경우
+
                 else
                 {
                     switch (GameData.BgStatus)
@@ -110,9 +117,11 @@ namespace IWantToBeAStar
                         case BackgroundStatus.LowSky:
                             ChangeSprite = GetBackground(BackgroundList.LowSky);
                             break;
+
                         case BackgroundStatus.HighSky:
                             ChangeSprite = GetBackground(BackgroundList.HighSky);
                             break;
+
                         case BackgroundStatus.Space:
                             ChangeSprite = GetBackground(BackgroundList.Space);
                             break;
@@ -130,7 +139,7 @@ namespace IWantToBeAStar
             StartCoroutine(WhenWaveStarted((e as WaveStartedEventArgs).WaveCount));
         }
 
-        IEnumerator WhenWaveStarted(int waveCount)
+        private IEnumerator WhenWaveStarted(int waveCount)
         {
             Debug.Log("이벤트 메소드 실행");
             switch (waveCount)
@@ -139,10 +148,12 @@ namespace IWantToBeAStar
                     ChangingTarget = BackgroundStatus.LowSky;
                     needBgChange = true;
                     break;
+
                 case 5:
                     ChangingTarget = BackgroundStatus.HighSky;
                     needBgChange = true;
                     break;
+
                 case 10:
                     ChangingTarget = BackgroundStatus.Space;
                     needBgChange = true;
@@ -173,7 +184,6 @@ namespace IWantToBeAStar
 
             return returnValue;
         }
-
     }
 
     [Serializable]

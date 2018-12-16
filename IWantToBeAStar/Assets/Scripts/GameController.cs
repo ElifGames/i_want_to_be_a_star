@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace IWantToBeAStar
@@ -24,7 +23,7 @@ namespace IWantToBeAStar
         /// 스폰 시간 간격
         /// </summary>
         public float SpawnWait;
-        
+
         /// <summary>
         /// 맨처음 시작 대기 시간
         /// </summary>
@@ -41,18 +40,18 @@ namespace IWantToBeAStar
         public event EventHandler WaveStarted;
 
         // Use this for initialization
-        void Start()
+        private void Start()
         {
             GameData.Wave = 1;
             StartCoroutine("SpawnWaves");
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
         }
 
-        IEnumerator SpawnWaves()
+        private IEnumerator SpawnWaves()
         {
             // 게임 시작
 

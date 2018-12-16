@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace IWantToBeAStar.MapObjects.Hazards
 {
@@ -9,16 +7,15 @@ namespace IWantToBeAStar.MapObjects.Hazards
         public float speed;
 
         // Use this for initialization
-        void Start()
+        private void Start()
         {
             Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
             rigidbody.velocity = transform.up * speed;
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
-
         }
     }
 }

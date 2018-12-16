@@ -8,12 +8,12 @@ namespace IWantToBeAStar.MapObjects
         public MapSize mapSize;
 
         // Use this for initialization
-        void Start()
+        private void Start()
         {
         }
 
         // Update is called once per frame
-        void FixedUpdate()
+        private void FixedUpdate()
         {
             #region 마우스 커서 따라가기
 
@@ -22,7 +22,7 @@ namespace IWantToBeAStar.MapObjects
 
             // 플레이어 회전 부분
             /*
-            Vector3 difference = 
+            Vector3 difference =
                 Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 
             difference.Normalize();
@@ -35,10 +35,10 @@ namespace IWantToBeAStar.MapObjects
                 Mathf.Clamp(transform.position.x, mapSize.xMin, mapSize.xMax),
                 Mathf.Clamp(transform.position.y, mapSize.yMin, mapSize.yMax));
 
-            #endregion
+            #endregion 마우스 커서 따라가기
 
             // 아래 코드는 키보드 입력을 이용한 움직임 코드임
-            /* 
+            /*
             float inputX = Input.GetAxis("Horizontal");
             float inputY = Input.GetAxis("Vertical");
 
@@ -58,6 +58,5 @@ namespace IWantToBeAStar.MapObjects
     public class MapSize
     {
         public float xMin, xMax, yMin, yMax;
-
     }
 }
