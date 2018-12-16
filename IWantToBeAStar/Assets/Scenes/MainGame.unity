@@ -148,7 +148,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 0, g: 0.41486025, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
@@ -284,7 +284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Hazard: {fileID: 1417981811333576, guid: 672e5e50b36e29b4ba889ce49532f1aa, type: 3}
-  SpawnValues: {x: 3.9, y: 6.2}
+  SpawnValues: {x: 3.9, y: 8}
   HazardIncrease: 3
   HazardCount: 2
   SpawnWait: 1
@@ -489,7 +489,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 2c5cc622a297a7f4296c2197b2c451c6, type: 3}
   FirstSprite: {fileID: 1779321359}
   SecondSprite: {fileID: 1351295689}
-  scrollSpeed: 10
+  scrollSpeed: 7
 --- !u!212 &1779321359
 SpriteRenderer:
   m_ObjectHideFlags: 0
