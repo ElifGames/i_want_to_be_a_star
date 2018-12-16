@@ -285,11 +285,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Hazard: {fileID: 1417981811333576, guid: 672e5e50b36e29b4ba889ce49532f1aa, type: 3}
   SpawnValues: {x: 3.9, y: 6.2}
-  HazardIncrease: 1
+  HazardIncrease: 3
   HazardCount: 2
   SpawnWait: 1
   StartWait: 3
   WaveWait: 1
+  HazardGain: 0.05
 --- !u!1 &1351295687
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ namespace IWantToBeAStar
 {
     public class GameController : MonoBehaviour
     {
+        #region 유니티 세팅 값
         public GameObject Hazard;
         public Vector2 SpawnValues;
 
@@ -33,6 +34,12 @@ namespace IWantToBeAStar
         /// 웨이브 대기 시간
         /// </summary>
         public float WaveWait;
+
+        /// <summary>
+        /// 장애물 증가 속도
+        /// </summary>
+        public float HazardGain;
+        #endregion 유니티 세팅 값
 
         /// <summary>
         /// 웨이브가 시작됨을 알리는 이벤트
@@ -79,7 +86,7 @@ namespace IWantToBeAStar
                 HazardCount += HazardIncrease;
                 if (SpawnWait > 0.05f)
                 {
-                    SpawnWait -= 0.01f;
+                    SpawnWait -= HazardGain;
                 }
                 yield return new WaitForSeconds(WaveWait);
             }

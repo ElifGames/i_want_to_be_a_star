@@ -7,14 +7,14 @@ namespace IWantToBeAStar
 {
     public class BackgroundScroller : MonoBehaviour
     {
-        #region Setting values
+        #region 유니티 세팅 값
 
         public BackgroundList BackgroundList;
         public SpriteRenderer FirstSprite;
         public SpriteRenderer SecondSprite;
         public float scrollSpeed;
 
-        #endregion Setting values
+        #endregion 유니티 세팅 값
 
         private readonly float tileSizeY = 10.8f;
 
@@ -112,8 +112,6 @@ namespace IWantToBeAStar
                 {
                     switch (GameData.BgStatus)
                     {
-                        // case BackgroundStatus.Ground:
-
                         case BackgroundStatus.LowSky:
                             ChangeSprite = GetBackground(BackgroundList.LowSky);
                             break;
