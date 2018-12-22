@@ -17,6 +17,7 @@ namespace IWantToBeAStar
         #endregion 유니티 세팅 값
 
         private readonly float tileSizeY = 10.8f;
+        // private readonly float tileSizeZ = 0.5f;
 
         private Vector3 startPosition;
         private bool needBgChange = false;

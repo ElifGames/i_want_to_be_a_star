@@ -120,7 +120,7 @@ namespace IWantToBeAStar
         private IEnumerator CheckGameEnd()
         {
             yield return new WaitUntil(() => GameData.IsGameEnd);
-            // StopCoroutine("Scoring");
+            StopCoroutine("Scoring");
             Debug.Log("게임 끝");
         }
 
