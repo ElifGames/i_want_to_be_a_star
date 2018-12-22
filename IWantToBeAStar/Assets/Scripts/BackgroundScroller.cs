@@ -16,7 +16,7 @@ namespace IWantToBeAStar
 
         #endregion 유니티 세팅 값
 
-        private readonly float tileSizeY = 10.8f;
+        private readonly float tileChangeLine = 16f;
         // private readonly float tileSizeZ = 0.5f;
 
         private Vector3 startPosition;
@@ -44,7 +44,7 @@ namespace IWantToBeAStar
 
         private void BackgroundScroll()
         {
-            if (transform.position.y <= -tileSizeY)
+            if (transform.position.y <= -tileChangeLine)
             {
                 FirstSprite.sprite = SecondSprite.sprite;
 
