@@ -49,20 +49,13 @@ namespace IWantToBeAStar
             GameData.IsGameEnd = false;
             GameData.IsGameStop = false;
 
-            StartCoroutine("SpawnHazards");
+            StartCoroutine("StartSpawning");
             StartCoroutine("Scoring");
             StartCoroutine("CheckGameEnd");
         }
-        private void SpawnHazard()
+        private IEnumerator StartSpawning()
         {
-            Vector2 spawnPosition = new Vector2
-                                    (UnityEngine.Random.Range(-SpawnValues.x, SpawnValues.x), SpawnValues.y);
-            Quaternion spawnRotation = Quaternion.identity;
-            Instantiate(Hazard, spawnPosition, spawnRotation);
-        }
-
-        private IEnumerator SpawnHazards()
-        {
+            Cursor.visible = false;
             // 다른 루틴보다 늦게 시작해서 오류가 안나게 함
             yield return new WaitForEndOfFrame();
             // 게임 시작
@@ -78,18 +71,14 @@ namespace IWantToBeAStar
                 yield return new WaitForSeconds(SpawnWait);
             }
         }
-        private void AddScore(int score)
-        {
-            GameData.Score += score;
-            scoreText.text = GameData.Score.ToString();
-        }
 
-        private void ReduceSpawnWait()
+        private void SpawnHazard()
         {
-            SpawnWait -= SpawnGain;
-            Debug.Log("스폰 시간 감소");
+            Vector2 spawnPosition = new Vector2
+                                    (UnityEngine.Random.Range(-SpawnValues.x, SpawnValues.x), SpawnValues.y);
+            Quaternion spawnRotation = Quaternion.identity;
+            Instantiate(Hazard, spawnPosition, spawnRotation);
         }
-
         private IEnumerator Scoring()
         {
             while (true)
@@ -119,6 +108,18 @@ namespace IWantToBeAStar
             }
         }
 
+        private void ReduceSpawnWait()
+        {
+            SpawnWait -= SpawnGain;
+            Debug.Log("스폰 시간 감소");
+        }
+
+        private void AddScore(int score)
+        {
+            GameData.Score += score;
+            scoreText.text = GameData.Score.ToString();
+        }
+
         private IEnumerator ChangeScoreHeaderColor()
         {
             while (scoreHeaderText.color.r <= 255)
@@ -132,7 +133,8 @@ namespace IWantToBeAStar
         private IEnumerator CheckGameEnd()
         {
             yield return new WaitUntil(() => GameData.IsGameEnd);
-            // StopCoroutine("Scoring");
+            StopCoroutine("Scoring");
+            Cursor.visible = true;
             Debug.Log("게임 끝");
         }
     }
