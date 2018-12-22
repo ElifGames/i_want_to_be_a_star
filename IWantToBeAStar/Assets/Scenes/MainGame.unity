@@ -305,12 +305,12 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_ReferenceResolution: {x: 960, y: 1080}
+  m_ScreenMatchMode: 1
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -401,13 +401,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Hazard: {fileID: 1417981811333576, guid: 672e5e50b36e29b4ba889ce49532f1aa, type: 3}
   SpawnValues: {x: 3.9, y: 8}
-  HazardIncrease: 3
-  HazardCount: 2
+  scoreHeaderText: {fileID: 1193667940}
+  scoreText: {fileID: 331519725}
   SpawnWait: 1
-  StartWait: 3
-  WaveWait: 1
-  HazardGain: 0.05
-  ScoreGain: 1
+  SpawnGain: 0.05
+  StartWait: 1.5
+  ScoreTimeGain: 0.1
 --- !u!1 &1193667938
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,7 +457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -863,9 +862,9 @@ RectTransform:
   m_Father: {fileID: 696947397}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -290, y: 490}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 180, y: -40}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1981436359

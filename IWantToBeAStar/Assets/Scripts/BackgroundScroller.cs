@@ -30,7 +30,7 @@ namespace IWantToBeAStar
             startPosition = transform.position;
 
             GameController controller = FindObjectOfType<GameController>();
-            controller.WaveStarted += OnWaveStarted;
+            controller.OnBackgroundChange += WhenReceivedBgChangeEvent;
 
             bgRotateCount = 0;
 
@@ -42,6 +42,20 @@ namespace IWantToBeAStar
             BackgroundScroll();
         }
 
+        private void WhenReceivedBgChangeEvent(BackgroundStatus status)
+        {
+            StartCoroutine(BackGroundChange(status));
+        }
+
+
+        private IEnumerator BackGroundChange(BackgroundStatus status)
+        {
+            Debug.Log("이벤트 메소드 시작");
+            ChangingTarget = status;
+            needBgChange = true;
+
+            yield return new WaitForSeconds(0.1f);
+        }
         private void BackgroundScroll()
         {
             if (transform.position.y <= -tileChangeLine)
@@ -132,36 +146,6 @@ namespace IWantToBeAStar
 
             transform.Translate(new Vector3(0, Time.deltaTime * scrollSpeed * -1, startPosition.z));
         }
-
-        private void OnWaveStarted(object sender, EventArgs e)
-        {
-            StartCoroutine(WhenWaveStarted((e as WaveStartedEventArgs).WaveCount));
-        }
-
-        private IEnumerator WhenWaveStarted(int waveCount)
-        {
-            Debug.Log("이벤트 메소드 실행");
-            switch (waveCount)
-            {
-                case 1:
-                    ChangingTarget = BackgroundStatus.LowSky;
-                    needBgChange = true;
-                    break;
-
-                case 5:
-                    ChangingTarget = BackgroundStatus.HighSky;
-                    needBgChange = true;
-                    break;
-
-                case 10:
-                    ChangingTarget = BackgroundStatus.Space;
-                    needBgChange = true;
-                    break;
-            }
-
-            yield return new WaitForSeconds(0.1f);
-        }
-
         /// <summary>
         /// 서로 다른 배경들을 번갈아가면서 반환합니다.
         /// 예를 들어 <see cref="BackgroundStatus.LowSky"/>에서

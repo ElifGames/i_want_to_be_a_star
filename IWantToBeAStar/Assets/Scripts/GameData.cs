@@ -6,11 +6,6 @@ namespace IWantToBeAStar
     internal static class GameData
     {
         /// <summary>
-        /// 현재 웨이브 수
-        /// </summary>
-        internal static int Wave { get; set; }
-
-        /// <summary>
         /// 현재 배경 상태
         /// </summary>
         internal static BackgroundStatus BgStatus { get; set; }

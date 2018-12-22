@@ -10,16 +10,8 @@ namespace IWantToBeAStar
         #region 유니티 세팅 값
         public GameObject Hazard;
         public Vector2 SpawnValues;
-
-        /// <summary>
-        /// 웨이브 당 장애물 증가 폭
-        /// </summary>
-        public int HazardIncrease;
-
-        /// <summary>
-        /// 맨처음 장애물 수
-        /// </summary>
-        public int HazardCount;
+        public Text scoreHeaderText;
+        public Text scoreText;
 
         /// <summary>
         /// 스폰 시간 간격
@@ -27,107 +19,121 @@ namespace IWantToBeAStar
         public float SpawnWait;
 
         /// <summary>
+        /// 스폰 시간 감소 폭
+        /// </summary>
+        public float SpawnGain;
+
+        /// <summary>
         /// 맨처음 시작 대기 시간
         /// </summary>
         public float StartWait;
 
         /// <summary>
-        /// 웨이브 대기 시간
+        /// 점수 증가 시간 폭
         /// </summary>
-        public float WaveWait;
-
-        /// <summary>
-        /// 장애물 증가 속도
-        /// </summary>
-        public float HazardGain;
-
-        /// <summary>
-        /// 점수 증가 폭
-        /// </summary>
-        public int ScoreGain;
+        public float ScoreTimeGain;
         #endregion 유니티 세팅 값
 
         /// <summary>
-        /// 웨이브가 시작됨을 알리는 이벤트
+        /// 배경이 바뀜을 알리는 이벤트
         /// </summary>
-        public event EventHandler WaveStarted;
+        public event BackgroundChange OnBackgroundChange;
+        public delegate void BackgroundChange(BackgroundStatus status);
 
-        private Text scoreText;
+
 
         // Use this for initialization
         private void Start()
         {
-            GameData.Wave = 1;
             GameData.Score = 0;
             GameData.IsGameEnd = false;
             GameData.IsGameStop = false;
 
-            scoreText = FindObjectOfType<Text>();
-
-            StartCoroutine("SpawnWaves");
+            StartCoroutine("SpawnHazards");
             StartCoroutine("Scoring");
             StartCoroutine("CheckGameEnd");
         }
-
-        // Update is called once per frame
-        private void Update()
+        private void SpawnHazard()
         {
+            Vector2 spawnPosition = new Vector2
+                                    (UnityEngine.Random.Range(-SpawnValues.x, SpawnValues.x), SpawnValues.y);
+            Quaternion spawnRotation = Quaternion.identity;
+            Instantiate(Hazard, spawnPosition, spawnRotation);
         }
 
-        private IEnumerator SpawnWaves()
+        private IEnumerator SpawnHazards()
         {
+            // 다른 루틴보다 늦게 시작해서 오류가 안나게 함
+            yield return new WaitForEndOfFrame();
             // 게임 시작
+            OnBackgroundChange(BackgroundStatus.LowSky);
 
             // 맨 처음 시작 대기
             yield return new WaitForSeconds(StartWait);
 
             while (true)
             {
-                // 한 웨이브 진행
-                Debug.Log(GameData.Wave + "번째 웨이브 시작");
+                SpawnHazard();
 
-                WaveStarted(this, new WaveStartedEventArgs(GameData.Wave));
-
-                for (int i = 0; i < HazardCount; i++)
-                {
-                    Vector2 spawnPosition = new Vector2
-                        (UnityEngine.Random.Range(-SpawnValues.x, SpawnValues.x), SpawnValues.y);
-                    Quaternion spawnRotation = Quaternion.identity;
-                    Instantiate(Hazard, spawnPosition, spawnRotation);
-                    yield return new WaitForSeconds(SpawnWait);
-                }
-                // 한 웨이브 끝
-                // 다음 웨이브 준비
-                GameData.Wave++;
-                HazardCount += HazardIncrease;
-                if (SpawnWait > 0.05f)
-                {
-                    SpawnWait -= HazardGain;
-                }
-                yield return new WaitForSeconds(WaveWait);
+                yield return new WaitForSeconds(SpawnWait);
             }
+        }
+        private void AddScore(int score)
+        {
+            GameData.Score += score;
+            scoreText.text = GameData.Score.ToString();
+        }
+
+        private void ReduceSpawnWait()
+        {
+            SpawnWait -= SpawnGain;
+            Debug.Log("스폰 시간 감소");
         }
 
         private IEnumerator Scoring()
         {
             while (true)
             {
-                yield return new WaitForSeconds(0.1f);
-                AddScore(ScoreGain);
+                yield return new WaitForSeconds(ScoreTimeGain);
+                AddScore(1);
+
+                var score = GameData.Score;
+
+                if (SpawnWait > 0.2f)
+                {
+                    if (score % 50 == 0)
+                    {
+                        ReduceSpawnWait();
+                    }
+                }
+
+                if (score == 100)
+                {
+                    OnBackgroundChange(BackgroundStatus.HighSky);
+                }
+                else if (score == 300)
+                {
+                    OnBackgroundChange(BackgroundStatus.Space);
+                    StartCoroutine(ChangeScoreHeaderColor());
+                }
+            }
+        }
+
+        private IEnumerator ChangeScoreHeaderColor()
+        {
+            while (scoreHeaderText.color.r <= 255)
+            {
+                float beforeColor = scoreHeaderText.color.r + 0.01f;
+                scoreHeaderText.color = new Color(beforeColor, beforeColor, beforeColor);
+                yield return new WaitForSeconds(0.01f);
             }
         }
 
         private IEnumerator CheckGameEnd()
         {
             yield return new WaitUntil(() => GameData.IsGameEnd);
-            StopCoroutine("Scoring");
+            // StopCoroutine("Scoring");
             Debug.Log("게임 끝");
-        }
-
-        private void AddScore(int score)
-        {
-            GameData.Score += score;
-            scoreText.text = GameData.Score.ToString();
         }
     }
 }
