@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace IWantToBeAStar
 {
@@ -19,6 +20,10 @@ namespace IWantToBeAStar
             if (other.tag == "Boundary")
             {
                 return;
+            }
+            if (other.tag == "Player")
+            {
+                GameData.IsGameEnd = true;
             }
             Destroy(other.gameObject);
             Destroy(gameObject);

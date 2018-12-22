@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace IWantToBeAStar
 {
@@ -39,6 +40,11 @@ namespace IWantToBeAStar
         /// 장애물 증가 속도
         /// </summary>
         public float HazardGain;
+
+        /// <summary>
+        /// 점수 증가 폭
+        /// </summary>
+        public int ScoreGain;
         #endregion 유니티 세팅 값
 
         /// <summary>
@@ -46,11 +52,21 @@ namespace IWantToBeAStar
         /// </summary>
         public event EventHandler WaveStarted;
 
+        private Text scoreText;
+
         // Use this for initialization
         private void Start()
         {
             GameData.Wave = 1;
+            GameData.Score = 0;
+            GameData.IsGameEnd = false;
+            GameData.IsGameStop = false;
+
+            scoreText = FindObjectOfType<Text>();
+
             StartCoroutine("SpawnWaves");
+            StartCoroutine("Scoring");
+            StartCoroutine("CheckGameEnd");
         }
 
         // Update is called once per frame
@@ -90,6 +106,28 @@ namespace IWantToBeAStar
                 }
                 yield return new WaitForSeconds(WaveWait);
             }
+        }
+
+        private IEnumerator Scoring()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(0.1f);
+                AddScore(ScoreGain);
+            }
+        }
+
+        private IEnumerator CheckGameEnd()
+        {
+            yield return new WaitUntil(() => GameData.IsGameEnd);
+            // StopCoroutine("Scoring");
+            Debug.Log("게임 끝");
+        }
+
+        private void AddScore(int score)
+        {
+            GameData.Score += score;
+            scoreText.text = GameData.Score.ToString();
         }
     }
 }

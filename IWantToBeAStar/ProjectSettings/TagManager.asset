@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Boundary
   - Background
+  - ExampleHazard
   layers:
   - Default
   - TransparentFX
