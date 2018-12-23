@@ -46,11 +46,12 @@ namespace IWantToBeAStar
         private void Start()
         {
             GameData.Score = 0;
+            scoreText.text = "0";
             GameData.IsGameEnd = false;
-            GameData.IsGameStop = false;
+            GameData.IsStarted = false;
+            GameData.SpawnWait = SpawnWait;
 
             StartCoroutine("StartSpawning");
-            StartCoroutine("Scoring");
             StartCoroutine("CheckGameEnd");
         }
         private IEnumerator StartSpawning()
@@ -58,27 +59,15 @@ namespace IWantToBeAStar
             Cursor.visible = false;
             // 다른 루틴보다 늦게 시작해서 오류가 안나게 함
             yield return new WaitForEndOfFrame();
-            // 게임 시작
+
             OnBackgroundChange(BackgroundStatus.LowSky);
 
             // 맨 처음 시작 대기
             yield return new WaitForSeconds(StartWait);
-
-            while (true)
-            {
-                SpawnHazard();
-
-                yield return new WaitForSeconds(SpawnWait);
-            }
+            GameData.IsStarted = true;
+            StartCoroutine("Scoring");
         }
 
-        private void SpawnHazard()
-        {
-            Vector2 spawnPosition = new Vector2
-                                    (UnityEngine.Random.Range(-SpawnValues.x, SpawnValues.x), SpawnValues.y);
-            Quaternion spawnRotation = Quaternion.identity;
-            Instantiate(Hazard, spawnPosition, spawnRotation);
-        }
         private IEnumerator Scoring()
         {
             while (true)
@@ -88,7 +77,7 @@ namespace IWantToBeAStar
 
                 var score = GameData.Score;
 
-                if (SpawnWait > 0.2f)
+                if (GameData.SpawnWait > 0.2f)
                 {
                     if (score % 50 == 0)
                     {
@@ -110,7 +99,7 @@ namespace IWantToBeAStar
 
         private void ReduceSpawnWait()
         {
-            SpawnWait -= SpawnGain;
+            GameData.SpawnWait -= SpawnGain;
             Debug.Log("스폰 시간 감소");
         }
 

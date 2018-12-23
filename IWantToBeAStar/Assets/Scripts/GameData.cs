@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace IWantToBeAStar
 {
@@ -16,13 +17,19 @@ namespace IWantToBeAStar
         internal static int Score { get; set; }
 
         /// <summary>
-        /// 게임이 멈췄는지 아닌지 확인
-        /// </summary>
-        internal static bool IsGameStop { get; set; }
-
-        /// <summary>
         /// 게임이 끝났는지 확인
         /// </summary>
         internal static bool IsGameEnd { get; set; }
+
+        internal static bool IsStarted { get; set; }
+
+        /// <summary>
+        /// 스폰 시간 간격
+        /// </summary>
+        internal static float SpawnWait { get; set; }
+
+        internal static Vector2 UpPosition { get; set; }
+        internal static Vector2 LeftPosition { get; set; }
+        internal static Vector2 RightPosition { get; set; }
     }
 }

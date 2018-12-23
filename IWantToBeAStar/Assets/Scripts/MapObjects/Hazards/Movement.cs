@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 namespace IWantToBeAStar.MapObjects.Hazards
 {
-    public class HazardMove : MonoBehaviour
+    public class Movement
     {
+
     }
 }
