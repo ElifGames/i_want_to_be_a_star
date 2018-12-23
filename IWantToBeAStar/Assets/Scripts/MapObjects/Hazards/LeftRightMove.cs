@@ -6,11 +6,17 @@ namespace IWantToBeAStar.MapObjects.Hazards
     public class LeftRightMove : MonoBehaviour
     {
         public float speed;
+        public bool IsRandomSpeed;
 
         // Use this for initialization
         void Start()
         {
             Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
+
+            if (IsRandomSpeed)
+            {
+                speed = Random.Range(3f, 7f);
+            }
 
             if (transform.position.x == GameData.LeftPosition.x)
             {

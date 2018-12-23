@@ -50,6 +50,8 @@ namespace IWantToBeAStar
             GameData.IsGameEnd = false;
             GameData.IsStarted = false;
             GameData.SpawnWait = SpawnWait;
+            GameData.StartSpawnMeteo = false;
+            GameData.StartSpawnUFO = false;
 
             StartCoroutine("StartSpawning");
             StartCoroutine("CheckGameEnd");
@@ -92,8 +94,24 @@ namespace IWantToBeAStar
                 else if (score == 300)
                 {
                     OnBackgroundChange(BackgroundStatus.Space);
+                    GameData.StartSpawnMeteo = true;
                     StartCoroutine(ChangeScoreHeaderColor());
                 }
+
+                if (score >= 300 && score % 200 == 0)
+                {
+                    if (!GameData.StartSpawnMeteo)
+                    {
+                        GameData.StartSpawnMeteo = true;
+                        GameData.StartSpawnUFO = false;
+                    }
+                    else if (!GameData.StartSpawnUFO)
+                    {
+                        GameData.StartSpawnMeteo = false;
+                        GameData.StartSpawnUFO = true;
+                    }
+                }
+                GameData.CheckSpaceSpawn = true;
             }
         }
 
@@ -122,7 +140,7 @@ namespace IWantToBeAStar
         private IEnumerator CheckGameEnd()
         {
             yield return new WaitUntil(() => GameData.IsGameEnd);
-            StopCoroutine("Scoring");
+            //StopCoroutine("Scoring");
             Cursor.visible = true;
             Debug.Log("게임 끝");
         }

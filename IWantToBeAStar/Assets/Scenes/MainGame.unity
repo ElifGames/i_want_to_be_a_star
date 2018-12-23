@@ -439,12 +439,17 @@ MonoBehaviour:
   UpPosition: {x: 4.2, y: 6.5}
   LeftPosition: {x: -6, y: 4.7}
   RightPosition: {x: 6, y: 4.7}
-  Bird: {fileID: 315189727537644275, guid: 70e4efde6171b5f469827c6568281e1e, type: 3}
-  Airplane: {fileID: 315189727537644275, guid: 716d4786ff4b1e24998233f266e9fdbf, type: 3}
+  Bird: {fileID: 3587351113422777220, guid: 00e4d4a5fc940f9429b69229b6ab0168, type: 3}
+  Airplane: {fileID: 7349569035383511702, guid: e770982e08124c84ea14f5b842bb81e9,
+    type: 3}
   Lightning: {fileID: 1235597736758848181, guid: 2185fb9617829044786c605a8afd4a95,
     type: 3}
   Dangerous: {fileID: 1787327490523250296, guid: 4210c87b426ba754098ab7bb3cecad8f,
     type: 3}
+  UFO: {fileID: 4199673629046323568, guid: b30203e1a9cbbbb42948f94b78d215bc, type: 3}
+  Satellite: {fileID: 7071259168375361195, guid: 7fcf0a8d893684a4e98d41b46e846067,
+    type: 3}
+  Meteo: {fileID: 7743204055050192406, guid: e8148d46b7a1a6e4e897b48303a10fac, type: 3}
 --- !u!4 &1041791755
 Transform:
   m_ObjectHideFlags: 0

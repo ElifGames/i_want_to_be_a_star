@@ -14,6 +14,9 @@ namespace IWantToBeAStar.MapObjects.Hazards
         public GameObject Airplane;
         public GameObject Lightning;
         public GameObject Dangerous;
+        public GameObject UFO;
+        public GameObject Meteo;
+
 
         public void Start()
         {
@@ -59,6 +62,7 @@ namespace IWantToBeAStar.MapObjects.Hazards
                     StartCoroutine("StartSpawningLightning");
                     break;
                 case BackgroundStatus.Space:
+                    StartCoroutine("StartSpawningSpaceHazards");
                     break;
                 default:
                     break;
@@ -86,17 +90,22 @@ namespace IWantToBeAStar.MapObjects.Hazards
 
             while (true)
             {
-                int i = Random.Range(0, 100);
-                if (i <= 50)
-                {
-                    SpawnHazard(hazard, Direction.Left);
-                }
-                else
-                {
-                    SpawnHazard(hazard, Direction.Right);
-                }
+                SpawnLeftOrRight(hazard);
 
                 yield return new WaitForSeconds(GameData.SpawnWait + spawnWaitGain);
+            }
+        }
+
+        private void SpawnLeftOrRight(GameObject hazard)
+        {
+            int i = Random.Range(0, 100);
+            if (i <= 50)
+            {
+                SpawnHazard(hazard, Direction.Left);
+            }
+            else
+            {
+                SpawnHazard(hazard, Direction.Right);
             }
         }
 
@@ -134,6 +143,31 @@ namespace IWantToBeAStar.MapObjects.Hazards
             var lightningInstance = Instantiate(Lightning, LightningPosition, spawnRotation);
             yield return new WaitForSeconds(0.15f);
             Destroy(lightningInstance);
+        }
+
+        private IEnumerator StartSpawningSpaceHazards()
+        {
+            yield return new WaitForEndOfFrame();
+            while (true)
+            {
+                // yield return new WaitUntil(() => GameData.CheckSpaceSpawn);
+                GameData.CheckSpaceSpawn = false;
+                if (GameData.StartSpawnMeteo)
+                {
+                    SpawnHazard(Meteo, Direction.Up);
+                    yield return new WaitForSeconds(GameData.SpawnWait);
+                }
+                else if (GameData.StartSpawnUFO)
+                {
+                    SpawnLeftOrRight(UFO);
+                    yield return new WaitForSeconds(GameData.SpawnWait);
+                }
+                else
+                {
+                    Debug.LogError("조건문 건너뜀.");
+                    yield return new WaitForSeconds(1f);
+                }
+            }
         }
 
         private void SpawnHazard(GameObject hazard, Direction direction)
