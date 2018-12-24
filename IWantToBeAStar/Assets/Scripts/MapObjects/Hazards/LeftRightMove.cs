@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 namespace IWantToBeAStar.MapObjects.Hazards
 {
@@ -9,7 +8,7 @@ namespace IWantToBeAStar.MapObjects.Hazards
         public bool IsRandomSpeed;
 
         // Use this for initialization
-        void Start()
+        private void Start()
         {
             Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
 
@@ -33,5 +32,4 @@ namespace IWantToBeAStar.MapObjects.Hazards
             }
         }
     }
-
 }

@@ -22,7 +22,6 @@ namespace IWantToBeAStar.MapObjects
                 Mathf.Clamp(transform.position.y, MapSize.yMin, MapSize.yMax));
 
             #endregion 마우스 커서 따라가기
-
         }
     }
 }

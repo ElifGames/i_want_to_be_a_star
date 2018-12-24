@@ -407,6 +407,8 @@ MonoBehaviour:
   SpawnGain: 0.05
   StartWait: 3
   ScoreTimeGain: 0.1
+  HighSkyChangeScore: 300
+  SpaceChangeScore: 600
 --- !u!1 &1041791753
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,8 +449,6 @@ MonoBehaviour:
   Dangerous: {fileID: 1787327490523250296, guid: 4210c87b426ba754098ab7bb3cecad8f,
     type: 3}
   UFO: {fileID: 4199673629046323568, guid: b30203e1a9cbbbb42948f94b78d215bc, type: 3}
-  Satellite: {fileID: 7071259168375361195, guid: 7fcf0a8d893684a4e98d41b46e846067,
-    type: 3}
   Meteo: {fileID: 7743204055050192406, guid: e8148d46b7a1a6e4e897b48303a10fac, type: 3}
 --- !u!4 &1041791755
 Transform:

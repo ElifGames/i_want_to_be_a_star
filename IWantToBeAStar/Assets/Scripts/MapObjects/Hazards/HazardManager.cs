@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
+﻿using System.Collections;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace IWantToBeAStar.MapObjects.Hazards
@@ -16,7 +15,6 @@ namespace IWantToBeAStar.MapObjects.Hazards
         public GameObject Dangerous;
         public GameObject UFO;
         public GameObject Meteo;
-
 
         public void Start()
         {
@@ -54,27 +52,30 @@ namespace IWantToBeAStar.MapObjects.Hazards
             {
                 case BackgroundStatus.Ground:
                     break;
+
                 case BackgroundStatus.LowSky:
                     StartCoroutine("StartSpawningLeftRightMove", new object[2] { Bird, 0f });
                     break;
+
                 case BackgroundStatus.HighSky:
                     StartCoroutine("StartSpawningLeftRightMove", new object[2] { Airplane, 0.3f });
                     StartCoroutine("StartSpawningLightning");
                     break;
+
                 case BackgroundStatus.Space:
                     StartCoroutine("StartSpawningSpaceHazards");
                     break;
+
                 default:
                     break;
             }
-            
         }
 
         /// <summary>
         /// 매개변수는 반드시 2개의 원소로 이루어진 object배열이 와야함.
         /// </summary>
         /// <param name="parameters">
-        /// parameters[0] -> <see cref="GameObject"/>, 
+        /// parameters[0] -> <see cref="GameObject"/>,
         /// parameters[1] -> float
         /// </param>
         /// <returns></returns>

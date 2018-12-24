@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +7,7 @@ namespace IWantToBeAStar
     public class GameController : MonoBehaviour
     {
         #region 유니티 세팅 값
+
         public GameObject Hazard;
         public Vector2 SpawnValues;
         public Text scoreHeaderText;
@@ -32,15 +32,18 @@ namespace IWantToBeAStar
         /// 점수 증가 시간 폭
         /// </summary>
         public float ScoreTimeGain;
+
+        public int HighSkyChangeScore;
+        public int SpaceChangeScore;
+
         #endregion 유니티 세팅 값
 
         /// <summary>
         /// 배경이 바뀜을 알리는 이벤트
         /// </summary>
         public event BackgroundChange OnBackgroundChange;
+
         public delegate void BackgroundChange(BackgroundStatus status);
-
-
 
         // Use this for initialization
         private void Start()
@@ -56,6 +59,7 @@ namespace IWantToBeAStar
             StartCoroutine("StartSpawning");
             StartCoroutine("CheckGameEnd");
         }
+
         private IEnumerator StartSpawning()
         {
             Cursor.visible = false;
@@ -81,24 +85,24 @@ namespace IWantToBeAStar
 
                 if (GameData.SpawnWait > 0.2f)
                 {
-                    if (score % 50 == 0)
+                    if (score % 100 == 0)
                     {
                         ReduceSpawnWait();
                     }
                 }
 
-                if (score == 100)
+                if (score == HighSkyChangeScore)
                 {
                     OnBackgroundChange(BackgroundStatus.HighSky);
                 }
-                else if (score == 300)
+                else if (score == SpaceChangeScore)
                 {
                     OnBackgroundChange(BackgroundStatus.Space);
                     GameData.StartSpawnMeteo = true;
                     StartCoroutine(ChangeScoreHeaderColor());
                 }
 
-                if (score >= 300 && score % 200 == 0)
+                if (score >= SpaceChangeScore + 1 && score % 200 == 0)
                 {
                     if (!GameData.StartSpawnMeteo)
                     {

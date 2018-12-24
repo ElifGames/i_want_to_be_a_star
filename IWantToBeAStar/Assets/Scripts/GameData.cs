@@ -31,7 +31,7 @@ namespace IWantToBeAStar
         internal static Vector2 UpPosition { get; set; }
         internal static Vector2 LeftPosition { get; set; }
         internal static Vector2 RightPosition { get; set; }
-        
+
         internal static bool StartSpawnMeteo { get; set; }
         internal static bool StartSpawnUFO { get; set; }
         internal static bool CheckSpaceSpawn { get; set; }

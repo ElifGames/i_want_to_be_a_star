@@ -47,7 +47,6 @@ namespace IWantToBeAStar
             StartCoroutine(BackGroundChange(status));
         }
 
-
         private IEnumerator BackGroundChange(BackgroundStatus status)
         {
             Debug.Log("이벤트 메소드 시작");
@@ -56,6 +55,7 @@ namespace IWantToBeAStar
 
             yield return new WaitForSeconds(0.1f);
         }
+
         private void BackgroundScroll()
         {
             if (transform.position.y <= -tileChangeLine)
@@ -146,6 +146,7 @@ namespace IWantToBeAStar
 
             transform.Translate(new Vector3(0, Time.deltaTime * scrollSpeed * -1, startPosition.z));
         }
+
         /// <summary>
         /// 서로 다른 배경들을 번갈아가면서 반환합니다.
         /// 예를 들어 <see cref="BackgroundStatus.LowSky"/>에서
