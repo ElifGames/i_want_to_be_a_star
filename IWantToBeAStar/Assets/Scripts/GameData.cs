@@ -35,5 +35,6 @@ namespace IWantToBeAStar
         internal static bool StartSpawnMeteo { get; set; }
         internal static bool StartSpawnUFO { get; set; }
         internal static bool CheckSpaceSpawn { get; set; }
+        internal static bool MouseControl { get; set; }
     }
 }
