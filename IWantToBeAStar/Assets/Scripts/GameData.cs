@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-
 namespace IWantToBeAStar
 {
     [Serializable]
@@ -36,5 +35,8 @@ namespace IWantToBeAStar
         internal static bool StartSpawnUFO { get; set; }
         internal static bool CheckSpaceSpawn { get; set; }
         internal static bool MouseControl { get; set; }
+
+        internal static Charactors Charactor { get; set; }
+        internal static Controllers Controller { get; set; }
     }
 }
