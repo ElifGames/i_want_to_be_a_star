@@ -57,6 +57,8 @@ namespace IWantToBeAStar.MainGame
             GameData.StartSpawnUFO = false;
             GameData.MouseControl = true;
 
+            // TODO: GameData.Charactor 이용해서 캐릭터 스킨 바꾸기
+
             StartCoroutine("StartSpawning");
             StartCoroutine("CheckGameEnd");
         }
