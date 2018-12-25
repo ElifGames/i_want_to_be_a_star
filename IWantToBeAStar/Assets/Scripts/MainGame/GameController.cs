@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace IWantToBeAStar.MainGame
@@ -20,7 +21,6 @@ namespace IWantToBeAStar.MainGame
 
         public GameObject Hazard;
         public Vector2 SpawnValues;
-        public Text scoreHeaderText;
         public Text scoreText;
         public PlayerSkins PlayerSkin;
         public GameObject Player;
@@ -165,11 +165,11 @@ namespace IWantToBeAStar.MainGame
 
         private IEnumerator ChangeScoreHeaderColor()
         {
-            while (scoreHeaderText.color.r <= 255)
+            while (scoreText.color.r <= 255)
             {
-                float beforeColor = scoreHeaderText.color.r + 0.01f;
-                scoreHeaderText.color = new Color(beforeColor, beforeColor, beforeColor);
-                yield return new WaitForSeconds(0.01f);
+                float beforeColor = scoreText.color.r + 0.01f;
+                scoreText.color = new Color(beforeColor, beforeColor, beforeColor);
+                yield return new WaitForSeconds(0.05f);
             }
         }
 
@@ -179,6 +179,8 @@ namespace IWantToBeAStar.MainGame
             StopCoroutine("Scoring");
             Cursor.visible = true;
             Debug.Log("게임 끝");
+            yield return new WaitForSeconds(3f);
+            SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
         }
     }
 }
