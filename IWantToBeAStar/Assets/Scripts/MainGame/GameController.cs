@@ -72,7 +72,6 @@ namespace IWantToBeAStar.MainGame
         {
             scoreText.text = "0";
 
-            // TODO: GameData.Charactor 이용해서 캐릭터 스킨 바꾸기
             switch (GameData.Charactor)
             {
                 case Charactors.Cat:
