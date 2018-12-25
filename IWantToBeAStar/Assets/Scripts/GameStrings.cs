@@ -26,7 +26,7 @@ namespace IWantToBeAStar
                     "ScoreStatusBody_Accomplish",
                     "기본상품을 아직 받지 못했을 경우 스태프에게 " +
                     "해당 점수를 보여주시면 기본상품을 드립니다." +
-                    "/n/n(기본상품은 한번만 받을 수 있습니다.)"
+                    "\n\n(기본상품은 한번만 받을 수 있습니다.)"
                 }
             };
 
