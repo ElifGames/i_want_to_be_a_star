@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,12 +7,23 @@ namespace IWantToBeAStar.MainGame
 {
     public class GameController : MonoBehaviour
     {
+        [Serializable]
+        public class PlayerSkins
+        {
+            public Sprite Dog;
+            public Sprite Cat;
+            public Sprite Racoon;
+            public Sprite Fox;
+        }
+
         #region 유니티 세팅 값
 
         public GameObject Hazard;
         public Vector2 SpawnValues;
         public Text scoreHeaderText;
         public Text scoreText;
+        public PlayerSkins PlayerSkin;
+        public GameObject Player;
 
         /// <summary>
         /// 스폰 시간 간격
@@ -45,19 +57,37 @@ namespace IWantToBeAStar.MainGame
 
         public delegate void BackgroundChange(BackgroundStatus status);
 
-        // Use this for initialization
-        private void Start()
+        private void Awake()
         {
             GameData.Score = 0;
-            scoreText.text = "0";
             GameData.IsGameEnd = false;
             GameData.IsStarted = false;
             GameData.SpawnWait = SpawnWait;
             GameData.StartSpawnMeteo = false;
             GameData.StartSpawnUFO = false;
-            GameData.MouseControl = true;
+        }
+
+        // Use this for initialization
+        private void Start()
+        {
+            scoreText.text = "0";
 
             // TODO: GameData.Charactor 이용해서 캐릭터 스킨 바꾸기
+            switch (GameData.Charactor)
+            {
+                case Charactors.Cat:
+                    Player.GetComponent<SpriteRenderer>().sprite = PlayerSkin.Cat;
+                    break;
+                case Charactors.Dog:
+                    Player.GetComponent<SpriteRenderer>().sprite = PlayerSkin.Dog;
+                    break;
+                case Charactors.Racoon:
+                    Player.GetComponent<SpriteRenderer>().sprite = PlayerSkin.Racoon;
+                    break;
+                case Charactors.Fox:
+                    Player.GetComponent<SpriteRenderer>().sprite = PlayerSkin.Fox;
+                    break;
+            }
 
             StartCoroutine("StartSpawning");
             StartCoroutine("CheckGameEnd");
@@ -147,7 +177,7 @@ namespace IWantToBeAStar.MainGame
         private IEnumerator CheckGameEnd()
         {
             yield return new WaitUntil(() => GameData.IsGameEnd);
-            //StopCoroutine("Scoring");
+            StopCoroutine("Scoring");
             Cursor.visible = true;
             Debug.Log("게임 끝");
         }

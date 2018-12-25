@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace IWantToBeAStar.Settings
@@ -32,8 +33,8 @@ namespace IWantToBeAStar.Settings
             GameData.Charactor = charactor;
             GameData.Controller = controller;
 
-            Debug.Log("선택 결과: " + charactor.ToString() + ", " + controller.ToString());
-            new Tools.ChangeScene().ChangeGameScene("MainGame");
+            Debug.Log("선택: " + charactor.ToString() + ", " + controller.ToString());
+            SceneManager.LoadScene("MainGame", LoadSceneMode.Single);
         }
     }
 }

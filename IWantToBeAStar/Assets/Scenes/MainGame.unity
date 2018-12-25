@@ -403,6 +403,12 @@ MonoBehaviour:
   SpawnValues: {x: 3.9, y: 8}
   scoreHeaderText: {fileID: 1193667940}
   scoreText: {fileID: 331519725}
+  PlayerSkin:
+    Dog: {fileID: 21300000, guid: 12cd183bf4fa3f04c80f6720f74f0a64, type: 3}
+    Cat: {fileID: 21300000, guid: f419e8ff14a9fbf4d849817636caf339, type: 3}
+    Racoon: {fileID: 21300000, guid: 8494400ccace69f449ac748ac6c7f620, type: 3}
+    Fox: {fileID: 21300000, guid: 8c5efe7c03e24014fa2742507226ebf2, type: 3}
+  Player: {fileID: 2078077836}
   SpawnWait: 1
   SpawnGain: 0.05
   StartWait: 3
@@ -1145,5 +1151,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4844568826853804931, guid: b661b6868e2fc9f4d8725a65d1404fed,
+        type: 3}
+      propertyPath: CursorSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844568826853804931, guid: b661b6868e2fc9f4d8725a65d1404fed,
+        type: 3}
+      propertyPath: KeyboardSpeed
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b661b6868e2fc9f4d8725a65d1404fed, type: 3}
+--- !u!1 &2078077836 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4844568826853804928, guid: b661b6868e2fc9f4d8725a65d1404fed,
+    type: 3}
+  m_PrefabInstance: {fileID: 2078077835}
+  m_PrefabAsset: {fileID: 0}

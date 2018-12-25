@@ -5,6 +5,6 @@ namespace IWantToBeAStar
 {
     public enum Controllers
     {
-        Keyboard, Mouse
+        Mouse, Keyboard
     }
 }
