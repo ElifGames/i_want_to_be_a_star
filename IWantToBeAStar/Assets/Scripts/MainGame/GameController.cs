@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -216,6 +217,27 @@ namespace IWantToBeAStar.MainGame
         public void GoMainMenu()
         {
             SceneManager.LoadScene("MainMenu");
+        }
+
+        private IEnumerator GetMapInfos(string word)
+        {
+            WWWForm form = new WWWForm();//php에 보낼 폼을 만듦
+
+            //전해줄 정보 입력
+            form.AddField("class", "gameRecord");
+            form.AddField("word", word);
+
+            UnityWebRequest webRequest = UnityWebRequest.Post("pid011.dothome.co.kr", form);
+            yield return webRequest.SendWebRequest();
+
+            if (webRequest.isNetworkError || webRequest.isHttpError)
+            {
+                Debug.Log(webRequest.error);
+            }
+            else
+            {
+                Debug.Log("Upload complete!");
+            }
         }
     }
 }
