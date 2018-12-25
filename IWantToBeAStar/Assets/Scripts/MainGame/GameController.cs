@@ -18,12 +18,15 @@ namespace IWantToBeAStar.MainGame
         }
 
         #region 유니티 세팅 값
+        
+        public Text ScoreText;
+        public Text ResultScore;
+        public Text StatusHeader;
+        public Text StatusBody;
 
-        public GameObject Hazard;
-        public Vector2 SpawnValues;
-        public Text scoreText;
         public PlayerSkins PlayerSkin;
         public GameObject Player;
+        public GameObject GameOverPanel;
 
         /// <summary>
         /// 스폰 시간 간격
@@ -47,8 +50,11 @@ namespace IWantToBeAStar.MainGame
 
         public int HighSkyChangeScore;
         public int SpaceChangeScore;
+        public int Goals;
 
         #endregion 유니티 세팅 값
+
+        // private bool paused;
 
         /// <summary>
         /// 배경이 바뀜을 알리는 이벤트
@@ -65,12 +71,13 @@ namespace IWantToBeAStar.MainGame
             GameData.SpawnWait = SpawnWait;
             GameData.StartSpawnMeteo = false;
             GameData.StartSpawnUFO = false;
+            GameOverPanel.SetActive(false);
         }
 
         // Use this for initialization
         private void Start()
         {
-            scoreText.text = "0";
+            ScoreText.text = "0";
 
             switch (GameData.Charactor)
             {
@@ -160,15 +167,15 @@ namespace IWantToBeAStar.MainGame
         private void AddScore(int score)
         {
             GameData.Score += score;
-            scoreText.text = GameData.Score.ToString();
+            ScoreText.text = GameData.Score.ToString();
         }
 
         private IEnumerator ChangeScoreHeaderColor()
         {
-            while (scoreText.color.r <= 255)
+            while (ScoreText.color.r <= 255)
             {
-                float beforeColor = scoreText.color.r + 0.01f;
-                scoreText.color = new Color(beforeColor, beforeColor, beforeColor);
+                float beforeColor = ScoreText.color.r + 0.01f;
+                ScoreText.color = new Color(beforeColor, beforeColor, beforeColor);
                 yield return new WaitForSeconds(0.05f);
             }
         }
@@ -179,8 +186,36 @@ namespace IWantToBeAStar.MainGame
             StopCoroutine("Scoring");
             Cursor.visible = true;
             Debug.Log("게임 끝");
-            yield return new WaitForSeconds(3f);
-            SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+
+
+            if (GameData.Score < Goals)
+            {
+                StatusHeader.text 
+                    = GameStrings.GetString("ScoreStatusHeader_NotAccomplish");
+                StatusBody.text
+                    = GameStrings.GetString("ScoreStatusBody_NotAccomplish");
+            }
+            else
+            {
+                StatusHeader.text
+                    = GameStrings.GetString("ScoreStatusHeader_Accomplish");
+                StatusBody.text
+                    = GameStrings.GetString("ScoreStatusBody_Accomplish");
+            }
+            ResultScore.text = GameData.Score.ToString();
+
+            GameOverPanel.SetActive(true);
+
+        }
+
+        public void Restart()
+        {
+            SceneManager.LoadScene("MainGame");
+        }
+
+        public void GoMainMenu()
+        {
+            SceneManager.LoadScene("MainMenu");
         }
     }
 }

@@ -34,7 +34,7 @@ namespace IWantToBeAStar.Settings
             GameData.Controller = controller;
 
             Debug.Log("선택: " + charactor.ToString() + ", " + controller.ToString());
-            SceneManager.LoadScene("MainGame", LoadSceneMode.Single);
+            SceneManager.LoadScene("MainGame");
         }
     }
 }
