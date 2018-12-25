@@ -28,7 +28,13 @@ namespace IWantToBeAStar.MainGame
 
         public PlayerSkins PlayerSkin;
         public GameObject Player;
+
         public GameObject GameOverPanel;
+        public GameObject WriteInfoPanel;
+        public Button OpenSendInfoButton;
+
+        public InputField ClassField;
+        public InputField NameField;
 
         /// <summary>
         /// 스폰 시간 간격
@@ -58,7 +64,9 @@ namespace IWantToBeAStar.MainGame
 
         // private bool paused;
 
-
+        private string userClass;
+        private string userName;
+        private bool sentInfo = false;
 
         /// <summary>
         /// 배경이 바뀜을 알리는 이벤트
@@ -222,14 +230,69 @@ namespace IWantToBeAStar.MainGame
             SceneManager.LoadScene("MainMenu");
         }
 
-        private IEnumerator SendInfo()
+        public void EndWritingClass()
         {
+            userClass = ClassField.text;
+            Debug.Log("입력: "+ userClass);
+        }
+
+        public void EndWritingName()
+        {
+            userName = NameField.text;
+            Debug.Log("입력: " + userName);
+        }
+
+        public void SendButtonClick()
+        {
+            Debug.Log("보내기버튼 눌림");
+
+            StartCoroutine("SendUserScore");
+            sentInfo = true;
+            OpenGameOverPanel();
+        }
+
+        public void SendCancelButtonClick()
+        {
+            Debug.Log("취소버튼 눌림");
+
+            sentInfo = false;
+            OpenGameOverPanel();
+        }
+
+        public void OpenWriteInfoPanel()
+        {
+            Debug.Log("정보작성패널 열림");
+
+            GameOverPanel.SetActive(false);
+            WriteInfoPanel.SetActive(true);
+        }
+
+        public void OpenGameOverPanel()
+        {
+            Debug.Log("게임오버패널 열림");
+
+            if (sentInfo)
+            {
+                OpenSendInfoButton.interactable = false;
+            }
+            WriteInfoPanel.SetActive(false);
+            GameOverPanel.SetActive(true);
+        }
+
+        private IEnumerator SendUserScore()
+        {
+            if (Application.internetReachability == NetworkReachability.NotReachable)
+            {
+                Debug.LogError("인터넷 연결이 되어있지 않습니다!");
+                yield break;
+            }
+
             WWWForm form = new WWWForm();
 
-            //전해줄 정보 입력
-            form.AddField("class", "2510", Encoding.UTF8);
-            form.AddField("name", "곽필경", Encoding.UTF8);
-            form.AddField("score", 149);
+            form.AddField("class", userClass, Encoding.UTF8);
+            form.AddField("name", userName, Encoding.UTF8);
+            form.AddField("score", GameData.Score);
+
             UnityWebRequest webRequest = UnityWebRequest.Post("pid011.dothome.co.kr/AddValue.php", form);
             yield return webRequest.SendWebRequest();
 
@@ -239,7 +302,7 @@ namespace IWantToBeAStar.MainGame
             }
             else
             {
-                Debug.Log("Upload complete!");
+                Debug.Log("업로드 완료");
             }
         }
     }
