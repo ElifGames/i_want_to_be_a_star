@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
@@ -19,7 +20,7 @@ namespace IWantToBeAStar.MainGame
         }
 
         #region 유니티 세팅 값
-        
+
         public Text ScoreText;
         public Text ResultScore;
         public Text StatusHeader;
@@ -56,6 +57,8 @@ namespace IWantToBeAStar.MainGame
         #endregion 유니티 세팅 값
 
         // private bool paused;
+
+
 
         /// <summary>
         /// 배경이 바뀜을 알리는 이벤트
@@ -191,7 +194,7 @@ namespace IWantToBeAStar.MainGame
 
             if (GameData.Score < Goals)
             {
-                StatusHeader.text 
+                StatusHeader.text
                     = GameStrings.GetString("ScoreStatusHeader_NotAccomplish");
                 StatusBody.text
                     = GameStrings.GetString("ScoreStatusBody_NotAccomplish");
@@ -219,15 +222,15 @@ namespace IWantToBeAStar.MainGame
             SceneManager.LoadScene("MainMenu");
         }
 
-        private IEnumerator GetMapInfos(string word)
+        private IEnumerator SendInfo()
         {
-            WWWForm form = new WWWForm();//php에 보낼 폼을 만듦
+            WWWForm form = new WWWForm();
 
             //전해줄 정보 입력
-            form.AddField("class", "gameRecord");
-            form.AddField("word", word);
-
-            UnityWebRequest webRequest = UnityWebRequest.Post("pid011.dothome.co.kr", form);
+            form.AddField("class", "2510", Encoding.UTF8);
+            form.AddField("name", "곽필경", Encoding.UTF8);
+            form.AddField("score", 149);
+            UnityWebRequest webRequest = UnityWebRequest.Post("pid011.dothome.co.kr/AddValue.php", form);
             yield return webRequest.SendWebRequest();
 
             if (webRequest.isNetworkError || webRequest.isHttpError)
