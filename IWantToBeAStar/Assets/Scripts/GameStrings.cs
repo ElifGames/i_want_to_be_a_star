@@ -20,12 +20,13 @@ namespace IWantToBeAStar
                 },
                 {
                     "ScoreStatusBody_NotAccomplish",
-                    "기본 상품을 받을려면 1000점을 넘기셔야 해요..!"
+                    "기본 상품을 받을려면 400점을 넘기셔야 해요..!"
                 },
                 {
                     "ScoreStatusBody_Accomplish",
                     "기본상품을 아직 받지 못했을 경우 스태프에게 " +
-                    "해당 점수를 보여주시면 기본상품을 드립니다."
+                    "해당 점수를 보여주시면 기본상품을 드립니다." +
+                    "/n/n(기본상품은 한번만 받을 수 있습니다.)"
                 }
             };
 

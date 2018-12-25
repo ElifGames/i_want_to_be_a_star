@@ -619,9 +619,9 @@ MonoBehaviour:
   SpawnGain: 0.05
   StartWait: 3
   ScoreTimeGain: 0.1
-  HighSkyChangeScore: 300
-  SpaceChangeScore: 600
-  Goals: 600
+  HighSkyChangeScore: 200
+  SpaceChangeScore: 400
+  Goals: 400
 --- !u!1 &1041791753
 GameObject:
   m_ObjectHideFlags: 0
@@ -771,7 +771,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1255556243
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1780,12 +1780,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uAE30\uBCF8\uC0C1\uD488\uC744 \uC544\uC9C1 \uBC1B\uC9C0 \uBABB\uD558\uC168\uC73C\uBA74
-    \uB3D9\uC544\uB9AC \uBD80\uC6D0\uC5D0\uAC8C \uD574\uB2F9 \uC810\uC218\uB97C \uBCF4\uC5EC\uC8FC\uC2DC\uBA74
-    \uAE30\uBCF8\uC0C1\uD488\uC744 \uB4DC\uB9AC\uBA70 \uBD80\uC2A4 \uD65C\uB3D9\uC2DC\uAC04\uB3D9\uC548
-    \uAC00\uC7A5 \uB192\uC740 \uC810\uC218\uB97C \uBC1B\uC740 1, 2, 3\uB4F1\uC5D0\uAC8C
-    \uC0C1\uD488\uC744 \uB4DC\uB9BD\uB2C8\uB2E4.\n\n\uC5BB\uC740 \uC810\uC218\uB97C
-    \uC2A4\uD0DC\uD504\uC5D0\uAC8C \uC54C\uB824\uC8FC\uC138\uC694...!"
+  m_Text: "\u3141\u3134\u3147\u3139"
 --- !u!114 &6792094587169686706
 MonoBehaviour:
   m_ObjectHideFlags: 0
