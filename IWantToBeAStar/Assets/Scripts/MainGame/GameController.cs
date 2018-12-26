@@ -67,6 +67,7 @@ namespace IWantToBeAStar.MainGame
         private string userClass;
         private string userName;
         private bool sentInfo = false;
+        private bool openedGameOverPanel = false;
 
         /// <summary>
         /// 배경이 바뀜을 알리는 이벤트
@@ -84,6 +85,8 @@ namespace IWantToBeAStar.MainGame
             GameData.StartSpawnMeteo = false;
             GameData.StartSpawnUFO = false;
             GameOverPanel.SetActive(false);
+            WriteInfoPanel.SetActive(false);
+            //Application.targetFrameRate = 60;
         }
 
         // Use this for initialization
@@ -109,6 +112,36 @@ namespace IWantToBeAStar.MainGame
 
             StartCoroutine("StartSpawning");
             StartCoroutine("CheckGameEnd");
+        }
+
+        private void Update()
+        {
+            if (GameData.IsGameEnd && !openedGameOverPanel)
+            {
+                openedGameOverPanel = true;
+                StopCoroutine("Scoring");
+                Cursor.visible = true;
+                Debug.Log("게임 끝");
+
+
+                if (GameData.Score < Goals)
+                {
+                    StatusHeader.text
+                        = GameStrings.GetString("ScoreStatusHeader_NotAccomplish");
+                    StatusBody.text
+                        = GameStrings.GetString("ScoreStatusBody_NotAccomplish");
+                }
+                else
+                {
+                    StatusHeader.text
+                        = GameStrings.GetString("ScoreStatusHeader_Accomplish");
+                    StatusBody.text
+                        = GameStrings.GetString("ScoreStatusBody_Accomplish");
+                }
+                ResultScore.text = GameData.Score.ToString();
+
+                GameOverPanel.SetActive(true);
+            }
         }
 
         private IEnumerator StartSpawning()
@@ -195,28 +228,7 @@ namespace IWantToBeAStar.MainGame
         private IEnumerator CheckGameEnd()
         {
             yield return new WaitUntil(() => GameData.IsGameEnd);
-            StopCoroutine("Scoring");
-            Cursor.visible = true;
-            Debug.Log("게임 끝");
-
-
-            if (GameData.Score < Goals)
-            {
-                StatusHeader.text
-                    = GameStrings.GetString("ScoreStatusHeader_NotAccomplish");
-                StatusBody.text
-                    = GameStrings.GetString("ScoreStatusBody_NotAccomplish");
-            }
-            else
-            {
-                StatusHeader.text
-                    = GameStrings.GetString("ScoreStatusHeader_Accomplish");
-                StatusBody.text
-                    = GameStrings.GetString("ScoreStatusBody_Accomplish");
-            }
-            ResultScore.text = GameData.Score.ToString();
-
-            GameOverPanel.SetActive(true);
+            
 
         }
 

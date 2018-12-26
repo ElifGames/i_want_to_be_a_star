@@ -28,6 +28,8 @@ namespace IWantToBeAStar.MainGame.MapObjects.Hazards
 
         private void WhenReceivedBgChangeEvent(BackgroundStatus status)
         {
+            StopAllCoroutines();
+
             var list = GameObject.FindGameObjectsWithTag("Notification");
             var list2 = GameObject.FindGameObjectsWithTag("Hazard");
             if (list.Length != 0)
@@ -43,11 +45,11 @@ namespace IWantToBeAStar.MainGame.MapObjects.Hazards
                 {
                     if (item.name == "Lightning")
                     {
-                        DestroyImmediate(item);
+                        Destroy(item);
                     }
                 }
             }
-            StopAllCoroutines();
+            
             switch (status)
             {
                 case BackgroundStatus.Ground:

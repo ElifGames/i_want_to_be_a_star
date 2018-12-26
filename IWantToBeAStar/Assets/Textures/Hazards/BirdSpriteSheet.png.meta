@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 48958f9376173c34ea65fa05a728120e
+guid: 06d12df5251c6d645be9637d2f9063ed
 TextureImporter:
   fileIDToRecycleName:
     21300000: BirdSpriteSheet_0
@@ -92,8 +92,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 500
-        height: 500
+        width: 300
+        height: 300
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -101,7 +101,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: acfab8211ee09064fb6959d6214889d8
+      spriteID: 0bf4ff506576b7c4a9cea0207137a33c
       vertices: []
       indices: 
       edges: []
@@ -110,10 +110,10 @@ TextureImporter:
       name: BirdSpriteSheet_1
       rect:
         serializedVersion: 2
-        x: 500
+        x: 300
         y: 0
-        width: 500
-        height: 500
+        width: 300
+        height: 300
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,7 +121,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 90bb21790d73aad449329980defddca7
+      spriteID: 885341138deb58f449678de4a138ca0a
       vertices: []
       indices: 
       edges: []
@@ -130,10 +130,10 @@ TextureImporter:
       name: BirdSpriteSheet_2
       rect:
         serializedVersion: 2
-        x: 1000
+        x: 600
         y: 0
-        width: 500
-        height: 500
+        width: 300
+        height: 300
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,7 +141,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6de9e09bc8770584ab3335fc71e93247
+      spriteID: 0f51b15dbe40d694bb68baa84772ff88
       vertices: []
       indices: 
       edges: []
@@ -149,7 +149,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 96b01a99c8ada4b4abfca26f7c55f79f
+    spriteID: 77b7a76e8628aa548bd731e5232a61a3
     vertices: []
     indices: 
     edges: []

@@ -35,9 +35,10 @@ namespace IWantToBeAStar.MainGame
             bgRotateCount = 0;
 
             GameData.BgStatus = BackgroundStatus.LowSky;
+            //StartCoroutine("BackgroundScroll");
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             BackgroundScroll();
         }
