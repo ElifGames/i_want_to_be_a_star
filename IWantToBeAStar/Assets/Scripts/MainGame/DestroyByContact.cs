@@ -14,7 +14,7 @@ namespace IWantToBeAStar.MainGame
             {
                 GameData.IsGameEnd = true;
             }
-            Destroy(other.gameObject);
+            // Destroy(other.gameObject);
             Destroy(gameObject);
         }
     }

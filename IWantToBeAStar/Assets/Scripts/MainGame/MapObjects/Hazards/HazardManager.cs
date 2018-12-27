@@ -29,26 +29,6 @@ namespace IWantToBeAStar.MainGame.MapObjects.Hazards
         private void WhenReceivedBgChangeEvent(BackgroundStatus status)
         {
             StopAllCoroutines();
-
-            var list = GameObject.FindGameObjectsWithTag("Notification");
-            var list2 = GameObject.FindGameObjectsWithTag("Hazard");
-            if (list.Length != 0)
-            {
-                foreach (var item in list)
-                {
-                    DestroyImmediate(item);
-                }
-            }
-            if (list2.Length != 0)
-            {
-                foreach (var item in list2)
-                {
-                    if (item.name == "Lightning")
-                    {
-                        Destroy(item);
-                    }
-                }
-            }
             
             switch (status)
             {
@@ -65,6 +45,7 @@ namespace IWantToBeAStar.MainGame.MapObjects.Hazards
                     break;
 
                 case BackgroundStatus.Space:
+                    StartCoroutine("RemoveNotDelectedLightnings");
                     StartCoroutine("StartSpawningSpaceHazards");
                     break;
 
@@ -197,6 +178,33 @@ namespace IWantToBeAStar.MainGame.MapObjects.Hazards
 
             Quaternion spawnRotation = Quaternion.identity;
             Instantiate(hazard, spawnPosition, spawnRotation);
+        }
+
+        private IEnumerator RemoveNotDelectedLightnings()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                var list = GameObject.FindGameObjectsWithTag("Notification");
+                var list2 = GameObject.FindGameObjectsWithTag("Hazard");
+                if (list.Length != 0)
+                {
+                    foreach (var item in list)
+                    {
+                        Destroy(item);
+                    }
+                }
+                if (list2.Length != 0)
+                {
+                    foreach (var item in list2)
+                    {
+                        if (item.name == "Lightning")
+                        {
+                            Destroy(item);
+                        }
+                    }
+                }
+                yield return new WaitForSeconds(0.1f);
+            }
         }
     }
 }
