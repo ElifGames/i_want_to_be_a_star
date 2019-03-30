@@ -50,6 +50,9 @@ TagManager:
   - name: Background
     uniqueID: 2005490099
     locked: 0
+  - name: Zetpack
+    uniqueID: 2647097937
+    locked: 0
   - name: Player
     uniqueID: 175204313
     locked: 0

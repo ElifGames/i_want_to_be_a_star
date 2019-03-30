@@ -40,12 +40,12 @@ namespace IWantToBeAStar.MainGame.MapObjects.Hazards
                     break;
 
                 case BackgroundStatus.HighSky:
-                    StartCoroutine("StartSpawningLeftRightMove", new object[2] { Airplane, 0.3f });
-                    StartCoroutine("StartSpawningLightning");
+                    StartCoroutine("StartSpawningLeftRightMove", new object[2] { Airplane, 0f });
+                    //StartCoroutine("StartSpawningLightning");
                     break;
 
                 case BackgroundStatus.Space:
-                    StartCoroutine("RemoveNotDelectedLightnings");
+                    //StartCoroutine("RemoveNotDelectedLightnings");
                     StartCoroutine("StartSpawningSpaceHazards");
                     break;
 
