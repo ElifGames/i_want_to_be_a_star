@@ -41,7 +41,7 @@ namespace IWantToBeAStar.MainGame.MapObjects.Hazards
 
                 case BackgroundStatus.HighSky:
                     StartCoroutine("StartSpawningLeftRightMove", new object[2] { Airplane, 0f });
-                    //StartCoroutine("StartSpawningLightning");
+                    StartCoroutine("StartSpawningLightning");
                     break;
 
                 case BackgroundStatus.Space:
@@ -108,6 +108,7 @@ namespace IWantToBeAStar.MainGame.MapObjects.Hazards
         /// <returns></returns>
         private IEnumerator SpawnLightning()
         {
+            // TODO: [BUG] iws1
             float randomX = Random.Range(-UpPosition.x, UpPosition.x);
             var dangerousPosition = new Vector2(randomX, 4.9f);
             var LightningPosition = new Vector2(randomX, 0);
@@ -180,31 +181,31 @@ namespace IWantToBeAStar.MainGame.MapObjects.Hazards
             Instantiate(hazard, spawnPosition, spawnRotation);
         }
 
-        private IEnumerator RemoveNotDelectedLightnings()
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                var list = GameObject.FindGameObjectsWithTag("Notification");
-                var list2 = GameObject.FindGameObjectsWithTag("Hazard");
-                if (list.Length != 0)
-                {
-                    foreach (var item in list)
-                    {
-                        Destroy(item);
-                    }
-                }
-                if (list2.Length != 0)
-                {
-                    foreach (var item in list2)
-                    {
-                        if (item.name == "Lightning")
-                        {
-                            Destroy(item);
-                        }
-                    }
-                }
-                yield return new WaitForSeconds(0.1f);
-            }
-        }
+        //private IEnumerator RemoveNotDelectedLightnings()
+        //{
+        //    for (int i = 0; i < 10; i++)
+        //    {
+        //        var list = GameObject.FindGameObjectsWithTag("Notification");
+        //        var list2 = GameObject.FindGameObjectsWithTag("Hazard");
+        //        if (list.Length != 0)
+        //        {
+        //            foreach (var item in list)
+        //            {
+        //                Destroy(item);
+        //            }
+        //        }
+        //        if (list2.Length != 0)
+        //        {
+        //            foreach (var item in list2)
+        //            {
+        //                if (item.name == "Lightning")
+        //                {
+        //                    Destroy(item);
+        //                }
+        //            }
+        //        }
+        //        yield return new WaitForSeconds(0.1f);
+        //    }
+        //}
     }
 }
