@@ -56,8 +56,8 @@ namespace IWantToBeAStar.MainGame
         /// </summary>
         public float ScoreTimeGain;
 
-        public int HighSkyChangeScore;
-        public int SpaceChangeScore;
+        public int HighSkyStartScore;
+        public int SpaceStartScore;
         public int Goals;
 
         #endregion 유니티 세팅 값
@@ -69,18 +69,12 @@ namespace IWantToBeAStar.MainGame
         private bool sentInfo = false;
         private bool openedGameOverPanel = false;
 
-        /// <summary>
-        /// 배경이 바뀜을 알리는 이벤트
-        /// </summary>
-        public event BackgroundChange OnBackgroundChange;
-
-        public delegate void BackgroundChange(BackgroundStatus status);
-
         private void Awake()
         {
             GameData.Score = 0;
-            GameData.IsGameEnd = false;
-            GameData.IsStarted = false;
+            GameData.HighSkyStartScore = HighSkyStartScore;
+            GameData.SpaceStartScore = SpaceStartScore;
+            GameData.IsGameRunning = true;
             GameData.SpawnWait = SpawnWait;
             GameData.StartSpawnMeteo = false;
             GameData.StartSpawnUFO = false;
@@ -111,12 +105,11 @@ namespace IWantToBeAStar.MainGame
             }
 
             StartCoroutine("StartSpawning");
-            StartCoroutine("CheckGameEnd");
         }
 
         private void Update()
         {
-            if (GameData.IsGameEnd && !openedGameOverPanel)
+            if (!GameData.IsGameRunning && !openedGameOverPanel)
             {
                 openedGameOverPanel = true;
                 StopCoroutine("Scoring");
@@ -150,11 +143,8 @@ namespace IWantToBeAStar.MainGame
             // 다른 루틴보다 늦게 시작해서 오류가 안나게 함
             yield return new WaitForEndOfFrame();
 
-            OnBackgroundChange(BackgroundStatus.LowSky);
-
             // 맨 처음 시작 대기
             yield return new WaitForSeconds(StartWait);
-            GameData.IsStarted = true;
             StartCoroutine("Scoring");
         }
 
@@ -164,7 +154,7 @@ namespace IWantToBeAStar.MainGame
             {
                 yield return new WaitForSeconds(ScoreTimeGain);
                 AddScore(1);
-
+                /*
                 var score = GameData.Score;
 
                 if (GameData.SpawnWait > 0.2f)
@@ -174,7 +164,7 @@ namespace IWantToBeAStar.MainGame
                         ReduceSpawnWait();
                     }
                 }
-
+                
                 if (score == HighSkyChangeScore)
                 {
                     OnBackgroundChange(BackgroundStatus.HighSky);
@@ -200,6 +190,7 @@ namespace IWantToBeAStar.MainGame
                     }
                 }
                 GameData.CheckSpaceSpawn = true;
+                */
             }
         }
 
@@ -215,7 +206,7 @@ namespace IWantToBeAStar.MainGame
             ScoreText.text = GameData.Score.ToString();
         }
 
-        private IEnumerator ChangeScoreHeaderColor()
+        private IEnumerator ChangeScoreHeaderColorBlackToWhite()
         {
             while (ScoreText.color.r <= 255)
             {
@@ -223,13 +214,6 @@ namespace IWantToBeAStar.MainGame
                 ScoreText.color = new Color(beforeColor, beforeColor, beforeColor);
                 yield return new WaitForSeconds(0.05f);
             }
-        }
-
-        private IEnumerator CheckGameEnd()
-        {
-            yield return new WaitUntil(() => GameData.IsGameEnd);
-            
-
         }
 
         public void Restart()

@@ -23,19 +23,17 @@ namespace IWantToBeAStar.MainGame
         private bool needBgChange = false;
         private bool needBgReturn = false;
         private BackgroundStatus ChangingTarget;
+
+        // 백그라운드 순환
         private int bgRotateCount = 0;
 
         private void Start()
         {
             startPosition = transform.position;
 
-            GameController controller = FindObjectOfType<GameController>();
-            controller.OnBackgroundChange += WhenReceivedBgChangeEvent;
-
             bgRotateCount = 0;
 
-            GameData.BgStatus = BackgroundStatus.LowSky;
-            //StartCoroutine("BackgroundScroll");
+            GameData.BgStatus = BackgroundStatus.Ground;
         }
 
         private void FixedUpdate()
@@ -48,9 +46,17 @@ namespace IWantToBeAStar.MainGame
             StartCoroutine(BackGroundChange(status));
         }
 
+        private IEnumerator CheckScore()
+        {
+            if (GameData.IsGameRunning)
+            {
+
+            }
+        }
+
         private IEnumerator BackGroundChange(BackgroundStatus status)
         {
-            Debug.Log("이벤트 메소드 시작");
+            Debug.Log("배경 변경");
             ChangingTarget = status;
             needBgChange = true;
 
@@ -59,12 +65,16 @@ namespace IWantToBeAStar.MainGame
 
         private void BackgroundScroll()
         {
+            // 만약 스프라이트의 상단이 화면 상단에 도달했을 때
             if (transform.position.y <= -tileChangeLine)
             {
+                // 1번 스프라이트를 2번 스프라이트로 옮기기
                 FirstSprite.sprite = SecondSprite.sprite;
 
+                // 다시 처음 위치로 이동
                 transform.position = startPosition;
 
+                
                 Sprite ChangeSprite = null;
 
                 #region 배경 전환이 필요한 경우
@@ -77,7 +87,7 @@ namespace IWantToBeAStar.MainGame
                         {
                             case BackgroundStatus.LowSky:
                                 {
-                                    ChangeSprite = GetBackground(BackgroundList.LowSky);
+                                    ChangeSprite = GetBackgroundRotate(BackgroundList.LowSky);
                                     needBgReturn = false;
                                     needBgChange = false;
                                     GameData.BgStatus = BackgroundStatus.LowSky;
@@ -107,11 +117,11 @@ namespace IWantToBeAStar.MainGame
                         switch (ChangingTarget)
                         {
                             case BackgroundStatus.HighSky:
-                                ChangeSprite = GetBackground(BackgroundList.HighSky);
+                                ChangeSprite = GetBackgroundRotate(BackgroundList.HighSky);
                                 break;
 
                             case BackgroundStatus.Space:
-                                ChangeSprite = GetBackground(BackgroundList.Space);
+                                ChangeSprite = GetBackgroundRotate(BackgroundList.Space);
                                 break;
                         }
 
@@ -129,22 +139,22 @@ namespace IWantToBeAStar.MainGame
                     switch (GameData.BgStatus)
                     {
                         case BackgroundStatus.LowSky:
-                            ChangeSprite = GetBackground(BackgroundList.LowSky);
+                            ChangeSprite = GetBackgroundRotate(BackgroundList.LowSky);
                             break;
 
                         case BackgroundStatus.HighSky:
-                            ChangeSprite = GetBackground(BackgroundList.HighSky);
+                            ChangeSprite = GetBackgroundRotate(BackgroundList.HighSky);
                             break;
 
                         case BackgroundStatus.Space:
-                            ChangeSprite = GetBackground(BackgroundList.Space);
+                            ChangeSprite = GetBackgroundRotate(BackgroundList.Space);
                             break;
                     }
                 }
 
                 SecondSprite.sprite = ChangeSprite;
             }
-
+            // 스프라이트 내리기
             transform.Translate(new Vector3(0, Time.deltaTime * scrollSpeed * -1, startPosition.z));
         }
 
@@ -155,7 +165,7 @@ namespace IWantToBeAStar.MainGame
         /// </summary>
         /// <param name="sprites"></param>
         /// <returns></returns>
-        private Sprite GetBackground(List<Sprite> sprites)
+        private Sprite GetBackgroundRotate(List<Sprite> sprites)
         {
             var returnValue = sprites[bgRotateCount];
             if (bgRotateCount >= 2)

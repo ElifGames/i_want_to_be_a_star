@@ -19,7 +19,7 @@ namespace IWantToBeAStar.MainGame.MapObjects.Hazards
         public void Start()
         {
             GameController controller = FindObjectOfType<GameController>();
-            controller.OnBackgroundChange += WhenReceivedBgChangeEvent;
+            //controller.OnBackgroundChange += WhenReceivedBgChangeEvent;
 
             GameData.UpPosition = UpPosition;
             GameData.LeftPosition = LeftPosition;
@@ -66,11 +66,6 @@ namespace IWantToBeAStar.MainGame.MapObjects.Hazards
         {
             GameObject hazard = (GameObject)parameters[0];
             float spawnWaitGain = (float)parameters[1];
-
-            if (!GameData.IsStarted)
-            {
-                yield return new WaitUntil(() => GameData.IsStarted);
-            }
 
             while (true)
             {
