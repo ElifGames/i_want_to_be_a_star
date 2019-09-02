@@ -29,7 +29,7 @@ namespace IWantToBeAStar
                     "\n\n(기본상품은 한번만 받을 수 있습니다.)"
                 },
                 {
-                    "Error_DoesNotFindGameController",
+                    "Error_DoesNotFindGameManager",
                     "Game Controller 오브젝트를 찾을 수 없습니다."
                 }
             };

@@ -9,9 +9,9 @@ namespace IWantToBeAStar
     internal static class GameData
     {
         /// <summary>
-        /// 현재 배경 상태
+        /// 현재 스테이지
         /// </summary>
-        internal static BackgroundStatus BgStatus { get; set; }
+        internal static Stage CurrentStage { get; set; }
 
         /// <summary>
         /// 현재 점수

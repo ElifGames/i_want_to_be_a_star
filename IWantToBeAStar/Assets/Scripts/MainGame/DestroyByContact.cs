@@ -2,7 +2,7 @@
 
 namespace IWantToBeAStar.MainGame
 {
-    public class DestroyByContact : MonoBehaviour
+    public class DestroyByContact : GameManager
     {
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -12,7 +12,7 @@ namespace IWantToBeAStar.MainGame
             }
             if (other.tag == "Player")
             {
-                GameData.IsGameEnd = true;
+                OnGameEndedEvent();
             }
             // Destroy(other.gameObject);
             Destroy(gameObject);

@@ -1,6 +1,6 @@
 ﻿namespace IWantToBeAStar
 {
-    public enum BackgroundStatus
+    public enum Stage
     {
         Ground, LowSky, HighSky, Space
     }

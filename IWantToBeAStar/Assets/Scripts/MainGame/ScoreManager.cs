@@ -5,9 +5,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreManager : MonoBehaviour
+public class ScoreManager : GameManager
 {
-    public Text ScoreText;
 
     /// <summary>
     /// 점수 증가 시간 폭
@@ -22,23 +21,13 @@ public class ScoreManager : MonoBehaviour
     public int HighSkyStartScore;
     public int SpaceStartScore;
 
-    GameController controller;
-
     private void Awake()
     {
         GameData.Score = 0;
         GameData.HighSkyStartScore = HighSkyStartScore;
         GameData.SpaceStartScore = SpaceStartScore;
 
-        controller = FindObjectOfType<GameController>();
-        if (controller != null)
-        {
-            controller.GameEndedEvent += HandleGameEndedEvent;
-        }
-        else
-        {
-            Debug.LogError(GameStrings.GetString("Error_DoesNotFindGameController"));
-        }
+        GameEndedEvent += HandleGameEndedEvent;
     }
 
     private void HandleGameEndedEvent(object sender, EventArgs e)

@@ -18,7 +18,7 @@ namespace IWantToBeAStar.MainGame.MapObjects.Hazards
 
         public void Start()
         {
-            GameController controller = FindObjectOfType<GameController>();
+            GameManager controller = FindObjectOfType<GameManager>();
             //controller.OnBackgroundChange += WhenReceivedBgChangeEvent;
 
             GameData.UpPosition = UpPosition;
@@ -26,25 +26,25 @@ namespace IWantToBeAStar.MainGame.MapObjects.Hazards
             GameData.RightPosition = RightPosition;
         }
 
-        private void WhenReceivedBgChangeEvent(BackgroundStatus status)
+        private void WhenReceivedBgChangeEvent(Stage status)
         {
             StopAllCoroutines();
             
             switch (status)
             {
-                case BackgroundStatus.Ground:
+                case Stage.Ground:
                     break;
 
-                case BackgroundStatus.LowSky:
+                case Stage.LowSky:
                     StartCoroutine("StartSpawningLeftRightMove", new object[2] { Bird, 0f });
                     break;
 
-                case BackgroundStatus.HighSky:
+                case Stage.HighSky:
                     StartCoroutine("StartSpawningLeftRightMove", new object[2] { Airplane, 0f });
                     StartCoroutine("StartSpawningLightning");
                     break;
 
-                case BackgroundStatus.Space:
+                case Stage.Space:
                     //StartCoroutine("RemoveNotDelectedLightnings");
                     StartCoroutine("StartSpawningSpaceHazards");
                     break;

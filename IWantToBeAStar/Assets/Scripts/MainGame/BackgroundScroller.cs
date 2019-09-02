@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace IWantToBeAStar.MainGame
 {
-    public class BackgroundScroller : MonoBehaviour
+    public class BackgroundScroller : GameManager
     {
         #region 유니티 세팅 값
 
@@ -22,7 +22,7 @@ namespace IWantToBeAStar.MainGame
         private Vector3 startPosition;
         private bool needBgChange = false;
         private bool needBgReturn = false;
-        private BackgroundStatus ChangingTarget;
+        private Stage ChangingTarget;
 
         // 백그라운드 순환
         private int bgRotateCount = 0;
@@ -33,7 +33,10 @@ namespace IWantToBeAStar.MainGame
 
             bgRotateCount = 0;
 
-            GameData.BgStatus = BackgroundStatus.Ground;
+            GameData.CurrentStage = Stage.Ground;
+            // 처음 시작시 1번과 2번 스프라이트는 각각 Ground, Ground-LowSky임.
+            // 따라서 바로 LowSky로 넘어가도 됨.
+            needBgChange = true;
         }
 
         private void FixedUpdate()
@@ -41,7 +44,7 @@ namespace IWantToBeAStar.MainGame
             BackgroundScroll();
         }
 
-        private void WhenReceivedBgChangeEvent(BackgroundStatus status)
+        private void WhenReceivedBgChangeEvent(Stage status)
         {
             StartCoroutine(BackGroundChange(status));
         }
@@ -54,7 +57,7 @@ namespace IWantToBeAStar.MainGame
             }
         }
 
-        private IEnumerator BackGroundChange(BackgroundStatus status)
+        private IEnumerator BackGroundChange(Stage status)
         {
             Debug.Log("배경 변경");
             ChangingTarget = status;
@@ -85,26 +88,26 @@ namespace IWantToBeAStar.MainGame
                     {
                         switch (ChangingTarget)
                         {
-                            case BackgroundStatus.LowSky:
+                            case Stage.LowSky:
                                 {
                                     ChangeSprite = GetBackgroundRotate(BackgroundList.LowSky);
                                     needBgReturn = false;
                                     needBgChange = false;
-                                    GameData.BgStatus = BackgroundStatus.LowSky;
+                                    GameData.CurrentStage = Stage.LowSky;
                                     break;
                                 }
-                            case BackgroundStatus.HighSky:
+                            case Stage.HighSky:
                                 {
                                     ChangeSprite = BackgroundList.LowSkyToHighSky;
                                     needBgReturn = true;
-                                    GameData.BgStatus = BackgroundStatus.HighSky;
+                                    GameData.CurrentStage = Stage.HighSky;
                                     break;
                                 }
-                            case BackgroundStatus.Space:
+                            case Stage.Space:
                                 {
                                     ChangeSprite = BackgroundList.HighSkyToSpace;
                                     needBgReturn = true;
-                                    GameData.BgStatus = BackgroundStatus.Space;
+                                    GameData.CurrentStage = Stage.Space;
                                     break;
                                 }
                         }
@@ -116,11 +119,11 @@ namespace IWantToBeAStar.MainGame
                     {
                         switch (ChangingTarget)
                         {
-                            case BackgroundStatus.HighSky:
+                            case Stage.HighSky:
                                 ChangeSprite = GetBackgroundRotate(BackgroundList.HighSky);
                                 break;
 
-                            case BackgroundStatus.Space:
+                            case Stage.Space:
                                 ChangeSprite = GetBackgroundRotate(BackgroundList.Space);
                                 break;
                         }
@@ -136,17 +139,17 @@ namespace IWantToBeAStar.MainGame
 
                 else
                 {
-                    switch (GameData.BgStatus)
+                    switch (GameData.CurrentStage)
                     {
-                        case BackgroundStatus.LowSky:
+                        case Stage.LowSky:
                             ChangeSprite = GetBackgroundRotate(BackgroundList.LowSky);
                             break;
 
-                        case BackgroundStatus.HighSky:
+                        case Stage.HighSky:
                             ChangeSprite = GetBackgroundRotate(BackgroundList.HighSky);
                             break;
 
-                        case BackgroundStatus.Space:
+                        case Stage.Space:
                             ChangeSprite = GetBackgroundRotate(BackgroundList.Space);
                             break;
                     }
@@ -160,7 +163,7 @@ namespace IWantToBeAStar.MainGame
 
         /// <summary>
         /// 서로 다른 배경들을 번갈아가면서 반환합니다.
-        /// 예를 들어 <see cref="BackgroundStatus.LowSky"/>에서
+        /// 예를 들어 <see cref="Stage.LowSky"/>에서
         /// 배경 3개를 번갈아가며 한번 호출될때마다 서로 다른 배경을 반환합니다.
         /// </summary>
         /// <param name="sprites"></param>
