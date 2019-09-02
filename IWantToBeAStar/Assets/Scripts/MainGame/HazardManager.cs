@@ -2,9 +2,9 @@
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace IWantToBeAStar.MainGame
+namespace IWantToBeAStar.MainGame.MapObjects.Hazards
 {
-    public class HazardManager : GameManager
+    public class HazardManager : MonoBehaviour
     {
         public Vector2 UpPosition;
         public Vector2 LeftPosition;
@@ -18,18 +18,19 @@ namespace IWantToBeAStar.MainGame
 
         public void Start()
         {
-            StageChangedEvent += HandleStageChangedEvent;
+            GameManager controller = FindObjectOfType<GameManager>();
+            //controller.OnBackgroundChange += WhenReceivedBgChangeEvent;
 
             GameData.UpPosition = UpPosition;
             GameData.LeftPosition = LeftPosition;
             GameData.RightPosition = RightPosition;
         }
 
-        private void HandleStageChangedEvent(object sender, StageChangedEventArgs e)
+        private void WhenReceivedBgChangeEvent(Stage status)
         {
             StopAllCoroutines();
-
-            switch (e.ChangedStage)
+            
+            switch (status)
             {
                 case Stage.Ground:
                     break;
