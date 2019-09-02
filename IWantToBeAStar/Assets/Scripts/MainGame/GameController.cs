@@ -21,7 +21,6 @@ namespace IWantToBeAStar.MainGame
 
         #region 유니티 세팅 값
 
-        public Text ScoreText;
         public Text ResultScore;
         public Text StatusHeader;
         public Text StatusBody;
@@ -46,18 +45,6 @@ namespace IWantToBeAStar.MainGame
         /// </summary>
         public float SpawnGain;
 
-        /// <summary>
-        /// 맨처음 시작 대기 시간
-        /// </summary>
-        public float StartWait;
-
-        /// <summary>
-        /// 점수 증가 시간 폭
-        /// </summary>
-        public float ScoreTimeGain;
-
-        public int HighSkyStartScore;
-        public int SpaceStartScore;
         public int Goals;
 
         #endregion 유니티 세팅 값
@@ -69,11 +56,10 @@ namespace IWantToBeAStar.MainGame
         private bool sentInfo = false;
         private bool openedGameOverPanel = false;
 
+        public event EventHandler GameEndedEvent;
+
         private void Awake()
         {
-            GameData.Score = 0;
-            GameData.HighSkyStartScore = HighSkyStartScore;
-            GameData.SpaceStartScore = SpaceStartScore;
             GameData.IsGameRunning = true;
             GameData.SpawnWait = SpawnWait;
             GameData.StartSpawnMeteo = false;
@@ -86,8 +72,6 @@ namespace IWantToBeAStar.MainGame
         // Use this for initialization
         private void Start()
         {
-            ScoreText.text = "0";
-
             switch (GameData.Charactor)
             {
                 case Charactors.Cat:
@@ -104,19 +88,20 @@ namespace IWantToBeAStar.MainGame
                     break;
             }
 
-            StartCoroutine("StartSpawning");
+            Cursor.visible = false;
         }
 
         private void Update()
         {
             if (!GameData.IsGameRunning && !openedGameOverPanel)
             {
+                OnGameEndedEvent();
                 openedGameOverPanel = true;
                 StopCoroutine("Scoring");
                 Cursor.visible = true;
                 Debug.Log("게임 끝");
 
-
+                // 점수가 상품을 줈 있는 최저 점수를 넘겼는지 확인
                 if (GameData.Score < Goals)
                 {
                     StatusHeader.text
@@ -137,83 +122,16 @@ namespace IWantToBeAStar.MainGame
             }
         }
 
-        private IEnumerator StartSpawning()
+        protected virtual void OnGameEndedEvent()
         {
-            Cursor.visible = false;
-            // 다른 루틴보다 늦게 시작해서 오류가 안나게 함
-            yield return new WaitForEndOfFrame();
-
-            // 맨 처음 시작 대기
-            yield return new WaitForSeconds(StartWait);
-            StartCoroutine("Scoring");
+            GameEndedEvent?.Invoke(this, null);
         }
 
-        private IEnumerator Scoring()
-        {
-            while (true)
-            {
-                yield return new WaitForSeconds(ScoreTimeGain);
-                AddScore(1);
-                /*
-                var score = GameData.Score;
-
-                if (GameData.SpawnWait > 0.2f)
-                {
-                    if (score % 100 == 0)
-                    {
-                        ReduceSpawnWait();
-                    }
-                }
-                
-                if (score == HighSkyChangeScore)
-                {
-                    OnBackgroundChange(BackgroundStatus.HighSky);
-                }
-                else if (score == SpaceChangeScore)
-                {
-                    OnBackgroundChange(BackgroundStatus.Space);
-                    GameData.StartSpawnMeteo = true;
-                    StartCoroutine(ChangeScoreHeaderColor());
-                }
-
-                if (score >= SpaceChangeScore + 1 && score % 200 == 0)
-                {
-                    if (!GameData.StartSpawnMeteo)
-                    {
-                        GameData.StartSpawnMeteo = true;
-                        GameData.StartSpawnUFO = false;
-                    }
-                    else if (!GameData.StartSpawnUFO)
-                    {
-                        GameData.StartSpawnMeteo = false;
-                        GameData.StartSpawnUFO = true;
-                    }
-                }
-                GameData.CheckSpaceSpawn = true;
-                */
-            }
-        }
 
         private void ReduceSpawnWait()
         {
             GameData.SpawnWait -= SpawnGain;
             Debug.Log("스폰 시간 감소");
-        }
-
-        private void AddScore(int score)
-        {
-            GameData.Score += score;
-            ScoreText.text = GameData.Score.ToString();
-        }
-
-        private IEnumerator ChangeScoreHeaderColorBlackToWhite()
-        {
-            while (ScoreText.color.r <= 255)
-            {
-                float beforeColor = ScoreText.color.r + 0.01f;
-                ScoreText.color = new Color(beforeColor, beforeColor, beforeColor);
-                yield return new WaitForSeconds(0.05f);
-            }
         }
 
         public void Restart()
@@ -229,7 +147,7 @@ namespace IWantToBeAStar.MainGame
         public void EndWritingClass()
         {
             userClass = ClassField.text;
-            Debug.Log("입력: "+ userClass);
+            Debug.Log("입력: " + userClass);
         }
 
         public void EndWritingName()

@@ -27,9 +27,18 @@ namespace IWantToBeAStar
                     "기본상품을 아직 받지 못했을 경우 스태프에게 " +
                     "해당 점수를 보여주시면 기본상품을 드립니다." +
                     "\n\n(기본상품은 한번만 받을 수 있습니다.)"
+                },
+                {
+                    "Error_DoesNotFindGameController",
+                    "Game Controller 오브젝트를 찾을 수 없습니다."
                 }
             };
 
+        /// <summary>
+        /// <paramref name="name"/>에 맞는 문자열을 봔환합니다.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         internal static string GetString(string name)
         {
             return values[name];
