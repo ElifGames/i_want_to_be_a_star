@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-
-namespace IWantToBeAStar
+﻿namespace IWantToBeAStar
 {
     public enum Charactors
     {

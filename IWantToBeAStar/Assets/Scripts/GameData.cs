@@ -1,6 +1,7 @@
 ﻿using IWantToBeAStar.MainGame.MapObjects.Hazards;
 using System;
 using UnityEngine;
+
 namespace IWantToBeAStar
 {
     /// <summary>
@@ -19,16 +20,10 @@ namespace IWantToBeAStar
         /// </summary>
         internal static int Score { get; set; }
 
-
         /// <summary>
         /// 상품을 줄 수 있는 최저 점수
         /// </summary>
         internal static int Goal { get; set; }
-
-        /// <summary>
-        /// 게임이 진행중인지 확인
-        /// </summary>
-        //internal static bool IsGameRunning { get; set; }
 
         /// <summary>
         /// 스폰 시간 간격
@@ -39,6 +34,17 @@ namespace IWantToBeAStar
         /// 스폰 시간 감소 폭
         /// </summary>
         internal static float SpawnGain { get; set; }
+
+        /// <summary>
+        /// 점수 증가 시간 폭
+        /// </summary>
+        internal static float ScoreTimeGain { get; set; }
+
+        /// <summary>
+        /// 해당 값의 점수대마다 스폰 시간 감소
+        /// </summary>
+        internal static int ReduceSpawnGainScore { get; set; }
+
 
         internal static Vector2 UpPosition { get; set; }
         internal static Vector2 LeftPosition { get; set; }

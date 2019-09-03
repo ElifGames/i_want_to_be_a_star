@@ -1,13 +1,9 @@
-﻿using System;
-using IWantToBeAStar.MainGame;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using IWantToBeAStar;
-using UnityEngine.Networking;
+﻿using System.Collections;
 using System.Text;
+using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace IWantToBeAStar.MainGame
 {
@@ -58,10 +54,6 @@ namespace IWantToBeAStar.MainGame
             gameManager.GameEndEvent += HandleGameEndedEvent;
         }
 
-        private void Start()
-        {
-        }
-
         private void HandleGameEndedEvent()
         {
             // openedGameOverPanel = true;
@@ -85,10 +77,10 @@ namespace IWantToBeAStar.MainGame
             }
             ResultScore.text = GameData.Score.ToString();
 
-            //GameOverPanel.SetActive(true);
             OpenGameOverPanel();
         }
 
+        #region 유니티 UGUI 이벤트
         public void Restart()
         {
             SceneManager.LoadScene("MainGame");
@@ -147,7 +139,12 @@ namespace IWantToBeAStar.MainGame
             WriteInfoPanel.SetActive(false);
             GameOverPanel.SetActive(true);
         }
+        #endregion
 
+        /// <summary>
+        /// 유저가 입력한 학번, 이름, 점수를 서버에 기록합니다.
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator SendUserScore()
         {
             if (Application.internetReachability == NetworkReachability.NotReachable)

@@ -1,10 +1,6 @@
-﻿using System;
-using IWantToBeAStar;
-using IWantToBeAStar.MainGame;
+﻿using IWantToBeAStar.MainGame.MapObjects.Hazards;
 using System.Collections;
 using UnityEngine;
-using IWantToBeAStar.MainGame.MapObjects.Hazards;
-using UnityEngine.UI;
 
 namespace IWantToBeAStar.MainGame
 {
@@ -15,10 +11,16 @@ namespace IWantToBeAStar.MainGame
         /// </summary>
         public float ScoreTimeGain;
 
+        /// <summary>
+        /// 해당 값의 점수대마다 스폰 시간 감소
+        /// </summary>
+        public int ReduceSpawnGainScore;
+
         public int HighSkyStartScore;
         public int SpaceStartScore;
 
         public delegate void StageChanged(Stage changedStage);
+
         public event StageChanged StageChangedEvent;
 
         private GameManager gameManager;
@@ -27,6 +29,7 @@ namespace IWantToBeAStar.MainGame
         {
             StopCoroutine("Scoring");
         }
+
         private void Awake()
         {
             gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
@@ -34,11 +37,14 @@ namespace IWantToBeAStar.MainGame
             GameData.Score = 0;
             GameData.HighSkyStartScore = HighSkyStartScore;
             GameData.SpaceStartScore = SpaceStartScore;
+            GameData.ScoreTimeGain = ScoreTimeGain;
+            GameData.ReduceSpawnGainScore = ReduceSpawnGainScore;
+
             gameManager.GameEndEvent += HandleGameEndedEvent;
             gameManager.GameStartEvent += HandleGameStartEvent;
         }
 
-        void Start()
+        private void Start()
         {
             UIManager.GameUI.ScoreText.text = "0";
         }
@@ -56,11 +62,11 @@ namespace IWantToBeAStar.MainGame
                 AddScore(1);
                 var score = GameData.Score;
 
-                // 100점마다 스폰 주기 감소
+                // 일정 점수대마다 스폰 주기 감소
                 // 0.2초보다 낮아지거나 같으면 더이상 감소 안함
                 if (GameData.SpawnWait > 0.2f)
                 {
-                    if (score % 100 == 0)
+                    if (score % ReduceSpawnGainScore == 0)
                     {
                         ReduceSpawnWait();
                     }
@@ -72,7 +78,6 @@ namespace IWantToBeAStar.MainGame
                 }
                 else if (score == SpaceStartScore)
                 {
-                    GameData.SpawnSpaceHazard = SpaceHazards.Meteo;
                     StageChangedEvent(Stage.Space);
                     StartCoroutine(ChangeScoreHeaderColorBlackToWhite());
                 }
@@ -86,9 +91,11 @@ namespace IWantToBeAStar.MainGame
                         case SpaceHazards.Meteo:
                             GameData.SpawnSpaceHazard = SpaceHazards.UFO;
                             break;
+
                         case SpaceHazards.UFO:
                             GameData.SpawnSpaceHazard = SpaceHazards.Meteo;
                             break;
+
                         default:
                             break;
                     }
@@ -101,8 +108,7 @@ namespace IWantToBeAStar.MainGame
             GameData.Score += score;
             UIManager.GameUI.ScoreText.text = GameData.Score.ToString();
         }
-
-        public IEnumerator ChangeScoreHeaderColorBlackToWhite()
+        private IEnumerator ChangeScoreHeaderColorBlackToWhite()
         {
             while (UIManager.GameUI.ScoreText.color.r <= 255)
             {
@@ -115,8 +121,7 @@ namespace IWantToBeAStar.MainGame
         private void ReduceSpawnWait()
         {
             GameData.SpawnWait -= GameData.SpawnGain;
-            Debug.Log("스폰 시간 감소");
+            Debug.Log($"스폰 시간 감소: {GameData.SpawnWait}");
         }
-
     }
 }

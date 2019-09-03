@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using IWantToBeAStar.MainGame.MapObjects.Hazards;
+using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -6,15 +7,18 @@ namespace IWantToBeAStar.MainGame
 {
     public class HazardManager : MonoBehaviour
     {
+        #region 유니티 세팅 값
         public Vector2 UpPosition;
         public Vector2 LeftPosition;
         public Vector2 RightPosition;
+
         public GameObject Bird;
         public GameObject Airplane;
         public GameObject Lightning;
         public GameObject Dangerous;
         public GameObject UFO;
         public GameObject Meteo;
+
         /// <summary>
         /// 스폰 시간 간격
         /// </summary>
@@ -24,9 +28,7 @@ namespace IWantToBeAStar.MainGame
         /// 스폰 시간 감소 폭
         /// </summary>
         public float SpawnGain;
-
-
-        private bool spawnMeteo;
+        #endregion
 
         private ScoreManager scoreManager;
         private GameManager gameManager;
@@ -44,14 +46,9 @@ namespace IWantToBeAStar.MainGame
             GameData.LeftPosition = LeftPosition;
             GameData.RightPosition = RightPosition;
         }
-        private void Start()
-        {
-
-        }
 
         private void HandleGameStartEvent()
         {
-            
             StartCoroutine("StartSpawningLeftRightMove", new object[2] { Bird, 0f });
         }
 
@@ -74,7 +71,7 @@ namespace IWantToBeAStar.MainGame
                     break;
 
                 case Stage.Space:
-                    //StartCoroutine("RemoveNotDelectedLightnings");
+                    GameData.SpawnSpaceHazard = SpaceHazards.Meteo;
                     StartCoroutine("StartSpawningSpaceHazards");
                     break;
 
@@ -93,6 +90,7 @@ namespace IWantToBeAStar.MainGame
         /// <returns></returns>
         private IEnumerator StartSpawningLeftRightMove(object[] parameters)
         {
+            // TODO: parameters[1]은 필요가 없으므로 제거 필요
             GameObject hazard = (GameObject)parameters[0];
             float spawnWaitGain = (float)parameters[1];
 
@@ -160,11 +158,11 @@ namespace IWantToBeAStar.MainGame
             {
                 switch (GameData.SpawnSpaceHazard)
                 {
-                    case MapObjects.Hazards.SpaceHazards.Meteo:
+                    case SpaceHazards.Meteo:
                         SpawnHazard(Meteo, Direction.Up);
                         break;
 
-                    case MapObjects.Hazards.SpaceHazards.UFO:
+                    case SpaceHazards.UFO:
                         SpawnLeftOrRight(UFO);
                         break;
 

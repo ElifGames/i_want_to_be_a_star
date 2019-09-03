@@ -22,6 +22,7 @@ namespace IWantToBeAStar.MainGame.MapObjects
 
         private void HandleGameStartEvent()
         {
+            // GameStartEvent를 받고 나서 움직일 수 있도록 구현함
             gameRunning = true;
         }
 
@@ -35,6 +36,7 @@ namespace IWantToBeAStar.MainGame.MapObjects
                     case Controllers.Keyboard:
                         KeyboardControl();
                         break;
+
                     case Controllers.Mouse:
                         MouseControl();
                         break;

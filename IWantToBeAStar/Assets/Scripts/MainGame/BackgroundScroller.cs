@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,29 +11,44 @@ namespace IWantToBeAStar.MainGame
         public BackgroundList BackgroundList;
         public SpriteRenderer FirstSprite;
         public SpriteRenderer SecondSprite;
+
+        /// <summary>
+        /// 배경 스크롤 속도
+        /// </summary>
         public float scrollSpeed;
 
         #endregion 유니티 세팅 값
 
+        /// <summary>
+        /// 스프라이트가 화면의 최상단에 위치되는 지점
+        /// </summary>
         private readonly float tileChangeLine = 16f;
-        // private readonly float tileSizeZ = 0.5f;
 
+        /// <summary>
+        /// 스프라이트가 다시 최초 위치로 이동하는데 사용됩니다.
+        /// </summary>
         private Vector3 startPosition;
 
         /// <summary>
         /// 스테이지가 바뀌었는지 여부를 알려줍니다.
         /// </summary>
         private bool hasStageChanged = false;
+
+        /// <summary>
+        /// 변경되는 Stage
+        /// </summary>
         private Stage ChangingTarget;
 
-        // 백그라운드 순환
+        /// <summary>
+        /// 같은 스테이지에서 여러 배경을 순서대로 보여줄때 사용됩니다.
+        /// </summary>
         private int bgRotateCount = 0;
 
         private ScoreManager scoreManager;
         private GameManager gameManager;
 
         private bool gameRunning;
-        
+
         private void HandleStageChangedEvent(Stage changedStage)
         {
             Debug.Log("배경 변경");
@@ -66,6 +80,7 @@ namespace IWantToBeAStar.MainGame
 
         private void HandleGameStartEvent()
         {
+            // 배경이 GameStartEvent를 받고 나서 작동할 수 있도록 함
             gameRunning = true;
         }
 
@@ -88,7 +103,6 @@ namespace IWantToBeAStar.MainGame
                 // 다시 처음 위치로 이동
                 transform.position = startPosition;
 
-                
                 Sprite ChangeSprite = null;
 
                 #region 배경 전환이 필요한 경우
@@ -98,26 +112,22 @@ namespace IWantToBeAStar.MainGame
                     switch (ChangingTarget)
                     {
                         case Stage.LowSky:
-                        {
                             ChangeSprite = GetBackgroundRotate(BackgroundList.LowSky);
                             hasStageChanged = false;
                             GameData.CurrentStage = Stage.LowSky;
                             break;
-                        }
+
                         case Stage.HighSky:
-                        {
                             ChangeSprite = BackgroundList.LowSkyToHighSky;
                             hasStageChanged = false;
                             GameData.CurrentStage = Stage.HighSky;
                             break;
-                        }
+
                         case Stage.Space:
-                        {
                             ChangeSprite = BackgroundList.HighSkyToSpace;
                             hasStageChanged = false;
                             GameData.CurrentStage = Stage.Space;
                             break;
-                        }
                     }
                 }
 
@@ -143,7 +153,7 @@ namespace IWantToBeAStar.MainGame
 
                 SecondSprite.sprite = ChangeSprite;
             }
-            // 스프라이트 내리기
+            // 스프라이트를 아래로 스크롤
             transform.Translate(new Vector3(0, Time.deltaTime * scrollSpeed * -1, startPosition.z));
         }
 
@@ -156,6 +166,7 @@ namespace IWantToBeAStar.MainGame
         /// <returns></returns>
         private Sprite GetBackgroundRotate(List<Sprite> sprites)
         {
+            //TODO: 순환해야 할 배경이 3개가 아닐 때 오류가 남
             var returnValue = sprites[bgRotateCount];
             if (bgRotateCount >= 2)
             {

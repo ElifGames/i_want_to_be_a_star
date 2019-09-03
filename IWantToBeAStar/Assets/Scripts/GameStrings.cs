@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace IWantToBeAStar
 {
@@ -15,7 +12,7 @@ namespace IWantToBeAStar
                     "이런!"
                 },
                 {
-                    "ScoreStatusHeader_Accomplish", 
+                    "ScoreStatusHeader_Accomplish",
                     "(박수 짝짝)"
                 },
                 {
@@ -27,10 +24,6 @@ namespace IWantToBeAStar
                     "기본상품을 아직 받지 못했을 경우 스태프에게 " +
                     "해당 점수를 보여주시면 기본상품을 드립니다." +
                     "\n\n(기본상품은 한번만 받을 수 있습니다.)"
-                },
-                {
-                    "Error_DoesNotFindGameManager",
-                    "Game Controller 오브젝트를 찾을 수 없습니다."
                 }
             };
 

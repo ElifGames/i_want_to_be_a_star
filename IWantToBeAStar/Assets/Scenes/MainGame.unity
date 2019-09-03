@@ -315,8 +315,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScoreTimeGain: 0.1
-  HighSkyStartScore: 200
-  SpaceStartScore: 300
+  ReduceSpawnGainScore: 100
+  HighSkyStartScore: 300
+  SpaceStartScore: 500
 --- !u!1 &696947393
 GameObject:
   m_ObjectHideFlags: 0

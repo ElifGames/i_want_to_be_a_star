@@ -1,6 +1,4 @@
-﻿using IWantToBeAStar;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -38,4 +36,3 @@ namespace IWantToBeAStar.Settings
         }
     }
 }
-
