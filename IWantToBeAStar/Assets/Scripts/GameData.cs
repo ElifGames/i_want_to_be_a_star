@@ -19,6 +19,12 @@ namespace IWantToBeAStar
         /// </summary>
         internal static int Score { get; set; }
 
+
+        /// <summary>
+        /// 상품을 줄 수 있는 최저 점수
+        /// </summary>
+        internal static int Goal { get; set; }
+
         /// <summary>
         /// 게임이 진행중인지 확인
         /// </summary>
@@ -28,6 +34,11 @@ namespace IWantToBeAStar
         /// 스폰 시간 간격
         /// </summary>
         internal static float SpawnWait { get; set; }
+
+        /// <summary>
+        /// 스폰 시간 감소 폭
+        /// </summary>
+        internal static float SpawnGain { get; set; }
 
         internal static Vector2 UpPosition { get; set; }
         internal static Vector2 LeftPosition { get; set; }

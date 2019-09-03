@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace IWantToBeAStar.MainGame
 {
-    public class BackgroundScroller : GameManager
+    public class BackgroundScroller : MonoBehaviour
     {
         #region 유니티 세팅 값
 
@@ -30,16 +30,25 @@ namespace IWantToBeAStar.MainGame
         // 백그라운드 순환
         private int bgRotateCount = 0;
 
-        private void Awake()
-        {
-            StageChangedEvent += HandleStageChangedEvent;
-        }
+        private ScoreManager scoreManager;
+        private GameManager gameManager;
 
-        private void HandleStageChangedEvent(object sender, StageChangedEventArgs e)
+        private bool gameRunning;
+        
+        private void HandleStageChangedEvent(Stage changedStage)
         {
             Debug.Log("배경 변경");
-            ChangingTarget = e.ChangedStage;
+            ChangingTarget = changedStage;
             hasStageChanged = true;
+        }
+
+        private void Awake()
+        {
+            scoreManager = GameObject.Find("Score Manager").GetComponent<ScoreManager>();
+            gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+            scoreManager.StageChangedEvent += HandleStageChangedEvent;
+            gameManager.GameStartEvent += HandleGameStartEvent;
+            gameRunning = false;
         }
 
         private void Start()
@@ -55,9 +64,17 @@ namespace IWantToBeAStar.MainGame
             ChangingTarget = Stage.LowSky;
         }
 
+        private void HandleGameStartEvent()
+        {
+            gameRunning = true;
+        }
+
         private void FixedUpdate()
         {
-            BackgroundScroll();
+            if (gameRunning)
+            {
+                BackgroundScroll();
+            }
         }
 
         private void BackgroundScroll()

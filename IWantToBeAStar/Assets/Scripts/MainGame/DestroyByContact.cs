@@ -2,8 +2,13 @@
 
 namespace IWantToBeAStar.MainGame
 {
-    public class DestroyByContact : GameManager
+    public class DestroyByContact : MonoBehaviour
     {
+        GameManager gameManager;
+        private void Start()
+        {
+            gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+        }
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.tag == "Boundary")
@@ -12,7 +17,7 @@ namespace IWantToBeAStar.MainGame
             }
             if (other.tag == "Player")
             {
-                OnGameEndedEvent();
+                gameManager.PlayerHasDead();
             }
             // Destroy(other.gameObject);
             Destroy(gameObject);

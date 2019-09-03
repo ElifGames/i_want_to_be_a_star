@@ -6,105 +6,117 @@ using UnityEngine;
 using IWantToBeAStar.MainGame.MapObjects.Hazards;
 using UnityEngine.UI;
 
-public class ScoreManager : GameManager
+namespace IWantToBeAStar.MainGame
 {
-
-    /// <summary>
-    /// 점수 증가 시간 폭
-    /// </summary>
-    public float ScoreTimeGain;
-
-    public int HighSkyStartScore;
-    public int SpaceStartScore;
-
-    private void Awake()
+    public class ScoreManager : MonoBehaviour
     {
-        GameData.Score = 0;
-        GameData.HighSkyStartScore = HighSkyStartScore;
-        GameData.SpaceStartScore = SpaceStartScore;
+        /// <summary>
+        /// 점수 증가 시간 폭
+        /// </summary>
+        public float ScoreTimeGain;
 
-        GameEndedEvent += HandleGameEndedEvent;
-    }
+        public int HighSkyStartScore;
+        public int SpaceStartScore;
 
-    private void HandleGameEndedEvent(object sender, EventArgs e)
-    {
-        StopCoroutine("Scoring");
-    }
+        public delegate void StageChanged(Stage changedStage);
+        public event StageChanged StageChangedEvent;
 
-    void Start()
-    {
-        ScoreText.text = "0";
-        StartCoroutine("Scoring");
-    }
+        private GameManager gameManager;
 
-    private IEnumerator Scoring()
-    {
-        while (true)
+        private void HandleGameEndedEvent()
         {
-            yield return new WaitForSeconds(ScoreTimeGain);
-            AddScore(1);
-            var score = GameData.Score;
+            StopCoroutine("Scoring");
+        }
+        private void Awake()
+        {
+            gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
 
-            // 100점마다 스폰 주기 감소
-            // 0.2초보다 낮아지거나 같으면 더이상 감소 안함
-            if (GameData.SpawnWait > 0.2f)
+            GameData.Score = 0;
+            GameData.HighSkyStartScore = HighSkyStartScore;
+            GameData.SpaceStartScore = SpaceStartScore;
+            gameManager.GameEndEvent += HandleGameEndedEvent;
+            gameManager.GameStartEvent += HandleGameStartEvent;
+        }
+
+        void Start()
+        {
+            UIManager.GameUI.ScoreText.text = "0";
+        }
+
+        private void HandleGameStartEvent()
+        {
+            StartCoroutine("Scoring");
+        }
+
+        private IEnumerator Scoring()
+        {
+            while (true)
             {
-                if (score % 100 == 0)
+                yield return new WaitForSeconds(ScoreTimeGain);
+                AddScore(1);
+                var score = GameData.Score;
+
+                // 100점마다 스폰 주기 감소
+                // 0.2초보다 낮아지거나 같으면 더이상 감소 안함
+                if (GameData.SpawnWait > 0.2f)
                 {
-                    ReduceSpawnWait();
+                    if (score % 100 == 0)
+                    {
+                        ReduceSpawnWait();
+                    }
                 }
-            }
 
-            if (score == HighSkyStartScore)
-            {
-                OnStageChangedEvent(new StageChangedEventArgs(Stage.HighSky));
-            }
-            else if (score == SpaceStartScore)
-            {
-                GameData.SpawnSpaceHazard = SpaceHazards.Meteo;
-                OnStageChangedEvent(new StageChangedEventArgs(Stage.Space));
-                StartCoroutine(ChangeScoreHeaderColorBlackToWhite());
-            }
-
-            // SpaceStartScore보다 높은 점수 일때
-            // 200점마다 장애물 변경
-            if ((score >= SpaceStartScore + 1) && (score % 200 == 0))
-            {
-                switch (GameData.SpawnSpaceHazard)
+                if (score == HighSkyStartScore)
                 {
-                    case SpaceHazards.Meteo:
-                        GameData.SpawnSpaceHazard = SpaceHazards.UFO;
-                        break;
-                    case SpaceHazards.UFO:
-                        GameData.SpawnSpaceHazard = SpaceHazards.Meteo;
-                        break;
-                    default:
-                        break;
+                    StageChangedEvent(Stage.HighSky);
+                }
+                else if (score == SpaceStartScore)
+                {
+                    GameData.SpawnSpaceHazard = SpaceHazards.Meteo;
+                    StageChangedEvent(Stage.Space);
+                    StartCoroutine(ChangeScoreHeaderColorBlackToWhite());
+                }
+
+                // SpaceStartScore보다 높은 점수 일때
+                // 200점마다 장애물 변경
+                if ((score >= SpaceStartScore + 1) && (score % 200 == 0))
+                {
+                    switch (GameData.SpawnSpaceHazard)
+                    {
+                        case SpaceHazards.Meteo:
+                            GameData.SpawnSpaceHazard = SpaceHazards.UFO;
+                            break;
+                        case SpaceHazards.UFO:
+                            GameData.SpawnSpaceHazard = SpaceHazards.Meteo;
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }
-    }
 
-    private void AddScore(int score)
-    {
-        GameData.Score += score;
-        ScoreText.text = GameData.Score.ToString();
-    }
-
-    public IEnumerator ChangeScoreHeaderColorBlackToWhite()
-    {
-        while (ScoreText.color.r <= 255)
+        private void AddScore(int score)
         {
-            float beforeColor = ScoreText.color.r + 0.01f;
-            ScoreText.color = new Color(beforeColor, beforeColor, beforeColor);
-            yield return new WaitForSeconds(0.05f);
+            GameData.Score += score;
+            UIManager.GameUI.ScoreText.text = GameData.Score.ToString();
         }
-    }
 
-    private void ReduceSpawnWait()
-    {
-        GameData.SpawnWait -= SpawnGain;
-        Debug.Log("스폰 시간 감소");
-    }
+        public IEnumerator ChangeScoreHeaderColorBlackToWhite()
+        {
+            while (UIManager.GameUI.ScoreText.color.r <= 255)
+            {
+                float beforeColor = UIManager.GameUI.ScoreText.color.r + 0.01f;
+                UIManager.GameUI.ScoreText.color = new Color(beforeColor, beforeColor, beforeColor);
+                yield return new WaitForSeconds(0.05f);
+            }
+        }
 
+        private void ReduceSpawnWait()
+        {
+            GameData.SpawnWait -= GameData.SpawnGain;
+            Debug.Log("스폰 시간 감소");
+        }
+
+    }
 }

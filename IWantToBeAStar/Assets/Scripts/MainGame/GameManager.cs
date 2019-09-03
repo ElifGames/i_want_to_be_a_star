@@ -8,7 +8,6 @@ using UnityEngine.UI;
 
 namespace IWantToBeAStar.MainGame
 {
-
     public class GameManager : MonoBehaviour
     {
         [Serializable]
@@ -22,45 +21,29 @@ namespace IWantToBeAStar.MainGame
 
         #region 유니티 세팅 값
 
-        /// <summary>
-        /// 스폰 시간 간격
-        /// </summary>
-        public float SpawnWait;
 
-        /// <summary>
-        /// 스폰 시간 감소 폭
-        /// </summary>
-        public float SpawnGain;
-
-        public int Goals;
+        public int Goal;
+        public int StartWait;
 
         public PlayerSkins PlayerSkin;
+        private GameObject Player;
+
 
         #endregion 유니티 세팅 값
 
         // private bool paused;
-        protected GameObject Player;
-        protected Text ScoreText;
-        protected Text ResultScore;
-        protected Text StatusHeader;
-        protected Text StatusBody;
+        public delegate void GameEnd();
+        public event GameEnd GameEndEvent;
 
-        protected event EventHandler GameEndedEvent;
-        protected event EventHandler<StageChangedEventArgs> StageChangedEvent;
-
+        public delegate void GameStart();
+        public event GameStart GameStartEvent;
 
         private void Awake()
         {
             Player = GameObject.Find("Player");
 
-            //GameData.IsGameRunning = true;
-            GameData.SpawnWait = SpawnWait;
-            //Application.targetFrameRate = 60;
-        }
+            GameData.Goal = Goal;
 
-        // Use this for initialization
-        private void Start()
-        {
             switch (GameData.Charactor)
             {
                 case Charactors.Cat:
@@ -77,23 +60,23 @@ namespace IWantToBeAStar.MainGame
                     break;
             }
 
-
-
             Cursor.visible = false;
         }
 
-        private void Update()
+        private void Start()
         {
+            StartCoroutine(WaitAndStart());
         }
 
-        protected virtual void OnGameEndedEvent()
+        private IEnumerator WaitAndStart()
         {
-            GameEndedEvent?.Invoke(this, null);
+            yield return new WaitForSeconds(StartWait);
+            GameStartEvent();
         }
 
-        protected virtual void OnStageChangedEvent(StageChangedEventArgs e)
+        public void PlayerHasDead()
         {
-            StageChangedEvent?.Invoke(this, e);
+            GameEndEvent();
         }
     }
 }

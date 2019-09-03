@@ -10,6 +10,7 @@ TagManager:
   - Notification
   - GameOverPanel
   - Panel
+  - ResultScore
   layers:
   - Default
   - TransparentFX

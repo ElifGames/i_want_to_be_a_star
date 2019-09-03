@@ -4,7 +4,7 @@ using Random = UnityEngine.Random;
 
 namespace IWantToBeAStar.MainGame
 {
-    public class HazardManager : GameManager
+    public class HazardManager : MonoBehaviour
     {
         public Vector2 UpPosition;
         public Vector2 LeftPosition;
@@ -15,23 +15,51 @@ namespace IWantToBeAStar.MainGame
         public GameObject Dangerous;
         public GameObject UFO;
         public GameObject Meteo;
+        /// <summary>
+        /// 스폰 시간 간격
+        /// </summary>
+        public float SpawnWait;
+
+        /// <summary>
+        /// 스폰 시간 감소 폭
+        /// </summary>
+        public float SpawnGain;
+
 
         private bool spawnMeteo;
 
-        public void Start()
-        {
-            StageChangedEvent += HandleStageChangedEvent;
+        private ScoreManager scoreManager;
+        private GameManager gameManager;
 
+        private void Awake()
+        {
+            scoreManager = GameObject.Find("Score Manager").GetComponent<ScoreManager>();
+            gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+            scoreManager.StageChangedEvent += HandleStageChangedEvent;
+            gameManager.GameStartEvent += HandleGameStartEvent;
+
+            GameData.SpawnWait = SpawnWait;
+            GameData.SpawnGain = SpawnGain;
             GameData.UpPosition = UpPosition;
             GameData.LeftPosition = LeftPosition;
             GameData.RightPosition = RightPosition;
         }
+        private void Start()
+        {
 
-        private void HandleStageChangedEvent(object sender, StageChangedEventArgs e)
+        }
+
+        private void HandleGameStartEvent()
+        {
+            
+            StartCoroutine("StartSpawningLeftRightMove", new object[2] { Bird, 0f });
+        }
+
+        private void HandleStageChangedEvent(Stage changedStage)
         {
             StopAllCoroutines();
 
-            switch (e.ChangedStage)
+            switch (changedStage)
             {
                 case Stage.Ground:
                     break;
@@ -60,7 +88,7 @@ namespace IWantToBeAStar.MainGame
         /// </summary>
         /// <param name="parameters">
         /// parameters[0] -> <see cref="GameObject"/>,
-        /// parameters[1] -> float
+        /// parameters[1] -> (float) 스폰 주기
         /// </param>
         /// <returns></returns>
         private IEnumerator StartSpawningLeftRightMove(object[] parameters)
