@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IWantToBeAStar.MainGame.MapObjects.Hazards;
+using System;
 using UnityEngine;
 namespace IWantToBeAStar
 {
@@ -21,7 +22,7 @@ namespace IWantToBeAStar
         /// <summary>
         /// 게임이 진행중인지 확인
         /// </summary>
-        internal static bool IsGameRunning { get; set; }
+        //internal static bool IsGameRunning { get; set; }
 
         /// <summary>
         /// 스폰 시간 간격
@@ -42,9 +43,10 @@ namespace IWantToBeAStar
         /// </summary>
         internal static int SpaceStartScore { get; set; }
 
-        internal static bool StartSpawnMeteo { get; set; }
-        internal static bool StartSpawnUFO { get; set; }
-        internal static bool CheckSpaceSpawn { get; set; }
+        /// <summary>
+        /// 어떤 종류의 장애물을 생성해야 하는지 알려줍니다.
+        /// </summary>
+        internal static SpaceHazards SpawnSpaceHazard { get; set; }
 
         internal static Charactors Charactor { get; set; }
         internal static Controllers Controller { get; set; }

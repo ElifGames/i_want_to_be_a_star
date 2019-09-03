@@ -20,12 +20,27 @@ namespace IWantToBeAStar.MainGame
         // private readonly float tileSizeZ = 0.5f;
 
         private Vector3 startPosition;
-        private bool needBgChange = false;
-        private bool needBgReturn = false;
+
+        /// <summary>
+        /// 스테이지가 바뀌었는지 여부를 알려줍니다.
+        /// </summary>
+        private bool hasStageChanged = false;
         private Stage ChangingTarget;
 
         // 백그라운드 순환
         private int bgRotateCount = 0;
+
+        private void Awake()
+        {
+            StageChangedEvent += HandleStageChangedEvent;
+        }
+
+        private void HandleStageChangedEvent(object sender, StageChangedEventArgs e)
+        {
+            Debug.Log("배경 변경");
+            ChangingTarget = e.ChangedStage;
+            hasStageChanged = true;
+        }
 
         private void Start()
         {
@@ -36,7 +51,8 @@ namespace IWantToBeAStar.MainGame
             GameData.CurrentStage = Stage.Ground;
             // 처음 시작시 1번과 2번 스프라이트는 각각 Ground, Ground-LowSky임.
             // 따라서 바로 LowSky로 넘어가도 됨.
-            needBgChange = true;
+            hasStageChanged = true;
+            ChangingTarget = Stage.LowSky;
         }
 
         private void FixedUpdate()
@@ -44,34 +60,12 @@ namespace IWantToBeAStar.MainGame
             BackgroundScroll();
         }
 
-        private void WhenReceivedBgChangeEvent(Stage status)
-        {
-            StartCoroutine(BackGroundChange(status));
-        }
-
-        private IEnumerator CheckScore()
-        {
-            if (GameData.IsGameRunning)
-            {
-
-            }
-        }
-
-        private IEnumerator BackGroundChange(Stage status)
-        {
-            Debug.Log("배경 변경");
-            ChangingTarget = status;
-            needBgChange = true;
-
-            yield return new WaitForSeconds(0.1f);
-        }
-
         private void BackgroundScroll()
         {
             // 만약 스프라이트의 상단이 화면 상단에 도달했을 때
             if (transform.position.y <= -tileChangeLine)
             {
-                // 1번 스프라이트를 2번 스프라이트로 옮기기
+                // 2번 스프라이트를 1번 스프라이트로 옮기기
                 FirstSprite.sprite = SecondSprite.sprite;
 
                 // 다시 처음 위치로 이동
@@ -82,57 +76,32 @@ namespace IWantToBeAStar.MainGame
 
                 #region 배경 전환이 필요한 경우
 
-                if (needBgChange)
+                if (hasStageChanged)
                 {
-                    if (!needBgReturn)
+                    switch (ChangingTarget)
                     {
-                        switch (ChangingTarget)
+                        case Stage.LowSky:
                         {
-                            case Stage.LowSky:
-                                {
-                                    ChangeSprite = GetBackgroundRotate(BackgroundList.LowSky);
-                                    needBgReturn = false;
-                                    needBgChange = false;
-                                    GameData.CurrentStage = Stage.LowSky;
-                                    break;
-                                }
-                            case Stage.HighSky:
-                                {
-                                    ChangeSprite = BackgroundList.LowSkyToHighSky;
-                                    needBgReturn = true;
-                                    GameData.CurrentStage = Stage.HighSky;
-                                    break;
-                                }
-                            case Stage.Space:
-                                {
-                                    ChangeSprite = BackgroundList.HighSkyToSpace;
-                                    needBgReturn = true;
-                                    GameData.CurrentStage = Stage.Space;
-                                    break;
-                                }
+                            ChangeSprite = GetBackgroundRotate(BackgroundList.LowSky);
+                            hasStageChanged = false;
+                            GameData.CurrentStage = Stage.LowSky;
+                            break;
+                        }
+                        case Stage.HighSky:
+                        {
+                            ChangeSprite = BackgroundList.LowSkyToHighSky;
+                            hasStageChanged = false;
+                            GameData.CurrentStage = Stage.HighSky;
+                            break;
+                        }
+                        case Stage.Space:
+                        {
+                            ChangeSprite = BackgroundList.HighSkyToSpace;
+                            hasStageChanged = false;
+                            GameData.CurrentStage = Stage.Space;
+                            break;
                         }
                     }
-
-                    #region 배경 전환 이미지 들어간 후 다음 이미지 교체작업
-
-                    else
-                    {
-                        switch (ChangingTarget)
-                        {
-                            case Stage.HighSky:
-                                ChangeSprite = GetBackgroundRotate(BackgroundList.HighSky);
-                                break;
-
-                            case Stage.Space:
-                                ChangeSprite = GetBackgroundRotate(BackgroundList.Space);
-                                break;
-                        }
-
-                        needBgChange = false;
-                        needBgReturn = false;
-                    }
-
-                    #endregion 배경 전환 이미지 들어간 후 다음 이미지 교체작업
                 }
 
                 #endregion 배경 전환이 필요한 경우

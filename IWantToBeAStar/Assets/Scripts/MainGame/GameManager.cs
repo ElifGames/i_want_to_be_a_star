@@ -53,10 +53,8 @@ namespace IWantToBeAStar.MainGame
         {
             Player = GameObject.Find("Player");
 
-            GameData.IsGameRunning = true;
+            //GameData.IsGameRunning = true;
             GameData.SpawnWait = SpawnWait;
-            GameData.StartSpawnMeteo = false;
-            GameData.StartSpawnUFO = false;
             //Application.targetFrameRate = 60;
         }
 
@@ -97,13 +95,5 @@ namespace IWantToBeAStar.MainGame
         {
             StageChangedEvent?.Invoke(this, e);
         }
-
-
-        private void ReduceSpawnWait()
-        {
-            GameData.SpawnWait -= SpawnGain;
-            Debug.Log("스폰 시간 감소");
-        }
-
     }
 }

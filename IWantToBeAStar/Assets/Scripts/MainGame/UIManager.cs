@@ -14,7 +14,7 @@ public class UIManager : GameManager
     private string userClass;
     private string userName;
     private bool sentInfo = false;
-    private bool openedGameOverPanel = false;
+    // private bool openedGameOverPanel = false;
 
     private GameObject GameOverPanel;
     private GameObject WriteInfoPanel;
@@ -43,7 +43,7 @@ public class UIManager : GameManager
 
     private void HandleGameEndedEvent(object sender, EventArgs e)
     {
-        openedGameOverPanel = true;
+        // openedGameOverPanel = true;
         Cursor.visible = true;
         Debug.Log("-----[Game Over]-----");
 

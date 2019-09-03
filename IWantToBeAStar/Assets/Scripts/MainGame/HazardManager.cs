@@ -2,9 +2,9 @@
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace IWantToBeAStar.MainGame.MapObjects.Hazards
+namespace IWantToBeAStar.MainGame
 {
-    public class HazardManager : MonoBehaviour
+    public class HazardManager : GameManager
     {
         public Vector2 UpPosition;
         public Vector2 LeftPosition;
@@ -16,21 +16,22 @@ namespace IWantToBeAStar.MainGame.MapObjects.Hazards
         public GameObject UFO;
         public GameObject Meteo;
 
+        private bool spawnMeteo;
+
         public void Start()
         {
-            GameManager controller = FindObjectOfType<GameManager>();
-            //controller.OnBackgroundChange += WhenReceivedBgChangeEvent;
+            StageChangedEvent += HandleStageChangedEvent;
 
             GameData.UpPosition = UpPosition;
             GameData.LeftPosition = LeftPosition;
             GameData.RightPosition = RightPosition;
         }
 
-        private void WhenReceivedBgChangeEvent(Stage status)
+        private void HandleStageChangedEvent(object sender, StageChangedEventArgs e)
         {
             StopAllCoroutines();
-            
-            switch (status)
+
+            switch (e.ChangedStage)
             {
                 case Stage.Ground:
                     break;
@@ -127,26 +128,23 @@ namespace IWantToBeAStar.MainGame.MapObjects.Hazards
 
         private IEnumerator StartSpawningSpaceHazards()
         {
-            yield return new WaitForEndOfFrame();
             while (true)
             {
-                // yield return new WaitUntil(() => GameData.CheckSpaceSpawn);
-                GameData.CheckSpaceSpawn = false;
-                if (GameData.StartSpawnMeteo)
+                switch (GameData.SpawnSpaceHazard)
                 {
-                    SpawnHazard(Meteo, Direction.Up);
-                    yield return new WaitForSeconds(GameData.SpawnWait);
+                    case MapObjects.Hazards.SpaceHazards.Meteo:
+                        SpawnHazard(Meteo, Direction.Up);
+                        break;
+
+                    case MapObjects.Hazards.SpaceHazards.UFO:
+                        SpawnLeftOrRight(UFO);
+                        break;
+
+                    default:
+                        Debug.LogError("해당하는 SpaceHazard가 없습니다.");
+                        break;
                 }
-                else if (GameData.StartSpawnUFO)
-                {
-                    SpawnLeftOrRight(UFO);
-                    yield return new WaitForSeconds(GameData.SpawnWait);
-                }
-                else
-                {
-                    Debug.LogError("조건문 건너뜀.");
-                    yield return new WaitForSeconds(1f);
-                }
+                yield return new WaitForSeconds(GameData.SpawnWait);
             }
         }
 

@@ -3,6 +3,7 @@ using IWantToBeAStar;
 using IWantToBeAStar.MainGame;
 using System.Collections;
 using UnityEngine;
+using IWantToBeAStar.MainGame.MapObjects.Hazards;
 using UnityEngine.UI;
 
 public class ScoreManager : GameManager
@@ -12,11 +13,6 @@ public class ScoreManager : GameManager
     /// 점수 증가 시간 폭
     /// </summary>
     public float ScoreTimeGain;
-
-    /// <summary>
-    /// 맨처음 시작 대기 시간
-    /// </summary>
-    public float StartWait;
 
     public int HighSkyStartScore;
     public int SpaceStartScore;
@@ -43,16 +39,14 @@ public class ScoreManager : GameManager
 
     private IEnumerator Scoring()
     {
-        // 맨 처음 시작 대기
-        yield return new WaitForSeconds(StartWait);
-
         while (true)
         {
             yield return new WaitForSeconds(ScoreTimeGain);
             AddScore(1);
-            /*
             var score = GameData.Score;
 
+            // 100점마다 스폰 주기 감소
+            // 0.2초보다 낮아지거나 같으면 더이상 감소 안함
             if (GameData.SpawnWait > 0.2f)
             {
                 if (score % 100 == 0)
@@ -61,32 +55,33 @@ public class ScoreManager : GameManager
                 }
             }
 
-            if (score == HighSkyChangeScore)
+            if (score == HighSkyStartScore)
             {
-                OnBackgroundChange(BackgroundStatus.HighSky);
+                OnStageChangedEvent(new StageChangedEventArgs(Stage.HighSky));
             }
-            else if (score == SpaceChangeScore)
+            else if (score == SpaceStartScore)
             {
-                OnBackgroundChange(BackgroundStatus.Space);
-                GameData.StartSpawnMeteo = true;
-                StartCoroutine(ChangeScoreHeaderColor());
+                GameData.SpawnSpaceHazard = SpaceHazards.Meteo;
+                OnStageChangedEvent(new StageChangedEventArgs(Stage.Space));
+                StartCoroutine(ChangeScoreHeaderColorBlackToWhite());
             }
 
-            if (score >= SpaceChangeScore + 1 && score % 200 == 0)
+            // SpaceStartScore보다 높은 점수 일때
+            // 200점마다 장애물 변경
+            if ((score >= SpaceStartScore + 1) && (score % 200 == 0))
             {
-                if (!GameData.StartSpawnMeteo)
+                switch (GameData.SpawnSpaceHazard)
                 {
-                    GameData.StartSpawnMeteo = true;
-                    GameData.StartSpawnUFO = false;
-                }
-                else if (!GameData.StartSpawnUFO)
-                {
-                    GameData.StartSpawnMeteo = false;
-                    GameData.StartSpawnUFO = true;
+                    case SpaceHazards.Meteo:
+                        GameData.SpawnSpaceHazard = SpaceHazards.UFO;
+                        break;
+                    case SpaceHazards.UFO:
+                        GameData.SpawnSpaceHazard = SpaceHazards.Meteo;
+                        break;
+                    default:
+                        break;
                 }
             }
-            GameData.CheckSpaceSpawn = true;
-            */
         }
     }
 
@@ -105,4 +100,11 @@ public class ScoreManager : GameManager
             yield return new WaitForSeconds(0.05f);
         }
     }
+
+    private void ReduceSpawnWait()
+    {
+        GameData.SpawnWait -= SpawnGain;
+        Debug.Log("스폰 시간 감소");
+    }
+
 }
