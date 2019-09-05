@@ -49,7 +49,7 @@ namespace IWantToBeAStar.MainGame
 
         private void HandleGameStartEvent()
         {
-            StartCoroutine("StartSpawningLeftRightMove", new object[2] { Bird, 0f });
+            StartCoroutine("StartSpawningLeftRightMove", Bird);
         }
 
         private void HandleStageChangedEvent(Stage changedStage)
@@ -62,11 +62,11 @@ namespace IWantToBeAStar.MainGame
                     break;
 
                 case Stage.LowSky:
-                    StartCoroutine("StartSpawningLeftRightMove", new object[2] { Bird, 0f });
+                    StartCoroutine("StartSpawningLeftRightMove", Bird);
                     break;
 
                 case Stage.HighSky:
-                    StartCoroutine("StartSpawningLeftRightMove", new object[2] { Airplane, 0f });
+                    StartCoroutine("StartSpawningLeftRightMove", Airplane);
                     StartCoroutine("StartSpawningLightning");
                     break;
 
@@ -81,24 +81,19 @@ namespace IWantToBeAStar.MainGame
         }
 
         /// <summary>
-        /// 매개변수는 반드시 2개의 원소로 이루어진 object배열이 와야함.
+        /// 왼쪽이나 오른쪽으로 랜덤 스폰을 무한 반복합니다.
         /// </summary>
-        /// <param name="parameters">
-        /// parameters[0] -> <see cref="GameObject"/>,
-        /// parameters[1] -> (float) 스폰 주기
+        /// <param name="hazard">
+        /// 스폰할 장애물
         /// </param>
         /// <returns></returns>
-        private IEnumerator StartSpawningLeftRightMove(object[] parameters)
+        private IEnumerator StartSpawningLeftRightMove(GameObject hazard)
         {
-            // TODO: parameters[1]은 필요가 없으므로 제거 필요
-            GameObject hazard = (GameObject)parameters[0];
-            float spawnWaitGain = (float)parameters[1];
-
             while (true)
             {
                 SpawnLeftOrRight(hazard);
 
-                yield return new WaitForSeconds(GameData.SpawnWait + spawnWaitGain);
+                yield return new WaitForSeconds(GameData.SpawnWait);
             }
         }
 
