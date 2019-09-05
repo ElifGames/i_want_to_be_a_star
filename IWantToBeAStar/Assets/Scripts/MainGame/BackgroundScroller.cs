@@ -158,7 +158,7 @@ namespace IWantToBeAStar.MainGame
         }
 
         /// <summary>
-        /// 서로 다른 배경들을 번갈아가면서 반환합니다.
+        /// 서로 다른 3개의 배경들을 번갈아가면서 반환합니다.
         /// 예를 들어 <see cref="Stage.LowSky"/>에서
         /// 배경 3개를 번갈아가며 한번 호출될때마다 서로 다른 배경을 반환합니다.
         /// </summary>
@@ -166,7 +166,7 @@ namespace IWantToBeAStar.MainGame
         /// <returns></returns>
         private Sprite GetBackgroundRotate(List<Sprite> sprites)
         {
-            //TODO: 순환해야 할 배경이 3개가 아닐 때 오류가 남
+            // BUG: iws2
             var returnValue = sprites[bgRotateCount];
             if (bgRotateCount >= 2)
             {

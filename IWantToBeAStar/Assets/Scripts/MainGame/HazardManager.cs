@@ -125,7 +125,7 @@ namespace IWantToBeAStar.MainGame
         /// <returns></returns>
         private IEnumerator SpawnLightning()
         {
-            // TODO: [BUG] iws1
+            // BUG: iws1
             float randomX = Random.Range(-UpPosition.x, UpPosition.x);
             var dangerousPosition = new Vector2(randomX, 4.9f);
             var LightningPosition = new Vector2(randomX, 0);
