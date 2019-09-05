@@ -9,38 +9,24 @@ namespace IWantToBeAStar.MainGame.MapObjects
         public float KeyboardSpeed;
 
         private Rigidbody2D rigidbody2d;
-        private GameManager gameManager;
-        private bool gameRunning;
 
         private void Awake()
         {
             rigidbody2d = GetComponent<Rigidbody2D>();
-            gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
-            gameManager.GameStartEvent += HandleGameStartEvent;
-            gameRunning = false;
-        }
-
-        private void HandleGameStartEvent()
-        {
-            // GameStartEvent를 받고 나서 움직일 수 있도록 구현함
-            gameRunning = true;
         }
 
         // Update is called once per frame
         private void FixedUpdate()
         {
-            if (gameRunning)
+            switch (GameData.Controller)
             {
-                switch (GameData.Controller)
-                {
-                    case Controllers.Keyboard:
-                        KeyboardControl();
-                        break;
+                case Controllers.Keyboard:
+                    KeyboardControl();
+                    break;
 
-                    case Controllers.Mouse:
-                        MouseControl();
-                        break;
-                }
+                case Controllers.Mouse:
+                    MouseControl();
+                    break;
             }
         }
 
