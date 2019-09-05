@@ -2,7 +2,7 @@
 
 namespace IWantToBeAStar.MainGame.MapObjects.Hazards
 {
-    public class DownMove : MonoBehaviour
+    public class DownMovement : MonoBehaviour
     {
         public float speed;
 

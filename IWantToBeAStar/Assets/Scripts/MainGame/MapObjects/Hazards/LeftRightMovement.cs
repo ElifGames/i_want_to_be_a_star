@@ -2,7 +2,7 @@
 
 namespace IWantToBeAStar.MainGame.MapObjects.Hazards
 {
-    public class LeftRightMove : MonoBehaviour
+    public class LeftRightMovement : MonoBehaviour
     {
         public float speed;
         public bool IsRandomSpeed;
