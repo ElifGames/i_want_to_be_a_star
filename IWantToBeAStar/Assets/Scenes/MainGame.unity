@@ -606,7 +606,7 @@ MonoBehaviour:
   UFO: {fileID: 6795943654162564450, guid: b30203e1a9cbbbb42948f94b78d215bc, type: 3}
   Meteo: {fileID: 7743204055050192406, guid: e8148d46b7a1a6e4e897b48303a10fac, type: 3}
   SpawnWait: 1
-  SpawnGain: 0.05
+  SpawnGain: 0.7
 --- !u!4 &1041791755
 Transform:
   m_ObjectHideFlags: 0

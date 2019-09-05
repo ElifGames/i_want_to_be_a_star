@@ -20,12 +20,12 @@ namespace IWantToBeAStar.MainGame
         public GameObject Meteo;
 
         /// <summary>
-        /// 스폰 시간 간격
+        /// 처음 스폰 간격
         /// </summary>
         public float SpawnWait;
 
         /// <summary>
-        /// 스폰 시간 감소 폭
+        /// 스폰 간격 감소 폭
         /// </summary>
         public float SpawnGain;
         #endregion
