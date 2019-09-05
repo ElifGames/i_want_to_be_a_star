@@ -16,6 +16,7 @@ namespace IWantToBeAStar.MainGame
         private bool sentInfo = false;
         // private bool openedGameOverPanel = false;
 
+        public Text ReadyText { get; private set; }
         public Text ScoreText { get; set; }
         public Text ResultScore { get; private set; }
         public Text StatusHeader { get; private set; }
@@ -35,6 +36,7 @@ namespace IWantToBeAStar.MainGame
             {
                 GameUI = this;
             }
+            ReadyText = GameObject.Find("ReadyText").GetComponent<Text>();
             ScoreText = GameObject.Find("ScoreText").GetComponent<Text>();
             ResultScore = GameObject.Find("ResultScore").GetComponent<Text>();
             ResultScore = GameObject.FindWithTag("ResultScore").GetComponent<Text>();
@@ -48,6 +50,7 @@ namespace IWantToBeAStar.MainGame
 
             GameOverPanel.SetActive(false);
             WriteInfoPanel.SetActive(false);
+            ReadyText.text = string.Empty;
 
             gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
 

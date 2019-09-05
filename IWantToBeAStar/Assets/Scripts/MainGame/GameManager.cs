@@ -68,8 +68,17 @@ namespace IWantToBeAStar.MainGame
 
         private IEnumerator WaitAndStart()
         {
-            //TODO: 카운트 다운 글자 표시
-            yield return new WaitForSeconds(StartWait);
+            UIManager.GameUI.ReadyText.text = "Hello!";
+            yield return new WaitForSeconds(2f);
+            UIManager.GameUI.ReadyText.text = "Ready...";
+            yield return new WaitForSeconds(1f);
+            UIManager.GameUI.ReadyText.color = Color.yellow;
+            UIManager.GameUI.ReadyText.text = "Steady...";
+            yield return new WaitForSeconds(1f);
+            UIManager.GameUI.ReadyText.color = Color.white;
+            UIManager.GameUI.ReadyText.text = "GO!";
+            yield return new WaitForSeconds(1f);
+            UIManager.GameUI.ReadyText.text = string.Empty;
             GameStartEvent();
         }
 
