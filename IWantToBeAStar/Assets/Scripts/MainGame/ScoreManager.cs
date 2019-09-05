@@ -84,6 +84,7 @@ namespace IWantToBeAStar.MainGame
 
                 // SpaceStartScore보다 높은 점수 일때
                 // 200점마다 장애물 변경
+                //TODO: SpaceHazardChangeScore 변수 추가하기
                 if ((score >= SpaceStartScore + 1) && (score % 200 == 0))
                 {
                     switch (GameData.SpawnSpaceHazard)
