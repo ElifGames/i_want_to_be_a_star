@@ -28,6 +28,11 @@ namespace IWantToBeAStar.MainGame
         /// 스폰 간격 감소 폭
         /// </summary>
         public float SpawnGain;
+        /// <summary>
+        /// 최소 스폰 간격
+        /// </summary>
+        public float MinSpawnWait;
+
         #endregion
 
         private ScoreManager scoreManager;
@@ -42,6 +47,7 @@ namespace IWantToBeAStar.MainGame
 
             GameData.SpawnWait = SpawnWait;
             GameData.SpawnGain = SpawnGain;
+            GameData.MinSpawnWait = MinSpawnWait;
             GameData.UpPosition = UpPosition;
             GameData.LeftPosition = LeftPosition;
             GameData.RightPosition = RightPosition;

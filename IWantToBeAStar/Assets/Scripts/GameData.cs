@@ -36,6 +36,11 @@ namespace IWantToBeAStar
         internal static float SpawnGain { get; set; }
 
         /// <summary>
+        /// 최소 스폰시간 간격
+        /// </summary>
+        internal static float MinSpawnWait { get; set; }
+
+        /// <summary>
         /// 점수 증가 시간 폭
         /// </summary>
         internal static float ScoreTimeGain { get; set; }

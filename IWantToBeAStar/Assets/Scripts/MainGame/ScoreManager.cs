@@ -19,6 +19,7 @@ namespace IWantToBeAStar.MainGame
         public int HighSkyStartScore;
         public int SpaceStartScore;
 
+
         public delegate void StageChanged(Stage changedStage);
 
         public event StageChanged StageChangedEvent;
@@ -63,13 +64,9 @@ namespace IWantToBeAStar.MainGame
                 var score = GameData.Score;
 
                 // 일정 점수대마다 스폰 주기 감소
-                // 0.2초보다 낮아지거나 같으면 더이상 감소 안함
-                if (GameData.SpawnWait > 0.2f)
+                if (score % ReduceSpawnGainScore == 0)
                 {
-                    if (score % ReduceSpawnGainScore == 0)
-                    {
-                        ReduceSpawnWait();
-                    }
+                    ReduceSpawnWait();
                 }
 
                 if (score == HighSkyStartScore)
@@ -119,10 +116,25 @@ namespace IWantToBeAStar.MainGame
             }
         }
 
+        /// <summary>
+        /// 스폰 주기를 정해진 값으로 줄입니다.
+        /// 만약 최소 스폰주기에 도달한 경우 최소 스폰 주기로 고정됩니다.
+        /// </summary>
         private void ReduceSpawnWait()
         {
-            GameData.SpawnWait -= GameData.SpawnGain;
-            Debug.Log($"스폰 시간 감소: {GameData.SpawnWait}");
+            var spawnWait = GameData.SpawnWait - GameData.SpawnGain;
+            string log;
+            if (spawnWait > GameData.MinSpawnWait)
+            {
+                GameData.SpawnWait = spawnWait;
+                log = "스폰 시간 감소";
+            }
+            else
+            {
+                log = "스폰 시간 최소치 도달";
+                GameData.SpawnWait = GameData.MinSpawnWait;
+            }
+            Debug.Log($"{log}: {GameData.SpawnWait}");
         }
     }
 }
