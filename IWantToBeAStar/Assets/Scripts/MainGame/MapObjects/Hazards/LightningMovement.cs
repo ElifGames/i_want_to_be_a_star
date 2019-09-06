@@ -22,13 +22,9 @@ public class LightningMovement : MonoBehaviour
 
     private IEnumerator SpawnLightning()
     {
-        for (int i = 0; i < 3; i++)
-        {
-            lightningWarning.SetActive(true);
-            yield return new WaitForSeconds(0.3f);
-            lightningWarning.SetActive(false);
-            yield return new WaitForSeconds(0.3f);
-        }
+        lightningWarning.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        lightningWarning.SetActive(false);
         lightningHazard.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         Destroy(gameObject);
