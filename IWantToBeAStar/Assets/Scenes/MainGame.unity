@@ -190,7 +190,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ready
+  m_Text: 
 --- !u!222 &67357278
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -216,6 +216,7 @@ GameObject:
   - component: {fileID: 331519724}
   - component: {fileID: 331519726}
   - component: {fileID: 331519725}
+  - component: {fileID: 331519727}
   m_Layer: 5
   m_Name: ScoreText
   m_TagString: Untagged
@@ -239,8 +240,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0.000024796, y: -76}
-  m_SizeDelta: {x: 397.3, y: 114.5}
+  m_AnchoredPosition: {x: 0, y: -767}
+  m_SizeDelta: {x: 261.8, y: 49.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &331519725
 MonoBehaviour:
@@ -264,9 +265,9 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: b2238dd75f6943c449c529d8cd10a7ba, type: 3}
-    m_FontSize: 73
+    m_FontSize: 40
     m_FontStyle: 1
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 0
     m_MaxSize: 77
     m_Alignment: 4
@@ -284,6 +285,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 331519723}
   m_CullTransparentMesh: 0
+--- !u!114 &331519727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331519723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4001a89f1f8af74c88b1fa39898abf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  borderX: 0
+  borderY: 0.7
 --- !u!1 &431334086
 GameObject:
   m_ObjectHideFlags: 0
@@ -1123,6 +1138,11 @@ PrefabInstance:
     - target: {fileID: 4844568826853804958, guid: b661b6868e2fc9f4d8725a65d1404fed,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 646176712511488037, guid: b661b6868e2fc9f4d8725a65d1404fed,
+        type: 3}
+      propertyPath: m_CullTransparentMesh
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
