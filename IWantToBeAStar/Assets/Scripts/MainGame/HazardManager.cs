@@ -15,7 +15,6 @@ namespace IWantToBeAStar.MainGame
         public GameObject Bird;
         public GameObject Airplane;
         public GameObject Lightning;
-        public GameObject Dangerous;
         public GameObject UFO;
         public GameObject Meteo;
 
@@ -120,37 +119,9 @@ namespace IWantToBeAStar.MainGame
         {
             while (true)
             {
-                StartCoroutine("SpawnLightning");
-                yield return new WaitForSeconds(GameData.SpawnWait + 0.1f);
+                SpawnHazard(Lightning, Direction.Center);
+                yield return new WaitForSeconds(GameData.SpawnWait);
             }
-        }
-
-        /// <summary>
-        /// 번개 하나를 경고 후 생성
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerator SpawnLightning()
-        {
-            // BUG: iws1
-            float randomX = Random.Range(-UpPosition.x, UpPosition.x);
-            var dangerousPosition = new Vector2(randomX, 4.9f);
-            var LightningPosition = new Vector2(randomX, 0);
-            Quaternion spawnRotation = Quaternion.identity;
-
-            var dangerousInstance = Instantiate(Dangerous, dangerousPosition, spawnRotation);
-
-            bool enable = true;
-            for (int i = 0; i < 6; i++)
-            {
-                enable = enable ? false : true;
-                dangerousInstance.GetComponent<Renderer>().enabled = enable;
-                yield return new WaitForSeconds(0.3f);
-            }
-            Destroy(dangerousInstance);
-
-            var lightningInstance = Instantiate(Lightning, LightningPosition, spawnRotation);
-            yield return new WaitForSeconds(0.15f);
-            Destroy(lightningInstance);
         }
 
         private IEnumerator StartSpawningSpaceHazards()
@@ -194,6 +165,11 @@ namespace IWantToBeAStar.MainGame
                 case Direction.Right:
                     spawnPosition = new Vector2
                         (RightPosition.x, Random.Range(-RightPosition.y, RightPosition.y));
+                    break;
+
+                case Direction.Center:
+                    spawnPosition = new Vector2
+                        (Random.Range(-UpPosition.x, UpPosition.x), 0);
                     break;
             }
 

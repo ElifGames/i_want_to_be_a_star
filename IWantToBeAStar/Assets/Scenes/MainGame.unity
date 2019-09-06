@@ -599,9 +599,7 @@ MonoBehaviour:
   Bird: {fileID: 190468722996952463, guid: 00e4d4a5fc940f9429b69229b6ab0168, type: 3}
   Airplane: {fileID: 7349569035383511702, guid: e770982e08124c84ea14f5b842bb81e9,
     type: 3}
-  Lightning: {fileID: 1235597736758848181, guid: 2185fb9617829044786c605a8afd4a95,
-    type: 3}
-  Dangerous: {fileID: 1787327490523250296, guid: 4210c87b426ba754098ab7bb3cecad8f,
+  Lightning: {fileID: 8474141589586977409, guid: 2185fb9617829044786c605a8afd4a95,
     type: 3}
   UFO: {fileID: 6795943654162564450, guid: b30203e1a9cbbbb42948f94b78d215bc, type: 3}
   Meteo: {fileID: 7743204055050192406, guid: e8148d46b7a1a6e4e897b48303a10fac, type: 3}
