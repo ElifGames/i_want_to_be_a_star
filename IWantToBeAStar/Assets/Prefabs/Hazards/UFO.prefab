@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3141843687605115225}
   - component: {fileID: 5070183485405037417}
   - component: {fileID: 2480940204347760573}
+  - component: {fileID: 4159715991250101908}
   m_Layer: 10
   m_Name: UFO
   m_TagString: Hazard
@@ -61,6 +62,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -71,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 150315845
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 05114b4a061f6dc44bbd8c77ca080541, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -166,3 +168,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   IsRandomSpeed: 1
+--- !u!114 &4159715991250101908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6795943654162564450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1b0e5a77068820479fbf35d7b9e973d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: be073ae3f55fb084cb6442fa1f074d58, type: 3}
+  IsLoop: 0
+  PlayOnStart: 0

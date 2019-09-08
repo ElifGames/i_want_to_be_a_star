@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 190468722996952457}
   - component: {fileID: 190468722996952458}
   - component: {fileID: 190468722996952459}
+  - component: {fileID: 7431605356934946570}
   m_Layer: 10
   m_Name: Bird
   m_TagString: Hazard
@@ -61,6 +62,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -71,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 150315845
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 06d12df5251c6d645be9637d2f9063ed, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -166,3 +168,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a0286dbad5ccb046bfaa181593dbf0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7431605356934946570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190468722996952463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1b0e5a77068820479fbf35d7b9e973d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Clip: {fileID: 8300000, guid: 67c81137890e3224ba92555122dbe4f6, type: 3}
+  IsLoop: 0
+  PlayOnStart: 0

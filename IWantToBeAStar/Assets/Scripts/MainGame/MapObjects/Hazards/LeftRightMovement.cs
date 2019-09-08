@@ -11,6 +11,7 @@ namespace IWantToBeAStar.MainGame.MapObjects.Hazards
         private void Start()
         {
             Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
+            SoundPlayer player = GetComponent<SoundPlayer>();
 
             if (IsRandomSpeed)
             {
@@ -25,10 +26,12 @@ namespace IWantToBeAStar.MainGame.MapObjects.Hazards
                 transform.localScale = scale;
 
                 rigidbody.velocity = transform.right * speed;
+                player.PlaySound(-SoundPlayer.RIGHT_SOUND);
             }
             else
             {
                 rigidbody.velocity = transform.right * -speed;
+                player.PlaySound(SoundPlayer.RIGHT_SOUND);
             }
         }
     }

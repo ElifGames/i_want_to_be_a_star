@@ -71,7 +71,7 @@ namespace IWantToBeAStar.MainGame
                     break;
 
                 case Stage.HighSky:
-                    StartCoroutine("StartSpawningLeftRightMove", Airplane);
+                    //StartCoroutine("StartSpawningLeftRightMove", Airplane);
                     StartCoroutine("StartSpawningLightning");
                     break;
 

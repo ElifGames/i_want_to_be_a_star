@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using IWantToBeAStar;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,7 +27,28 @@ public class LightningMovement : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         lightningWarning.SetActive(false);
         lightningHazard.SetActive(true);
+
+        SoundPlayer player = GetComponent<SoundPlayer>();
+        float center = GameData.UpPosition.x / 3;
+        float x = transform.position.x;
+
+        if (Mathf.Abs(x) < center)
+        {
+            player.PlaySound(0);
+        }
+        else
+        {
+            player.PlaySound(x > 0 ? SoundPlayer.RIGHT_SOUND : -SoundPlayer.RIGHT_SOUND);
+        }
         yield return new WaitForSeconds(0.1f);
-        Destroy(gameObject);
+        lightningHazard.SetActive(false);
+        while (true)
+        {
+            if (!player.IsPlaying())
+            {
+                Destroy(gameObject);
+            }
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 }
