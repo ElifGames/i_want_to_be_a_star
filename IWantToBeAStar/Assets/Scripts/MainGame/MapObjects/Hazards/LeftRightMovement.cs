@@ -2,18 +2,15 @@
 
 namespace IWantToBeAStar.MainGame.MapObjects.Hazards
 {
-    public class LeftRightMovement : MonoBehaviour
+    public class LeftRightMovement : BaseHazard
     {
         public float speed;
         public bool IsRandomSpeed;
 
-        private SoundPlayer player;
-
-        // Use this for initialization
-        private void Start()
+        protected override void HazardStart()
         {
+            base.HazardStart();
             Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
-            player = GetComponent<SoundPlayer>();
 
             if (IsRandomSpeed)
             {
@@ -34,14 +31,6 @@ namespace IWantToBeAStar.MainGame.MapObjects.Hazards
             {
                 rigidbody.velocity = transform.right * -speed;
                 PlaySound(true);
-            }
-        }
-
-        private void PlaySound(bool isRight)
-        {
-            if (player != null)
-            {
-                player.PlaySound(isRight ? SoundPlayer.RIGHT_SOUND : -SoundPlayer.RIGHT_SOUND);
             }
         }
     }

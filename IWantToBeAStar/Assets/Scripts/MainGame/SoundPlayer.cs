@@ -10,6 +10,14 @@ public class SoundPlayer : MonoBehaviour
 
     public const float RIGHT_SOUND = 0.7f;
 
+    public bool IsPlaying
+    {
+        get
+        {
+            return source.isPlaying;
+        }
+    }
+
     private AudioSource source;
 
     private void Awake()
@@ -43,10 +51,5 @@ public class SoundPlayer : MonoBehaviour
     public void StopSound()
     {
         source.Stop();
-    }
-
-    public bool IsPlaying()
-    {
-        return source.isPlaying;
     }
 }

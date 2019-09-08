@@ -3,21 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightningMovement : MonoBehaviour
+public class LightningMovement : BaseHazard
 {
     private GameObject lightningWarning;
     private GameObject lightningHazard;
 
-    private void Awake()
+    protected override void HazardAwake()
     {
+        base.HazardAwake();
         lightningWarning = gameObject.transform.Find("LightningWarning").gameObject;
         lightningHazard = gameObject.transform.Find("LightningHazard").gameObject;
         lightningHazard.SetActive(false);
         lightningWarning.SetActive(false);
+
     }
-    // Start is called before the first frame update
-    void Start()
+
+    protected override void HazardStart()
     {
+        base.HazardStart();
         StartCoroutine(SpawnLightning());
     }
 
@@ -28,27 +31,22 @@ public class LightningMovement : MonoBehaviour
         lightningWarning.SetActive(false);
         lightningHazard.SetActive(true);
 
-        SoundPlayer player = GetComponent<SoundPlayer>();
-        if (player != null)
+        float center = GameData.UpPosition.x / 3;
+        float x = transform.position.x;
+
+        if (Mathf.Abs(x) < center)
         {
-            float center = GameData.UpPosition.x / 3;
-            float x = transform.position.x;
-
-            if (Mathf.Abs(x) < center)
-            {
-                player.PlaySound(0);
-            }
-            else
-            {
-                player.PlaySound(x > 0 ? SoundPlayer.RIGHT_SOUND : -SoundPlayer.RIGHT_SOUND);
-            }
+            PlaySound();
         }
-
+        else
+        {
+            PlaySound(x > 0 ? true : false);
+        }
         yield return new WaitForSeconds(0.1f);
         lightningHazard.SetActive(false);
         while (true)
         {
-            if (!player?.IsPlaying() ?? false)
+            if (!Sound?.IsPlaying ?? false)
             {
                 Destroy(gameObject);
             }
