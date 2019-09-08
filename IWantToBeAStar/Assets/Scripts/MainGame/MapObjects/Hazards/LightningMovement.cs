@@ -29,22 +29,26 @@ public class LightningMovement : MonoBehaviour
         lightningHazard.SetActive(true);
 
         SoundPlayer player = GetComponent<SoundPlayer>();
-        float center = GameData.UpPosition.x / 3;
-        float x = transform.position.x;
+        if (player != null)
+        {
+            float center = GameData.UpPosition.x / 3;
+            float x = transform.position.x;
 
-        if (Mathf.Abs(x) < center)
-        {
-            player.PlaySound(0);
+            if (Mathf.Abs(x) < center)
+            {
+                player.PlaySound(0);
+            }
+            else
+            {
+                player.PlaySound(x > 0 ? SoundPlayer.RIGHT_SOUND : -SoundPlayer.RIGHT_SOUND);
+            }
         }
-        else
-        {
-            player.PlaySound(x > 0 ? SoundPlayer.RIGHT_SOUND : -SoundPlayer.RIGHT_SOUND);
-        }
+
         yield return new WaitForSeconds(0.1f);
         lightningHazard.SetActive(false);
         while (true)
         {
-            if (!player.IsPlaying())
+            if (!player?.IsPlaying() ?? false)
             {
                 Destroy(gameObject);
             }
