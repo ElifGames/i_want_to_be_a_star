@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace IWantToBeAStar.MainGame
+namespace IWantToBeAStar.MainGame.MapObjects.Player
 {
     public class DestroyByContact : MonoBehaviour
     {
@@ -13,16 +13,11 @@ namespace IWantToBeAStar.MainGame
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.tag == "Boundary")
-            {
-                return;
-            }
-            if (other.tag == "Player")
+            if (other.tag == "Hazard")
             {
                 gameManager.PlayerHasDead();
+                Destroy(gameObject);
             }
-            // Destroy(other.gameObject);
-            Destroy(gameObject);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace IWantToBeAStar.MainGame.MapObjects
+namespace IWantToBeAStar.MainGame.MapObjects.Player
 {
     public class PlayerMove : MonoBehaviour
     {
