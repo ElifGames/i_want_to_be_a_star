@@ -2,7 +2,7 @@
 
 namespace IWantToBeAStar.MainGame.MapObjects.Hazards
 {
-    public class DownMovement : MonoBehaviour
+    public class DownMovement : BaseHazard
     {
         public float speed;
 
@@ -11,6 +11,7 @@ namespace IWantToBeAStar.MainGame.MapObjects.Hazards
         {
             Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
             rigidbody.velocity = transform.up * -speed;
+            PlaySound();
         }
     }
 }

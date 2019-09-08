@@ -30,19 +30,8 @@ public class LightningMovement : BaseHazard
         yield return new WaitForSeconds(0.5f);
         lightningWarning.SetActive(false);
         lightningHazard.SetActive(true);
-
-        float center = GameData.UpPosition.x / 3;
-        float x = transform.position.x;
-
-        if (Mathf.Abs(x) < center)
-        {
-            PlaySound();
-        }
-        else
-        {
-            PlaySound(x > 0 ? true : false);
-        }
         yield return new WaitForSeconds(0.1f);
+        PlaySound();
         lightningHazard.SetActive(false);
         while (true)
         {

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using IWantToBeAStar;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,15 +36,19 @@ public class BaseHazard : MonoBehaviour
     {
         if (Sound != null)
         {
-            Sound.PlaySound(0);
-        }
-    }
+            // 맵을 3등분
+            float center = GameData.UpPosition.x / 3;
+            float x = transform.position.x;
 
-    protected void PlaySound(bool isRight)
-    {
-        if (Sound != null)
-        {
-            Sound.PlaySound(isRight ? SoundPlayer.RIGHT_SOUND : -SoundPlayer.RIGHT_SOUND);
+            // 오브젝트가 3등분된 맵에서 안쪽인지 바깥쪽인지 확인
+            if (Mathf.Abs(x) < center)
+            {
+                Sound.PlaySound(0);
+            }
+            else
+            {
+                Sound.PlaySound(x > 0 ? SoundPlayer.RIGHT_SOUND : -SoundPlayer.RIGHT_SOUND);
+            }
         }
     }
 

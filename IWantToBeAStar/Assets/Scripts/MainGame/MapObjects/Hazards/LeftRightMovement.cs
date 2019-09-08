@@ -25,13 +25,13 @@ namespace IWantToBeAStar.MainGame.MapObjects.Hazards
                 transform.localScale = scale;
 
                 rigidbody.velocity = transform.right * speed;
-                PlaySound(false);
             }
             else
             {
                 rigidbody.velocity = transform.right * -speed;
-                PlaySound(true);
             }
+
+            PlaySound();
         }
     }
 }
