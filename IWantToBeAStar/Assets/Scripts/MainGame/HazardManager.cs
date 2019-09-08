@@ -71,7 +71,7 @@ namespace IWantToBeAStar.MainGame
                     break;
 
                 case Stage.HighSky:
-                    //StartCoroutine("StartSpawningLeftRightMove", Airplane);
+                    StartCoroutine("StartSpawningLeftRightMove", Airplane);
                     StartCoroutine("StartSpawningLightning");
                     break;
 
@@ -119,8 +119,12 @@ namespace IWantToBeAStar.MainGame
         {
             while (true)
             {
-                SpawnHazard(Lightning, Direction.Center);
-                yield return new WaitForSeconds(GameData.SpawnWait);
+                int count = Random.Range(0, 3);
+                for (int i = 0; i <= count; i++)
+                {
+                    SpawnHazard(Lightning, Direction.Center);
+                }
+                yield return new WaitForSeconds(GameData.SpawnWait + 0.5f);
             }
         }
 

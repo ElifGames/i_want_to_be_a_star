@@ -27,7 +27,7 @@ public class LightningMovement : BaseHazard
     private IEnumerator SpawnLightning()
     {
         lightningWarning.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.7f);
         lightningWarning.SetActive(false);
         lightningHazard.SetActive(true);
         yield return new WaitForSeconds(0.1f);
