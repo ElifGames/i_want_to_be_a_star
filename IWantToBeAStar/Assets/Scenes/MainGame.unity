@@ -605,7 +605,7 @@ MonoBehaviour:
   Meteo: {fileID: 7743204055050192406, guid: e8148d46b7a1a6e4e897b48303a10fac, type: 3}
   SpawnWait: 1
   SpawnGain: 0.07
-  MinSpawnWait: 0.3
+  MinSpawnWait: 0.2
 --- !u!4 &1041791755
 Transform:
   m_ObjectHideFlags: 0
