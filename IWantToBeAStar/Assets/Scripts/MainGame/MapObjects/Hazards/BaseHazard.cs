@@ -5,16 +5,14 @@ using UnityEngine;
 
 public class BaseHazard : MonoBehaviour
 {
-    protected SoundPlayer Sound;
-    protected float Volume { get; set; }
+    //protected SoundPlayer Sound;
+    //protected float Volume { get; set; }
 
-    // Start is called before the first frame update
     void Start()
     {
         HazardStart();
     }
 
-    // Update is called once per frame
     void Awake()
     {
         HazardAwake();
@@ -29,10 +27,10 @@ public class BaseHazard : MonoBehaviour
 
     protected virtual void HazardAwake()
     {
-        Sound = GetComponent<SoundPlayer>();
-        Volume = 0.5f;
+        //Sound = GetComponent<SoundPlayer>();
+        //Volume = 0.5f;
     }
-
+    /*
     protected void PlaySound()
     {
         if (Sound != null)
@@ -52,5 +50,5 @@ public class BaseHazard : MonoBehaviour
             }
         }
     }
-
+    */
 }

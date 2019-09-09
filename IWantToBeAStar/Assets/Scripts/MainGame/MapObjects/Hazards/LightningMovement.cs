@@ -31,8 +31,9 @@ public class LightningMovement : BaseHazard
         lightningWarning.SetActive(false);
         lightningHazard.SetActive(true);
         yield return new WaitForSeconds(0.1f);
-        PlaySound();
         lightningHazard.SetActive(false);
+        Destroy(gameObject);
+        /*
         while (true)
         {
             if (!Sound?.IsPlaying ?? false)
@@ -41,5 +42,6 @@ public class LightningMovement : BaseHazard
             }
             yield return new WaitForSeconds(0.1f);
         }
+        */
     }
 }

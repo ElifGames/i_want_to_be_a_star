@@ -30,8 +30,6 @@ namespace IWantToBeAStar.MainGame.MapObjects.Hazards
             {
                 rigidbody.velocity = transform.right * -speed;
             }
-
-            PlaySound();
         }
     }
 }

@@ -11,7 +11,6 @@ namespace IWantToBeAStar.MainGame.MapObjects.Hazards
         {
             Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
             rigidbody.velocity = transform.up * -speed;
-            PlaySound();
         }
     }
 }

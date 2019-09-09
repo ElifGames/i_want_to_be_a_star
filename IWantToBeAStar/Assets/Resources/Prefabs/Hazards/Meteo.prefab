@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 6619779152998373419}
   - component: {fileID: 5672560705400657109}
   - component: {fileID: 6663678881983799211}
-  - component: {fileID: 8889066429279978831}
   m_Layer: 10
   m_Name: Meteo
   m_TagString: Hazard
@@ -134,18 +133,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
---- !u!114 &8889066429279978831
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7743204055050192406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1b0e5a77068820479fbf35d7b9e973d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Clip: {fileID: 8300000, guid: 512777a363a3c8e4bbb87f9486c53191, type: 3}
-  IsLoop: 0
-  PlayOnStart: 0
