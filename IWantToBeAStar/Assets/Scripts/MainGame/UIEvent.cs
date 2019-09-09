@@ -41,5 +41,10 @@ namespace IWantToBeAStar.MainGame
         {
             UIManager.GameUI.EndWritingName();
         }
+
+        public void OnResume()
+        {
+            UIManager.GameUI.Resume();
+        }
     }
 }

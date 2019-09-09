@@ -15,8 +15,7 @@ namespace IWantToBeAStar.MainGame
 
             public BasePanel(GameObject prefab, Transform transform)
             {
-                Panel = Instantiate(prefab);
-                Panel.transform.SetParent(transform, false);
+                Panel = Instantiate(prefab, transform);
             }
 
             public void Open()
@@ -58,10 +57,18 @@ namespace IWantToBeAStar.MainGame
             }
         }
 
+        public class PausePanel : BasePanel
+        {
+            public PausePanel(GameObject prefab, Transform transform) : base(prefab, transform)
+            {
+            }
+        }
+
         public static UIManager GameUI;
 
         public GameObject GameOverPanelPrefab;
         public GameObject WriteInfoPanelPrefab;
+        public GameObject PausePanelPrefab;
 
         private string userClass;
         private string userName;
@@ -71,8 +78,11 @@ namespace IWantToBeAStar.MainGame
 
         private GameOverPanel gameOverPanel;
         private WriteInfoPanel writeInfoPanel;
+        private PausePanel pausePanel;
 
         private GameManager gameManager;
+
+        private bool isPausePanelOpen = false;
 
         private void Awake()
         {
@@ -88,6 +98,19 @@ namespace IWantToBeAStar.MainGame
             gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
 
             gameManager.GameEndEvent += HandleGameEndedEvent;
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (!isPausePanelOpen)
+                {
+                    Time.timeScale = 0;
+                    pausePanel = new PausePanel(PausePanelPrefab, transform);
+                    isPausePanelOpen = true;
+                }
+            }
         }
 
         private void HandleGameEndedEvent()
@@ -126,6 +149,14 @@ namespace IWantToBeAStar.MainGame
 
         #region 유니티 UGUI 이벤트
 
+        public void Resume()
+        {
+            Destroy(pausePanel.Panel);
+            pausePanel = null;
+            Time.timeScale = 1;
+            isPausePanelOpen = false;
+        }
+
         public void Restart()
         {
             SceneManager.LoadScene("MainGame");
@@ -133,6 +164,7 @@ namespace IWantToBeAStar.MainGame
 
         public void GoMainMenu()
         {
+            Time.timeScale = 1;
             SceneManager.LoadScene("MainMenu");
         }
 
