@@ -1,6 +1,7 @@
 ﻿using IWantToBeAStar.MainGame.MapObjects.Hazards;
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
 namespace IWantToBeAStar.MainGame
 {
@@ -20,6 +21,8 @@ namespace IWantToBeAStar.MainGame
         public int SpaceStartScore;
         public int SpaceHazardChangeScore;
 
+        private TextMeshPro playerScore;
+
 
         public delegate void StageChanged(Stage changedStage);
 
@@ -35,6 +38,7 @@ namespace IWantToBeAStar.MainGame
         private void Awake()
         {
             gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+            playerScore = GameObject.Find("PlayerScore").GetComponent<TextMeshPro>();
 
             GameData.Score = 0;
             GameData.HighSkyStartScore = HighSkyStartScore;
@@ -48,7 +52,7 @@ namespace IWantToBeAStar.MainGame
 
         private void Start()
         {
-            UIManager.GameUI.ScoreText.text = "0";
+            playerScore.text = "0";
         }
 
         private void HandleGameStartEvent()
@@ -77,7 +81,6 @@ namespace IWantToBeAStar.MainGame
                 else if (score == SpaceStartScore)
                 {
                     StageChangedEvent(Stage.Space);
-                    StartCoroutine(ChangeScoreHeaderColorBlackToWhite());
                 }
 
                 // SpaceStartScore보다 높은 점수 일때
@@ -104,16 +107,7 @@ namespace IWantToBeAStar.MainGame
         private void AddScore(int score)
         {
             GameData.Score += score;
-            UIManager.GameUI.ScoreText.text = GameData.Score.ToString();
-        }
-        private IEnumerator ChangeScoreHeaderColorBlackToWhite()
-        {
-            while (UIManager.GameUI.ScoreText.color.r <= 255)
-            {
-                float beforeColor = UIManager.GameUI.ScoreText.color.r + 0.01f;
-                UIManager.GameUI.ScoreText.color = new Color(beforeColor, beforeColor, beforeColor);
-                yield return new WaitForSeconds(0.05f);
-            }
+            playerScore.text = GameData.Score.ToString();
         }
 
         /// <summary>
