@@ -18,6 +18,7 @@ namespace IWantToBeAStar.MainGame
 
         public int HighSkyStartScore;
         public int SpaceStartScore;
+        public int SpaceHazardChangeScore;
 
 
         public delegate void StageChanged(Stage changedStage);
@@ -81,8 +82,7 @@ namespace IWantToBeAStar.MainGame
 
                 // SpaceStartScore보다 높은 점수 일때
                 // 200점마다 장애물 변경
-                //TODO: SpaceHazardChangeScore 변수 추가하기
-                if ((score >= SpaceStartScore + 1) && (score % 200 == 0))
+                if ((score >= SpaceStartScore + 1) && (score % SpaceHazardChangeScore == 0))
                 {
                     switch (GameData.SpawnSpaceHazard)
                     {

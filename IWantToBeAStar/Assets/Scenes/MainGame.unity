@@ -397,6 +397,7 @@ MonoBehaviour:
   ReduceSpawnGainScore: 100
   HighSkyStartScore: 500
   SpaceStartScore: 1000
+  SpaceHazardChangeScore: 200
 --- !u!1 &696947393
 GameObject:
   m_ObjectHideFlags: 0
