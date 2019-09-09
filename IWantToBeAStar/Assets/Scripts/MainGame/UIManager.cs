@@ -68,8 +68,7 @@ namespace IWantToBeAStar.MainGame
         private bool sentInfo = false;
 
         public Text ReadyText { get; private set; }
-        public Text ScoreText { get; private set; }
-        public GameObject ScoreTextObject { get; private set; }
+        public Text ScoreText { get; set; }
 
         private GameOverPanel gameOverPanel;
         private WriteInfoPanel writeInfoPanel;
@@ -84,8 +83,7 @@ namespace IWantToBeAStar.MainGame
             }
 
             ReadyText = GameObject.Find("ReadyText").GetComponent<Text>();
-            ScoreTextObject = Instantiate(Resources.Load("Prefabs/ScoreText") as GameObject, transform, false);
-            ScoreText = ScoreTextObject.GetComponent<Text>();
+            ScoreText = GameObject.Find("ScoreText").GetComponent<Text>();
 
             ReadyText.text = string.Empty;
 
@@ -97,7 +95,6 @@ namespace IWantToBeAStar.MainGame
         private void HandleGameEndedEvent()
         {
             Cursor.visible = true;
-            Destroy(ScoreTextObject);
             Debug.Log("-----[Game Over]-----");
 
             if (gameOverPanel == null)
