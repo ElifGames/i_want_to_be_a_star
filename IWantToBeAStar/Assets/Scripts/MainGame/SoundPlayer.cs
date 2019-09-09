@@ -33,7 +33,7 @@ public class SoundPlayer : MonoBehaviour
         if (PlayOnStart)
         {
             Debug.Log("소리 재생");
-            PlaySound(0);
+            PlaySound(0, 1);
         }
     }
 
@@ -42,9 +42,10 @@ public class SoundPlayer : MonoBehaviour
     /// 사용하기 전 null 확인 코드 추가를 해주세요.
     /// </summary>
     /// <param name="position">-1(Left) ~ 0(Center) ~ 1(Right)</param>
-    public void PlaySound(float position)
+    public void PlaySound(float position, float volume)
     {
         source.panStereo = position;
+        source.volume = volume;
         source.Play();
     }
 

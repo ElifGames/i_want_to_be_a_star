@@ -6,7 +6,7 @@ using UnityEngine;
 public class BaseHazard : MonoBehaviour
 {
     protected SoundPlayer Sound;
-
+    protected float Volume { get; set; }
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +30,7 @@ public class BaseHazard : MonoBehaviour
     protected virtual void HazardAwake()
     {
         Sound = GetComponent<SoundPlayer>();
+        Volume = 0.7f;
     }
 
     protected void PlaySound()
@@ -43,11 +44,11 @@ public class BaseHazard : MonoBehaviour
             // 오브젝트가 3등분된 맵에서 안쪽인지 바깥쪽인지 확인
             if (Mathf.Abs(x) < center)
             {
-                Sound.PlaySound(0);
+                Sound.PlaySound(0, Volume);
             }
             else
             {
-                Sound.PlaySound(x > 0 ? SoundPlayer.RIGHT_SOUND : -SoundPlayer.RIGHT_SOUND);
+                Sound.PlaySound(x > 0 ? SoundPlayer.RIGHT_SOUND : -SoundPlayer.RIGHT_SOUND, Volume);
             }
         }
     }
