@@ -26,6 +26,11 @@ namespace IWantToBeAStar
         internal static int Goal { get; set; }
 
         /// <summary>
+        /// 배경 스크롤 속도
+        /// </summary>
+        internal static float BackgroundScrollSpeed { get; set; }
+
+        /// <summary>
         /// 스폰 시간 간격
         /// </summary>
         internal static float SpawnWait { get; set; }

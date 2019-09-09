@@ -71,6 +71,7 @@ namespace IWantToBeAStar.MainGame
                 // 일정 점수대마다 스폰 주기 감소
                 if (score % ReduceSpawnGainScore == 0)
                 {
+                    GameData.BackgroundScrollSpeed += 0.5f;
                     ReduceSpawnWait();
                 }
 

@@ -58,6 +58,7 @@ namespace IWantToBeAStar.MainGame
 
         private void Awake()
         {
+            GameData.BackgroundScrollSpeed = scrollSpeed;
             scoreManager = GameObject.Find("Score Manager").GetComponent<ScoreManager>();
             gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
             scoreManager.StageChangedEvent += HandleStageChangedEvent;
@@ -154,7 +155,7 @@ namespace IWantToBeAStar.MainGame
                 SecondSprite.sprite = ChangeSprite;
             }
             // 스프라이트를 아래로 스크롤
-            transform.Translate(new Vector3(0, Time.deltaTime * scrollSpeed * -1, startPosition.z));
+            transform.Translate(new Vector3(0, Time.deltaTime * GameData.BackgroundScrollSpeed * -1, startPosition.z));
         }
 
         /// <summary>
