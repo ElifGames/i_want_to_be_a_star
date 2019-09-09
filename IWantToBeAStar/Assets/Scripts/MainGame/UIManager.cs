@@ -9,24 +9,69 @@ namespace IWantToBeAStar.MainGame
 {
     public class UIManager : MonoBehaviour
     {
+        public class BasePanel
+        {
+            public GameObject Panel { get; }
+
+            public BasePanel(GameObject prefab, Transform transform)
+            {
+                Panel = Instantiate(prefab);
+                Panel.transform.SetParent(transform, false);
+            }
+
+            public void Open()
+            {
+                Panel.SetActive(true);
+            }
+
+            public void Close()
+            {
+                Panel.SetActive(false);
+            }
+        }
+
+        public class GameOverPanel : BasePanel
+        {
+            public Text ResultScore { get; }
+            public Text StatusHeader { get; }
+            public Text StatusBody { get; }
+            public Button OpenWriteInfoButton { get; }
+
+            public GameOverPanel(GameObject prefab, Transform transform) : base(prefab, transform)
+            {
+                StatusHeader = GameObject.Find("ScoreStatusHeader").GetComponent<Text>();
+                StatusBody = GameObject.Find("ScoreStatusBody").GetComponent<Text>();
+                ResultScore = GameObject.Find("ResultScore").GetComponent<Text>();
+                OpenWriteInfoButton = GameObject.Find("Button_OpenWriteInfo").GetComponent<Button>();
+            }
+        }
+
+        public class WriteInfoPanel : BasePanel
+        {
+            public InputField ClassField { get; }
+            public InputField NameField { get; }
+
+            public WriteInfoPanel(GameObject prefab, Transform transform) : base(prefab, transform)
+            {
+                ClassField = GameObject.Find("InputField_Class").GetComponent<InputField>();
+                NameField = GameObject.Find("InputField_Name").GetComponent<InputField>();
+            }
+        }
+
         public static UIManager GameUI;
+
+        public GameObject GameOverPanelPrefab;
+        public GameObject WriteInfoPanelPrefab;
 
         private string userClass;
         private string userName;
         private bool sentInfo = false;
-        // private bool openedGameOverPanel = false;
 
         public Text ReadyText { get; private set; }
         public Text ScoreText { get; set; }
-        public Text ResultScore { get; private set; }
-        public Text StatusHeader { get; private set; }
-        public Text StatusBody { get; private set; }
-        public GameObject GameOverPanel { get; private set; }
-        public GameObject WriteInfoPanel { get; private set; }
-        public Button OpenSendInfoButton { get; private set; }
 
-        public InputField ClassField;
-        public InputField NameField;
+        private GameOverPanel gameOverPanel;
+        private WriteInfoPanel writeInfoPanel;
 
         private GameManager gameManager;
 
@@ -36,20 +81,10 @@ namespace IWantToBeAStar.MainGame
             {
                 GameUI = this;
             }
+
             ReadyText = GameObject.Find("ReadyText").GetComponent<Text>();
             ScoreText = GameObject.Find("ScoreText").GetComponent<Text>();
-            ResultScore = GameObject.Find("ResultScore").GetComponent<Text>();
-            ResultScore = GameObject.FindWithTag("ResultScore").GetComponent<Text>();
-            StatusHeader = GameObject.Find("ScoreStatusHeader").GetComponent<Text>();
-            StatusBody = GameObject.Find("ScoreStatusBody").GetComponent<Text>();
-            GameOverPanel = GameObject.Find("GameOverPanel");
-            WriteInfoPanel = GameObject.Find("WriteInfoPanel");
-            OpenSendInfoButton = GameObject.Find("Button_OpenSendInfo").GetComponent<Button>();
-            ClassField = GameObject.Find("InputField_Class").GetComponent<InputField>();
-            NameField = GameObject.Find("InputField_Name").GetComponent<InputField>();
 
-            GameOverPanel.SetActive(false);
-            WriteInfoPanel.SetActive(false);
             ReadyText.text = string.Empty;
 
             gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
@@ -59,31 +94,40 @@ namespace IWantToBeAStar.MainGame
 
         private void HandleGameEndedEvent()
         {
-            // openedGameOverPanel = true;
             Cursor.visible = true;
             Debug.Log("-----[Game Over]-----");
+
+            if (gameOverPanel == null)
+            {
+                gameOverPanel = new GameOverPanel(GameOverPanelPrefab, transform);
+            }
+            if (writeInfoPanel == null)
+            {
+                writeInfoPanel = new WriteInfoPanel(WriteInfoPanelPrefab, transform);
+            }
+
+            OpenGameOverPanel();
 
             // 점수가 상품을 줄 수 있는 최저 점수를 넘겼는지 확인
             if (GameData.Score < GameData.Goal)
             {
-                StatusHeader.text
+                gameOverPanel.StatusHeader.text
                     = GameStrings.GetString("ScoreStatusHeader_NotAccomplish");
-                StatusBody.text
+                gameOverPanel.StatusBody.text
                     = GameStrings.GetString("ScoreStatusBody_NotAccomplish");
             }
             else
             {
-                StatusHeader.text
+                gameOverPanel.StatusBody.text
                     = GameStrings.GetString("ScoreStatusHeader_Accomplish");
-                StatusBody.text
+                gameOverPanel.StatusBody.text
                     = GameStrings.GetString("ScoreStatusBody_Accomplish");
             }
-            ResultScore.text = GameData.Score.ToString();
-
-            OpenGameOverPanel();
+            gameOverPanel.ResultScore.text = GameData.Score.ToString();
         }
 
         #region 유니티 UGUI 이벤트
+
         public void Restart()
         {
             SceneManager.LoadScene("MainGame");
@@ -96,53 +140,67 @@ namespace IWantToBeAStar.MainGame
 
         public void EndWritingClass()
         {
-            userClass = ClassField.text;
+            userClass = writeInfoPanel.ClassField.text;
             Debug.Log("입력: " + userClass);
         }
 
         public void EndWritingName()
         {
-            userName = NameField.text;
+            userName = writeInfoPanel.NameField.text;
             Debug.Log("입력: " + userName);
         }
 
-        public void SendButtonClick()
+        public void SendInfo()
         {
             Debug.Log("보내기버튼 눌림");
 
-            StartCoroutine("SendUserScore");
+            StartCoroutine(SendUserScore());
             sentInfo = true;
-            OpenGameOverPanel();
+            OpenSinglePanel(gameOverPanel);
         }
 
-        public void SendCancelButtonClick()
+        public void CancelSendInfo()
         {
             Debug.Log("취소버튼 눌림");
 
             sentInfo = false;
-            OpenGameOverPanel();
+            OpenSinglePanel(gameOverPanel);
         }
 
         public void OpenWriteInfoPanel()
         {
+            OpenSinglePanel(writeInfoPanel);
             Debug.Log("정보작성패널 열림");
-
-            GameOverPanel.SetActive(false);
-            WriteInfoPanel.SetActive(true);
         }
 
         public void OpenGameOverPanel()
         {
+            OpenSinglePanel(gameOverPanel);
             Debug.Log("게임오버패널 열림");
-
-            if (sentInfo)
-            {
-                OpenSendInfoButton.interactable = false;
-            }
-            WriteInfoPanel.SetActive(false);
-            GameOverPanel.SetActive(true);
         }
-        #endregion
+
+        #endregion 유니티 UGUI 이벤트
+
+        /// <summary>
+        /// game over panel과 write info panel중 하나만 띄웁니다.
+        /// </summary>
+        public void OpenSinglePanel(BasePanel target)
+        {
+            if (target == gameOverPanel)
+            {
+                gameOverPanel.Open();
+                writeInfoPanel.Close();
+                if (sentInfo)
+                {
+                    gameOverPanel.OpenWriteInfoButton.interactable = false;
+                }
+            }
+            else
+            {
+                gameOverPanel.Close();
+                writeInfoPanel.Open();
+            }
+        }
 
         /// <summary>
         /// 유저가 입력한 학번, 이름, 점수를 서버에 기록합니다.
