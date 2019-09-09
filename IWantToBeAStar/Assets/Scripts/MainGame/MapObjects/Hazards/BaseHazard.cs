@@ -30,7 +30,7 @@ public class BaseHazard : MonoBehaviour
     protected virtual void HazardAwake()
     {
         Sound = GetComponent<SoundPlayer>();
-        Volume = 0.7f;
+        Volume = 0.5f;
     }
 
     protected void PlaySound()

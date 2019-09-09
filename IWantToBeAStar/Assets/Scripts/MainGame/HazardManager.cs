@@ -137,7 +137,7 @@ namespace IWantToBeAStar.MainGame
         {
             while (true)
             {
-                int count = Random.Range(0, 4);
+                int count = Random.Range(0, 2);
                 SpawnHazard(Lightning, Direction.Center, count);
 
                 yield return new WaitForSeconds(GameData.SpawnWait + 0.2f);
