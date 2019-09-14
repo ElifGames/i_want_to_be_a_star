@@ -31,21 +31,15 @@ namespace IWantToBeAStar.MainGame.GameStage
             gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
 
             yield return StartCoroutine(Countdown());
-            scoreManager.ScoreAddedEvent += HandleScoreAddedEvent;
             gameManager.GameEndEvent += HandleGameEndEvent;
 
             StageMainCoroutine = StageMain();
             yield return StartCoroutine(StageMainCoroutine);
 
-            scoreManager.ScoreAddedEvent -= HandleScoreAddedEvent;
             gameManager.GameEndEvent -= HandleGameEndEvent;
         }
 
         protected abstract IEnumerator StageMain();
-
-        protected virtual void HandleScoreAddedEvent(int score)
-        {
-        }
 
         protected virtual void HandleGameEndEvent()
         {

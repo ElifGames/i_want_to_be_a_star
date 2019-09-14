@@ -39,7 +39,7 @@ namespace IWantToBeAStar.MainGame
         {
             GameData.Score += score;
             var currentScore = GameData.Score;
-            ScoreAddedEvent(currentScore);
+            ScoreAddedEvent?.Invoke(currentScore);
             playerScore.text = currentScore.ToString();
         }
     }

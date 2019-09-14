@@ -21,7 +21,6 @@ namespace IWantToBeAStar.MainGame
         #region 유니티 세팅 값
 
         public int GiftScore;
-        public int StartWait;
 
         public PlayerSkins PlayerSkin;
         private GameObject Player;
@@ -51,13 +50,12 @@ namespace IWantToBeAStar.MainGame
         public void PlayerHasDead()
         {
             StopCoroutine(ScoringCoroutine);
-            GameEndEvent();
+            GameEndEvent?.Invoke();
         }
 
         private void Awake()
         {
             GameData.GiftScore = GiftScore;
-
         }
 
         private void Start()
@@ -124,7 +122,7 @@ namespace IWantToBeAStar.MainGame
             {
                 case StageType.LowSky:
                     GameData.CurrentStage = stage;
-                    StageChangedEvent(StageType.LowSky);
+                    StageChangedEvent?.Invoke(StageType.LowSky);
                     yield return StartCoroutine(GameData.CurrentStage.Run());
                     break;
                 case StageType.HighSky:
