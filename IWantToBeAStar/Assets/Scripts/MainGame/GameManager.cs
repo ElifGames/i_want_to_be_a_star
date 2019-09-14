@@ -110,7 +110,7 @@ namespace IWantToBeAStar.MainGame
         private IEnumerator RunTargetStage(Stage stage)
         {
             // 맵 상의 위험요소가 전부 사라질때까지 기다리기
-            yield return new WaitUntil(() => hazardManager.SpawnedHazardsCount == 0);
+            yield return StartCoroutine(hazardManager.WaitForAllHazardRemoved());
 
             GameData.BackgroundScrollSpeed = GameData.DefaultBackgroundScrollSpeed;
 

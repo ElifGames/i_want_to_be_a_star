@@ -21,6 +21,7 @@ namespace IWantToBeAStar.MainGame.GameStage
             yield return StartCoroutine(timer.StartReduceSpawnTimer());
             StopCoroutine(spawnAirplane);
 
+            yield return StartCoroutine(hazardManager.WaitForAllHazardRemoved());
             yield return StartCoroutine(Warning());
 
             timer = new SpawnTimer(0.8f, 0.15f, 5, 6);
@@ -38,6 +39,7 @@ namespace IWantToBeAStar.MainGame.GameStage
                 UIManager.GameUI.ReadyText.text = "WARNING!";
                 yield return new WaitForSeconds(1f);
                 UIManager.GameUI.ReadyText.text = string.Empty;
+                yield return new WaitForSeconds(1f);
             }
             UIManager.GameUI.SetDefaultToReadyText();
         }
@@ -55,8 +57,7 @@ namespace IWantToBeAStar.MainGame.GameStage
         {
             while (true)
             {
-                int count = UnityEngine.Random.Range(1, 3);
-                hazardManager.SpawnLightning(count);
+                hazardManager.SpawnLightning(1);
                 yield return new WaitForSeconds(timer.SpawnWait);
             }
         }

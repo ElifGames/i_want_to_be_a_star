@@ -57,6 +57,14 @@ namespace IWantToBeAStar.MainGame
         }
 
         /// <summary>
+        /// 게임 상의 모든 위험요소들이 사라질때까지 기다립니다.
+        /// </summary>
+        public IEnumerator WaitForAllHazardRemoved()
+        {
+            yield return new WaitUntil(() => SpawnedHazardsCount == 0);
+        }
+
+        /// <summary>
         /// 왼쪽 과 오른족 중 랜덤으로 하나를 골라 스폰합니다.
         /// </summary>
         /// <param name="hazard"></param>
