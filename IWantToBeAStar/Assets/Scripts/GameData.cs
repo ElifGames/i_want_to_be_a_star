@@ -1,4 +1,6 @@
-﻿using IWantToBeAStar.MainGame.MapObjects.Hazards;
+﻿using IWantToBeAStar.MainGame;
+using IWantToBeAStar.MainGame.GameStage;
+using IWantToBeAStar.MainGame.MapObjects.Hazards;
 using System;
 using UnityEngine;
 
@@ -23,7 +25,7 @@ namespace IWantToBeAStar
         /// <summary>
         /// 상품을 줄 수 있는 최저 점수
         /// </summary>
-        internal static int Goal { get; set; }
+        internal static int GiftScore { get; set; }
 
         /// <summary>
         /// 배경 스크롤 속도
@@ -31,19 +33,9 @@ namespace IWantToBeAStar
         internal static float BackgroundScrollSpeed { get; set; }
 
         /// <summary>
-        /// 스폰 시간 간격
+        /// 기본 배경 스크롤 속도
         /// </summary>
-        internal static float SpawnWait { get; set; }
-
-        /// <summary>
-        /// 스폰 시간 감소 폭
-        /// </summary>
-        internal static float SpawnGain { get; set; }
-
-        /// <summary>
-        /// 최소 스폰시간 간격
-        /// </summary>
-        internal static float MinSpawnWait { get; set; }
+        internal static float DefaultBackgroundScrollSpeed { get; set; }
 
         /// <summary>
         /// 점수 증가 시간 폭
@@ -59,16 +51,6 @@ namespace IWantToBeAStar
         internal static Vector2 UpPosition { get; set; }
         internal static Vector2 LeftPosition { get; set; }
         internal static Vector2 RightPosition { get; set; }
-
-        /// <summary>
-        /// HighSky 시작 점수
-        /// </summary>
-        internal static int HighSkyStartScore { get; set; }
-
-        /// <summary>
-        /// Space 시작 점수
-        /// </summary>
-        internal static int SpaceStartScore { get; set; }
 
         /// <summary>
         /// 어떤 종류의 장애물을 생성해야 하는지 알려줍니다.

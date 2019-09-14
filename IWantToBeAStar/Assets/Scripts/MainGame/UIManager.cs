@@ -90,7 +90,10 @@ namespace IWantToBeAStar.MainGame
             {
                 GameUI = this;
             }
+        }
 
+        private void Start()
+        {
             ReadyText = GameObject.Find("ReadyText").GetComponent<Text>();
 
             ReadyText.text = string.Empty;
@@ -130,7 +133,7 @@ namespace IWantToBeAStar.MainGame
             OpenGameOverPanel();
 
             // 점수가 상품을 줄 수 있는 최저 점수를 넘겼는지 확인
-            if (GameData.Score < GameData.Goal)
+            if (GameData.Score < GameData.GiftScore)
             {
                 gameOverPanel.StatusHeader.text
                     = GameStrings.GetString("ScoreStatusHeader_NotAccomplish");

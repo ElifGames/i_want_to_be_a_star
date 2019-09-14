@@ -17,119 +17,30 @@ namespace IWantToBeAStar.MainGame
         /// </summary>
         public int ReduceSpawnGainScore;
 
-        public int HighSkyStartScore;
-        public int SpaceStartScore;
-        public int SpaceHazardChangeScore;
-
         private TextMeshPro playerScore;
 
-
-        public delegate void StageChanged(Stage changedStage);
-
-        public event StageChanged StageChangedEvent;
-
-        private GameManager gameManager;
-
-        private void HandleGameEndedEvent()
-        {
-            StopCoroutine("Scoring");
-        }
+        public delegate void ScoreAdded(int score);
+        public event ScoreAdded ScoreAddedEvent;
 
         private void Awake()
         {
-            gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
-            playerScore = GameObject.Find("PlayerScore").GetComponent<TextMeshPro>();
-
-            GameData.Score = 0;
-            GameData.HighSkyStartScore = HighSkyStartScore;
-            GameData.SpaceStartScore = SpaceStartScore;
             GameData.ScoreTimeGain = ScoreTimeGain;
             GameData.ReduceSpawnGainScore = ReduceSpawnGainScore;
-
-            gameManager.GameEndEvent += HandleGameEndedEvent;
-            gameManager.GameStartEvent += HandleGameStartEvent;
         }
 
         private void Start()
         {
+            playerScore = GameObject.Find("PlayerScore").GetComponent<TextMeshPro>();
+            GameData.Score = 0;
             playerScore.text = "0";
         }
 
-        private void HandleGameStartEvent()
-        {
-            StartCoroutine("Scoring");
-        }
-
-        private IEnumerator Scoring()
-        {
-            while (true)
-            {
-                yield return new WaitForSeconds(ScoreTimeGain);
-                AddScore(1);
-                var score = GameData.Score;
-
-                // 일정 점수대마다 스폰 주기 감소
-                if (score % ReduceSpawnGainScore == 0)
-                {
-                    GameData.BackgroundScrollSpeed += 0.5f;
-                    ReduceSpawnWait();
-                }
-
-                if (score == HighSkyStartScore)
-                {
-                    StageChangedEvent(Stage.HighSky);
-                }
-                else if (score == SpaceStartScore)
-                {
-                    StageChangedEvent(Stage.Space);
-                }
-
-                // SpaceStartScore보다 높은 점수 일때
-                // 200점마다 장애물 변경
-                if ((score >= SpaceStartScore + 1) && (score % SpaceHazardChangeScore == 0))
-                {
-                    switch (GameData.SpawnSpaceHazard)
-                    {
-                        case SpaceHazards.Meteo:
-                            GameData.SpawnSpaceHazard = SpaceHazards.UFO;
-                            break;
-
-                        case SpaceHazards.UFO:
-                            GameData.SpawnSpaceHazard = SpaceHazards.Meteo;
-                            break;
-
-                        default:
-                            break;
-                    }
-                }
-            }
-        }
-
-        private void AddScore(int score)
+        public void AddScore(int score)
         {
             GameData.Score += score;
-            playerScore.text = GameData.Score.ToString();
-        }
-
-        /// <summary>
-        /// 스폰 주기를 정해진 값으로 줄입니다.
-        /// 만약 최소 스폰주기에 도달한 경우 최소 스폰 주기로 고정됩니다.
-        /// </summary>
-        private void ReduceSpawnWait()
-        {
-            var spawnWait = GameData.SpawnWait - GameData.SpawnGain;
-            string log;
-            if (spawnWait > GameData.MinSpawnWait)
-            {
-                GameData.SpawnWait = spawnWait;
-                log = "스폰 시간 감소";
-            }
-            else
-            {
-                log = "스폰 시간 최소치 도달";
-                GameData.SpawnWait = GameData.MinSpawnWait;
-            }
-            Debug.Log($"{log}: {GameData.SpawnWait}");
+            var currentScore = GameData.Score;
+            ScoreAddedEvent(currentScore);
+            playerScore.text = currentScore.ToString();
         }
     }
 }
