@@ -27,10 +27,7 @@ namespace IWantToBeAStar.MainGame
 
         #endregion 유니티 세팅 값
 
-        #region Coroutine
         private IEnumerator RunGameCoroutine;
-        private IEnumerator ScoringCoroutine;
-        #endregion
 
         public delegate void GameEnded();
         public event GameEnded GameEndEvent;
@@ -41,15 +38,14 @@ namespace IWantToBeAStar.MainGame
         public delegate void StageChanged(StageType changedStage);
         public event StageChanged StageChangedEvent;
 
-        private ScoreManager scoreManager;
         private HazardManager hazardManager;
+        private GameObject stageManger;
 
         private List<Stage> stages;
 
 
         public void PlayerHasDead()
         {
-            StopCoroutine(ScoringCoroutine);
             GameEndEvent?.Invoke();
         }
 
@@ -61,8 +57,8 @@ namespace IWantToBeAStar.MainGame
         private void Start()
         {
             Player = GameObject.Find("Player");
-            scoreManager = GameObject.Find("Score Manager").GetComponent<ScoreManager>();
             hazardManager = GameObject.Find("Hazard Manager").GetComponent<HazardManager>();
+            stageManger = GameObject.Find("Stage Manager");
 
             switch (GameData.Charactor)
             {
@@ -108,7 +104,7 @@ namespace IWantToBeAStar.MainGame
         {
             RunGameCoroutine = RunGame();
             StartCoroutine(RunGameCoroutine);
-            GameStartEvent();
+            GameStartEvent?.Invoke();
         }
 
         private IEnumerator RunTargetStage(Stage stage)
@@ -118,18 +114,11 @@ namespace IWantToBeAStar.MainGame
 
             GameData.BackgroundScrollSpeed = GameData.DefaultBackgroundScrollSpeed;
 
-            switch (stage.stageType)
-            {
-                case StageType.LowSky:
-                    GameData.CurrentStage = stage;
-                    StageChangedEvent?.Invoke(StageType.LowSky);
-                    yield return StartCoroutine(GameData.CurrentStage.Run());
-                    break;
-                case StageType.HighSky:
-                    break;
-                case StageType.Space:
-                    break;
-            }
+            GameData.CurrentStage = stage;
+            StageChangedEvent?.Invoke(stage.stageType);
+
+            yield return StartCoroutine(GameData.CurrentStage.Run());
+            Debug.Log("RunTargetStage종료");
         }
 
         private IEnumerator RunGame()
@@ -138,23 +127,15 @@ namespace IWantToBeAStar.MainGame
             // 따라서 바로 LowSky로 넘어가도 됨.
             stages = new List<Stage>
             {
-                new LowSkyStage()
+                stageManger.AddComponent<LowSkyStage>(),
+                stageManger.AddComponent<HighSkyStage>()
             };
-
-            ScoringCoroutine = Scoring();
-            StartCoroutine(ScoringCoroutine);
-
             // stages 리스트 순서대로 스테이지 실행
             foreach (var stage in stages)
             {
                 yield return StartCoroutine(RunTargetStage(stage));
+                Debug.Log($"{stage.stageType}스테이지 종료");
             }
-        }
-
-        private IEnumerator Scoring()
-        {
-            scoreManager.AddScore(1);
-            yield return new WaitForSeconds(0.1f);
         }
     }
 }

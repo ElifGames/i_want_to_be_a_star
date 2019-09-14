@@ -22,6 +22,11 @@ namespace IWantToBeAStar.MainGame
         public delegate void ScoreAdded(int score);
         public event ScoreAdded ScoreAddedEvent;
 
+        private GameManager gameManager;
+
+        private IEnumerator ScoringCoroutine;
+
+
         private void Awake()
         {
             GameData.ScoreTimeGain = ScoreTimeGain;
@@ -30,12 +35,36 @@ namespace IWantToBeAStar.MainGame
 
         private void Start()
         {
+            gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+            gameManager.GameStartEvent += HandleGameStartEvent;
+            gameManager.GameEndEvent += HandleGameEndEvent;
+
             playerScore = GameObject.Find("PlayerScore").GetComponent<TextMeshPro>();
             GameData.Score = 0;
             playerScore.text = "0";
         }
 
-        public void AddScore(int score)
+        private void HandleGameStartEvent()
+        {
+            ScoringCoroutine = Scoring();
+            StartCoroutine(ScoringCoroutine);
+        }
+
+        private void HandleGameEndEvent()
+        {
+            StopCoroutine(ScoringCoroutine);
+        }
+
+        private IEnumerator Scoring()
+        {
+            while (true)
+            {
+                AddScore(1);
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
+
+        private void AddScore(int score)
         {
             GameData.Score += score;
             var currentScore = GameData.Score;

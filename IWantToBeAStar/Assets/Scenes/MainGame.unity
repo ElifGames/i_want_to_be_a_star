@@ -96,6 +96,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -175,8 +176,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: b2238dd75f6943c449c529d8cd10a7ba, type: 3}
     m_FontSize: 80
@@ -310,9 +309,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScoreTimeGain: 0.1
   ReduceSpawnGainScore: 100
-  HighSkyStartScore: 500
-  SpaceStartScore: 1000
-  SpaceHazardChangeScore: 200
 --- !u!1 &696947393
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,7 +437,7 @@ GameObject:
   m_Component:
   - component: {fileID: 986989146}
   m_Layer: 0
-  m_Name: StageManager
+  m_Name: Stage Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -504,8 +500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4443181d423c5443a246bc51a0931a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GiftScore: 0
-  StartWait: 5
+  GiftScore: 400
   PlayerSkin:
     Dog: {fileID: 21300000, guid: 12cd183bf4fa3f04c80f6720f74f0a64, type: 3}
     Cat: {fileID: 21300000, guid: f419e8ff14a9fbf4d849817636caf339, type: 3}
@@ -550,9 +545,6 @@ MonoBehaviour:
     type: 3}
   UFO: {fileID: 6795943654162564450, guid: b30203e1a9cbbbb42948f94b78d215bc, type: 3}
   Meteo: {fileID: 7743204055050192406, guid: e8148d46b7a1a6e4e897b48303a10fac, type: 3}
-  DefaultSpawnWait: 0
-  SpawnGain: 0.07
-  MinSpawnWait: 0.2
 --- !u!4 &1041791755
 Transform:
   m_ObjectHideFlags: 0
@@ -612,6 +604,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -692,6 +685,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1026,7 +1020,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 2c5cc622a297a7f4296c2197b2c451c6, type: 3}
   FirstSprite: {fileID: 1779321359}
   SecondSprite: {fileID: 1351295689}
-  ScrollSpeed: 7
+  ScrollSpeed: 10
 --- !u!212 &1779321359
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1041,6 +1035,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

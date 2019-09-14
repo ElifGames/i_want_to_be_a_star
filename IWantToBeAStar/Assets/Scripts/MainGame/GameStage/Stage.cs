@@ -37,6 +37,7 @@ namespace IWantToBeAStar.MainGame.GameStage
             yield return StartCoroutine(StageMainCoroutine);
 
             gameManager.GameEndEvent -= HandleGameEndEvent;
+            Debug.Log("스테이지 종료");
         }
 
         protected abstract IEnumerator StageMain();
@@ -53,6 +54,7 @@ namespace IWantToBeAStar.MainGame.GameStage
                 UIManager.GameUI.ReadyText.text = i.ToString();
                 yield return new WaitForSeconds(1f);
             }
+            UIManager.GameUI.ReadyText.text = string.Empty;
         }
     }
 }

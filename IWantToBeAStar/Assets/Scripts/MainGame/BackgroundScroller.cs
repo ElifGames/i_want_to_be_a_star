@@ -129,19 +129,26 @@ namespace IWantToBeAStar.MainGame
 
                 else
                 {
-                    switch (GameData.CurrentStage.stageType)
+                    if (GameData.CurrentStage == null)
                     {
-                        case StageType.LowSky:
-                            ChangeSprite = GetBackgroundRotate(BackgroundList.LowSky);
-                            break;
+                        ChangeSprite = GetBackgroundRotate(BackgroundList.LowSky);
+                    }
+                    else
+                    {
+                        switch (GameData.CurrentStage.stageType)
+                        {
+                            case StageType.LowSky:
+                                ChangeSprite = GetBackgroundRotate(BackgroundList.LowSky);
+                                break;
 
-                        case StageType.HighSky:
-                            ChangeSprite = GetBackgroundRotate(BackgroundList.HighSky);
-                            break;
+                            case StageType.HighSky:
+                                ChangeSprite = GetBackgroundRotate(BackgroundList.HighSky);
+                                break;
 
-                        case StageType.Space:
-                            ChangeSprite = GetBackgroundRotate(BackgroundList.Space);
-                            break;
+                            case StageType.Space:
+                                ChangeSprite = GetBackgroundRotate(BackgroundList.Space);
+                                break;
+                        }
                     }
                 }
 

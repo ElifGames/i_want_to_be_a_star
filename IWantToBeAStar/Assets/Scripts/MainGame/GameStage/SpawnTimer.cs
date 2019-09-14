@@ -58,6 +58,13 @@ namespace IWantToBeAStar.MainGame.GameStage
             ReduceCount = reduceCount;
             SpawnGain = (defaultSpawnWait - minSpawnWait) / reduceCount;
             WaitSecond = waitSecond;
+
+            Debug.Log($"기본 스폰주기: {DefaultSpawnWait}");
+            Debug.Log($"현재 스폰주기: {SpawnWait}");
+            Debug.Log($"최소 스폰주기: {MinSpawnWait}");
+            Debug.Log($"스폰주기를 줄이는 횟수: {ReduceCount}");
+            Debug.Log($"스폰주기를 줄이는 값: {SpawnGain}");
+            Debug.Log($"한번 기다리는 시간: {WaitSecond}");
         }
 
         /// <summary>
@@ -80,8 +87,10 @@ namespace IWantToBeAStar.MainGame.GameStage
                 {
                     yield return new WaitForSeconds(WaitSecond);
                     SpawnWait -= SpawnGain;
+                    Debug.Log($"현재 스폰주기: {SpawnWait}");
                 }
             }
+            yield return new WaitForSeconds(WaitSecond);
         }
     }
 }
