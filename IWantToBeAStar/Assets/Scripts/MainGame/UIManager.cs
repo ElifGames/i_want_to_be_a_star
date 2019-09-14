@@ -84,6 +84,12 @@ namespace IWantToBeAStar.MainGame
 
         private bool isPausePanelOpen = false;
 
+        public void SetDefaultToReadyText()
+        {
+            ReadyText.text = string.Empty;
+            ReadyText.color = Color.white;
+        }
+
         private void Awake()
         {
             if (GameUI == null)

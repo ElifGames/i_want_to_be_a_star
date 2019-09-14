@@ -220,20 +220,7 @@ namespace IWantToBeAStar.MainGame
             }
         }
 
-        /// <summary>
-        /// 번개 생성을 무한반복합니다.
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerator StartSpawningLightning()
-        {
-            while (true)
-            {
-                int count = Random.Range(0, 2);
-                SpawnHazard(Lightning, Direction.Center, count);
 
-                yield return new WaitForSeconds(GameData.SpawnWait + 0.2f);
-            }
-        }
 
         /// <summary>
         /// 우주 장애물을 현재 상태에 맞게 생성하는 것을 무한반복합니다.
