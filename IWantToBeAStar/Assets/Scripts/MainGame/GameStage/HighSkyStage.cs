@@ -24,7 +24,7 @@ namespace IWantToBeAStar.MainGame.GameStage
             yield return StartCoroutine(hazardManager.WaitForAllHazardRemoved());
             yield return StartCoroutine(Warning());
 
-            timer = new SpawnTimer(0.8f, 0.15f, 5, 6);
+            timer = new SpawnTimer(0.8f, 0.2f, 5, 10);
             IEnumerator spawnLightning = SpawningLightning();
             StartCoroutine(spawnLightning);
             yield return StartCoroutine(timer.StartReduceSpawnTimer());
