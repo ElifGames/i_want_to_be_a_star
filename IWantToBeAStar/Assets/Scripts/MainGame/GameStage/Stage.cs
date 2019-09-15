@@ -49,12 +49,13 @@ namespace IWantToBeAStar.MainGame.GameStage
 
         private IEnumerator Countdown()
         {
+            UIManager.GameUI.ReadyText.color = Color.yellow;
             for (int i = 3; i > 0; i--)
             {
                 UIManager.GameUI.ReadyText.text = i.ToString();
                 yield return new WaitForSeconds(1f);
             }
-            UIManager.GameUI.ReadyText.text = string.Empty;
+            UIManager.GameUI.SetDefaultToReadyText();
         }
     }
 }

@@ -15,7 +15,15 @@ namespace IWantToBeAStar.MainGame.GameStage
 
         protected override IEnumerator StageMain()
         {
-            throw new NotImplementedException();
+
+        }
+
+        private IEnumerator SpawningMeteo()
+        {
+            while (true)
+            {
+
+            }
         }
     }
 }
