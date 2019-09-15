@@ -15,7 +15,7 @@ namespace IWantToBeAStar.MainGame.GameStage
 
         protected override IEnumerator StageMain()
         {
-
+            yield return null;
         }
 
         private IEnumerator SpawningMeteo()
