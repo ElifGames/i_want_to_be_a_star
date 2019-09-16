@@ -41,7 +41,7 @@ namespace IWantToBeAStar.MainGame.GameStage
 
         private IEnumerator Pattern1()
         {
-            var timer = new SpawnTimer(0.6f, 0.2f, 5, 12);
+            var timer = new SpawnTimer(0.6f, 0.2f, 3, 10);
             IEnumerator spawn = SpawningMeteo(timer);
             StartCoroutine(spawn);
             yield return StartCoroutine(timer.StartReduceSpawnTimer());
@@ -50,7 +50,7 @@ namespace IWantToBeAStar.MainGame.GameStage
 
         private IEnumerator Pattern2()
         {
-            var timer = new SpawnTimer(0.8f, 0.3f, 5, 12);
+            var timer = new SpawnTimer(0.8f, 0.3f, 3, 10);
             IEnumerator spawn = SpawningUFO(timer);
             StartCoroutine(spawn);
             yield return StartCoroutine(timer.StartReduceSpawnTimer());
