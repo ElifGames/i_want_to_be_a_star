@@ -16,7 +16,7 @@ namespace IWantToBeAStar.MainGame.MapObjects.Player
         }
 
         // Update is called once per frame
-        private void FixedUpdate()
+        private void Update()
         {
             switch (GameData.Controller)
             {
@@ -49,12 +49,14 @@ namespace IWantToBeAStar.MainGame.MapObjects.Player
 
             //부드럽게 움직이는 코드
             transform.position =
-                Vector2.Lerp(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), CursorSpeed);
+                Vector2.Lerp(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), CursorSpeed * Time.deltaTime);
 
             // 플레이어가 맵 밖을 나가지 않도록 하는 코드
             transform.position = new Vector2(
                 Mathf.Clamp(transform.position.x, MapSize.xMin, MapSize.xMax),
                 Mathf.Clamp(transform.position.y, MapSize.yMin, MapSize.yMax));
         }
+
+
     }
 }

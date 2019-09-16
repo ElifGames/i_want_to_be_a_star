@@ -1193,5 +1193,10 @@ PrefabInstance:
       propertyPath: m_CullTransparentMesh
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4844568826853804931, guid: b661b6868e2fc9f4d8725a65d1404fed,
+        type: 3}
+      propertyPath: CursorSpeed
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b661b6868e2fc9f4d8725a65d1404fed, type: 3}

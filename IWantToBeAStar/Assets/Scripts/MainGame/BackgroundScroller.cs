@@ -47,7 +47,7 @@ namespace IWantToBeAStar.MainGame
         private ScoreManager scoreManager;
         private GameManager gameManager;
 
-        private bool gameRunning;
+        private bool isGameStarted;
 
         private void HandleStageChangedEvent(StageType changedStage)
         {
@@ -60,7 +60,7 @@ namespace IWantToBeAStar.MainGame
         {
             GameData.DefaultBackgroundScrollSpeed = ScrollSpeed;
             GameData.BackgroundScrollSpeed = ScrollSpeed;
-            gameRunning = false;
+            isGameStarted = false;
         }
 
         private void Start()
@@ -78,12 +78,12 @@ namespace IWantToBeAStar.MainGame
         private void HandleGameStartEvent()
         {
             // 배경이 GameStartEvent를 받고 나서 작동할 수 있도록 함
-            gameRunning = true;
+            isGameStarted = true;
         }
 
         private void FixedUpdate()
         {
-            if (gameRunning)
+            if (isGameStarted)
             {
                 BackgroundScroll();
             }

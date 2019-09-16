@@ -13,6 +13,7 @@ namespace IWantToBeAStar.MainGame.GameStage
 
         protected override IEnumerator StageMain()
         {
+            GameData.BackgroundScrollSpeed = 15;
             timer = new SpawnTimer(1f, 0.2f, 10, 5);
             IEnumerator spawnAirplane = SpawningAirplane();
             StartCoroutine(spawnAirplane);

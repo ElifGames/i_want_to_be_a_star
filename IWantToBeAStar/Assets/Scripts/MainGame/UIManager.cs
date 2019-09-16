@@ -117,6 +117,7 @@ namespace IWantToBeAStar.MainGame
 
         private void Update()
         {
+            // TODO: esc누르면 일시정지 창 사라지고 Resume
             if (!playerDead && !isPausePanelOpen && Input.GetKeyDown(KeyCode.Escape))
             {
                 Time.timeScale = 0;
