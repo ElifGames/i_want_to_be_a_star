@@ -28,10 +28,10 @@ namespace IWantToBeAStar.MainGame.GameStage
             }
 
             //모든 패턴 끝난 후에 패턴 랜덤으로 정해서 무한반복
+            System.Random random = new System.Random();
             while (true)
             {
-                System.Random random = new System.Random();
-                int num = random.Next(0, 3);
+                int num = random.Next(3);
                 yield return StartCoroutine(patterns[num]);
 
                 yield return StartCoroutine(hazardManager.WaitForAllHazardRemoved());

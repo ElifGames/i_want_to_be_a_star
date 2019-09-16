@@ -23,11 +23,17 @@ namespace IWantToBeAStar.MainGame
 
         public int SpawnedHazardsCount => transform.childCount;
 
+        private System.Random positionRandom;
+        private System.Random leftRightRandom;
+
         private void Awake()
         {
             GameData.UpPosition = UpPosition;
             GameData.LeftPosition = LeftPosition;
             GameData.RightPosition = RightPosition;
+
+            positionRandom = new System.Random();
+            leftRightRandom = new System.Random();
         }
 
         public void SpawnBird()
@@ -69,7 +75,7 @@ namespace IWantToBeAStar.MainGame
         /// <param name="hazard"></param>
         private void SpawnLeftOrRight(GameObject hazard)
         {
-            int i = new System.Random().Next(2);
+            int i = leftRightRandom.Next(2);
             if (i == 0)
             {
                 SpawnHazard(hazard, Direction.Left);
@@ -141,9 +147,8 @@ namespace IWantToBeAStar.MainGame
             {
                 //random.NextDouble()로 나온 값에서 MaxRandomNumber를 곱한 뒤, 1/2 확률로 음수, 양수 값 정하기
                 // System.Random
-                var random = new System.Random();
-                float num = (float)(random.NextDouble() * MaxRandomNumber);
-                float randomNumber = random.Next(2) == 0 ? -num : num; // 0, 1
+                float num = (float)(positionRandom.NextDouble() * MaxRandomNumber);
+                float randomNumber = leftRightRandom.Next(2) == 0 ? -num : num; // 0, 1
 
                 // Unity.Random
                 // float randomNumber = Random.Range(-MaxRandomNumber, MaxRandomNumber);
