@@ -1,5 +1,4 @@
 ﻿using IWantToBeAStar.MainGame.GameStage;
-using IWantToBeAStar.MainGame.MapObjects.Hazards;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,7 +38,7 @@ namespace IWantToBeAStar.MainGame
         public event StageChanged StageChangedEvent;
 
         private HazardManager hazardManager;
-        private GameObject stageManger;
+        private GameObject stageManager;
 
         private List<Stage> stages;
 
@@ -58,7 +57,7 @@ namespace IWantToBeAStar.MainGame
         {
             Player = GameObject.Find("Player");
             hazardManager = GameObject.Find("Hazard Manager").GetComponent<HazardManager>();
-            stageManger = GameObject.Find("Stage Manager");
+            stageManager = GameObject.Find("Stage Manager");
 
             switch (GameData.Charactor)
             {
@@ -127,8 +126,9 @@ namespace IWantToBeAStar.MainGame
             // 따라서 바로 LowSky로 넘어가도 됨.
             stages = new List<Stage>
             {
-                stageManger.AddComponent<LowSkyStage>(),
-                stageManger.AddComponent<HighSkyStage>()
+                stageManager.AddComponent<LowSkyStage>(),
+                stageManager.AddComponent<HighSkyStage>(),
+                stageManager.AddComponent<InfiniteSpaceStage>()
             };
             // stages 리스트 순서대로 스테이지 실행
             foreach (var stage in stages)

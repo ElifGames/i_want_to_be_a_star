@@ -47,7 +47,7 @@ namespace IWantToBeAStar.MainGame.GameStage
             StopAllCoroutines();
         }
 
-        private IEnumerator Countdown()
+        protected IEnumerator Countdown()
         {
             UIManager.GameUI.ReadyText.color = Color.yellow;
             for (int i = 3; i > 0; i--)

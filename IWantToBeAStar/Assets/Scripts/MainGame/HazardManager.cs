@@ -1,8 +1,7 @@
-﻿using IWantToBeAStar.MainGame.MapObjects.Hazards;
+﻿using System;
 using System.Collections;
-using System.Linq;
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -22,7 +21,7 @@ namespace IWantToBeAStar.MainGame
         public GameObject Meteo;
         #endregion
 
-        public int SpawnedHazardsCount { get { return transform.childCount; } }
+        public int SpawnedHazardsCount => transform.childCount;
 
         private void Awake()
         {

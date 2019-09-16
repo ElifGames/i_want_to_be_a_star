@@ -1,8 +1,6 @@
-﻿using IWantToBeAStar;
-using IWantToBeAStar.MainGame;
+﻿using IWantToBeAStar.MainGame;
 using IWantToBeAStar.MainGame.GameStage;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace IWantToBeAStar.MainGame.GameStage
