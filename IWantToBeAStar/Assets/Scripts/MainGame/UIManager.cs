@@ -10,6 +10,7 @@ namespace IWantToBeAStar.MainGame
     public class UIManager : MonoBehaviour
     {
         #region 패널 클래스
+
         public class BasePanel
         {
             public GameObject Panel { get; }
@@ -64,7 +65,8 @@ namespace IWantToBeAStar.MainGame
             {
             }
         }
-        #endregion
+
+        #endregion 패널 클래스
 
         public static UIManager GameUI;
 

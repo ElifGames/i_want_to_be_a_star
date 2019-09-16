@@ -46,9 +46,9 @@ namespace IWantToBeAStar.MainGame.MapObjects.Player
         {
             // 그냥 마우스 따라 움직이는 코드
             //transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            
+
             //부드럽게 움직이는 코드
-            transform.position = 
+            transform.position =
                 Vector2.Lerp(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), CursorSpeed);
 
             // 플레이어가 맵 밖을 나가지 않도록 하는 코드

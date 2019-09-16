@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace IWantToBeAStar.MainGame.GameStage
 {
@@ -9,22 +9,27 @@ namespace IWantToBeAStar.MainGame.GameStage
         /// 처음 스폰 주기
         /// </summary>
         public float? DefaultSpawnWait { get; private set; }
+
         /// <summary>
         /// 최소 스폰주기
         /// </summary>
         public float MinSpawnWait { get; private set; }
+
         /// <summary>
         /// 스폰주기를 줄이는 횟수
         /// </summary>
         public int ReduceCount { get; private set; }
+
         /// <summary>
         /// 스폰주기를 줄이는 값
         /// </summary>
         public float SpawnGain { get; private set; }
+
         /// <summary>
         /// 스폰주기를 한번 줄이기까지 기다리는 시간
         /// </summary>
-        public int WaitSecond { get; private set; } 
+        public int WaitSecond { get; private set; }
+
         /// <summary>
         /// 현재 스폰주기
         /// </summary>

@@ -1,6 +1,4 @@
-﻿using IWantToBeAStar;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 
 public class LightningMovement : BaseHazard
@@ -15,7 +13,6 @@ public class LightningMovement : BaseHazard
         lightningHazard = gameObject.transform.Find("LightningHazard").gameObject;
         lightningHazard.SetActive(false);
         lightningWarning.SetActive(false);
-
     }
 
     protected override void HazardStart()

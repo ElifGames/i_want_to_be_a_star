@@ -5,7 +5,7 @@ namespace IWantToBeAStar.MainGame.GameStage
 {
     public class HighSkyStage : Stage
     {
-        SpawnTimer timer;
+        private SpawnTimer timer;
 
         public HighSkyStage() : base(StageType.HighSky)
         {

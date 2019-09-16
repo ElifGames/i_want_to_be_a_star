@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace IWantToBeAStar.MainGame
 {
     public class HazardManager : MonoBehaviour
     {
         #region 유니티 세팅 값
+
         public Vector2 UpPosition;
         public Vector2 LeftPosition;
         public Vector2 RightPosition;
@@ -19,7 +19,8 @@ namespace IWantToBeAStar.MainGame
         public GameObject Lightning;
         public GameObject UFO;
         public GameObject Meteo;
-        #endregion
+
+        #endregion 유니티 세팅 값
 
         public int SpawnedHazardsCount => transform.childCount;
 
@@ -161,11 +162,13 @@ namespace IWantToBeAStar.MainGame
                                  where (randomNumber > position.x - border) && (randomNumber < position.x + border)
                                  select position;
                         break;
+
                     case PositionType.Y:
                         result = from position in positions
                                  where (randomNumber > position.y - border) && (randomNumber < position.y + border)
                                  select position;
                         break;
+
                     default:
                         break;
                 }

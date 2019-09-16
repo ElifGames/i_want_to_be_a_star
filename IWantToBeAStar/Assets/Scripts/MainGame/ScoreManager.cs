@@ -1,7 +1,6 @@
-﻿using IWantToBeAStar.MainGame.MapObjects.Hazards;
-using System.Collections;
-using UnityEngine;
+﻿using System.Collections;
 using TMPro;
+using UnityEngine;
 
 namespace IWantToBeAStar.MainGame
 {
@@ -20,12 +19,12 @@ namespace IWantToBeAStar.MainGame
         private TextMeshPro playerScore;
 
         public delegate void ScoreAdded(int score);
+
         public event ScoreAdded ScoreAddedEvent;
 
         private GameManager gameManager;
 
         private IEnumerator ScoringCoroutine;
-
 
         private void Awake()
         {

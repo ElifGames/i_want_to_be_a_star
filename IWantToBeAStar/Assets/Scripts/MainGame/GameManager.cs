@@ -29,19 +29,21 @@ namespace IWantToBeAStar.MainGame
         private IEnumerator RunGameCoroutine;
 
         public delegate void GameEnded();
+
         public event GameEnded GameEndEvent;
 
         public delegate void GameStarted();
+
         public event GameStarted GameStartEvent;
 
         public delegate void StageChanged(StageType changedStage);
+
         public event StageChanged StageChangedEvent;
 
         private HazardManager hazardManager;
         private GameObject stageManager;
 
         private List<Stage> stages;
-
 
         public void PlayerHasDead()
         {

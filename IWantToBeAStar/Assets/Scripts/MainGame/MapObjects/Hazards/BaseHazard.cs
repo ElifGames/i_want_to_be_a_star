@@ -1,16 +1,13 @@
-﻿using IWantToBeAStar;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BaseHazard : MonoBehaviour
 {
-    void Start()
+    private void Start()
     {
         HazardStart();
     }
 
-    void Awake()
+    private void Awake()
     {
         HazardAwake();
     }

@@ -1,5 +1,4 @@
-﻿using IWantToBeAStar.MainGame;
-using IWantToBeAStar.MainGame.GameStage;
+﻿using IWantToBeAStar.MainGame.GameStage;
 using IWantToBeAStar.MainGame.MapObjects.Hazards;
 using System;
 using UnityEngine;
@@ -46,7 +45,6 @@ namespace IWantToBeAStar
         /// 해당 값의 점수대마다 스폰 시간 감소
         /// </summary>
         internal static int ReduceSpawnGainScore { get; set; }
-
 
         internal static Vector2 UpPosition { get; set; }
         internal static Vector2 LeftPosition { get; set; }

@@ -5,31 +5,31 @@ using UnityEngine;
 
 namespace IWantToBeAStar.MainGame.GameStage
 {
-
-}
-public class LowSkyStage : Stage
-{
-    SpawnTimer timer;
-
-    public LowSkyStage() : base(StageType.LowSky)
+    public class LowSkyStage : Stage
     {
-    }
+        private SpawnTimer timer;
 
-    protected override IEnumerator StageMain()
-    {
-        timer = new SpawnTimer(1f, 0.2f, 10, 5);
-        IEnumerator spawn = SpawningBird();
-        StartCoroutine(spawn);
-        yield return StartCoroutine(timer.StartReduceSpawnTimer());
-        StopCoroutine(spawn);
-    }
-
-    private IEnumerator SpawningBird()
-    {
-        while (true)
+        public LowSkyStage() : base(StageType.LowSky)
         {
-            hazardManager.SpawnBird();
-            yield return new WaitForSeconds(timer.SpawnWait);
+        }
+
+        protected override IEnumerator StageMain()
+        {
+            timer = new SpawnTimer(1f, 0.2f, 10, 5);
+            IEnumerator spawn = SpawningBird();
+            StartCoroutine(spawn);
+            yield return StartCoroutine(timer.StartReduceSpawnTimer());
+            StopCoroutine(spawn);
+        }
+
+        private IEnumerator SpawningBird()
+        {
+            while (true)
+            {
+                hazardManager.SpawnBird();
+                yield return new WaitForSeconds(timer.SpawnWait);
+            }
         }
     }
 }
+

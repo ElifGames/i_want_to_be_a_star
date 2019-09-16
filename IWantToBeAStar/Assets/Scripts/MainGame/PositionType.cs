@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-
-namespace IWantToBeAStar.MainGame
+﻿namespace IWantToBeAStar.MainGame
 {
     public enum PositionType
     {
