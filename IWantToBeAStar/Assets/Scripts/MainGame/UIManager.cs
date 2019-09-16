@@ -88,7 +88,7 @@ namespace IWantToBeAStar.MainGame
 
         private bool isPausePanelOpen = false;
 
-        private bool playerDead = false;
+        private bool isGameRunning;
 
         public void SetDefaultToReadyText()
         {
@@ -113,16 +113,19 @@ namespace IWantToBeAStar.MainGame
             gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
 
             gameManager.GameEndEvent += HandleGameEndedEvent;
+
+            isGameRunning = true;
+            Cursor.visible = false;
         }
 
         private void Update()
         {
-            if (!playerDead && Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
                 if (!isPausePanelOpen)
                 {
                     Time.timeScale = 0;
-                    Cursor.visible = true;
+                    isGameRunning = false;
                     pausePanel = new PausePanel(PausePanelPrefab, transform);
                     isPausePanelOpen = true;
                 }
@@ -131,12 +134,21 @@ namespace IWantToBeAStar.MainGame
                     Resume();
                 }
             }
+
+            if (isGameRunning && Cursor.visible)
+            {
+                Cursor.visible = false;
+            }
+            else if(!isGameRunning && !Cursor.visible)
+            {
+                Cursor.visible = true;
+            }
         }
 
         private void HandleGameEndedEvent()
         {
-            Cursor.visible = true;
-            playerDead = true;
+            isGameRunning = false;
+
             Debug.Log("-----[Game Over]-----");
 
             if (gameOverPanel == null)
@@ -174,9 +186,9 @@ namespace IWantToBeAStar.MainGame
         {
             Destroy(pausePanel.Panel);
             pausePanel = null;
+            isGameRunning = true;
             Time.timeScale = 1;
             isPausePanelOpen = false;
-            Cursor.visible = false;
         }
 
         public void Restart()
@@ -187,6 +199,8 @@ namespace IWantToBeAStar.MainGame
         public void GoMainMenu()
         {
             Time.timeScale = 1;
+            isGameRunning = false;
+            //Cursor.visible = true;
             SceneManager.LoadScene("MainMenu");
         }
 

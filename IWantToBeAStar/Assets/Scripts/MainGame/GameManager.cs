@@ -80,8 +80,6 @@ namespace IWantToBeAStar.MainGame
                     break;
             }
 
-            Cursor.visible = false;
-
             StartCoroutine(WaitAndStart());
         }
 
