@@ -4,6 +4,8 @@ namespace IWantToBeAStar.MainGame.MapObjects.Player
 {
     public class DestroyByContact : MonoBehaviour
     {
+        public bool Invincibility = false;
+
         private GameManager gameManager;
 
         private void Start()
@@ -13,7 +15,7 @@ namespace IWantToBeAStar.MainGame.MapObjects.Player
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.tag == "Hazard")
+            if (!Invincibility && other.tag == "Hazard")
             {
                 gameManager.PlayerHasDead();
                 Destroy(gameObject);
