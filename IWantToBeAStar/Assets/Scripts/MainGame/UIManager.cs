@@ -9,6 +9,7 @@ namespace IWantToBeAStar.MainGame
 {
     public class UIManager : MonoBehaviour
     {
+        #region 패널 클래스
         public class BasePanel
         {
             public GameObject Panel { get; }
@@ -63,6 +64,7 @@ namespace IWantToBeAStar.MainGame
             {
             }
         }
+        #endregion
 
         public static UIManager GameUI;
 
@@ -83,6 +85,8 @@ namespace IWantToBeAStar.MainGame
         private GameManager gameManager;
 
         private bool isPausePanelOpen = false;
+
+        private bool playerDead = false;
 
         public void SetDefaultToReadyText()
         {
@@ -111,21 +115,19 @@ namespace IWantToBeAStar.MainGame
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (!playerDead && !isPausePanelOpen && Input.GetKeyDown(KeyCode.Escape))
             {
-                if (!isPausePanelOpen)
-                {
-                    Time.timeScale = 0;
-                    Cursor.visible = true;
-                    pausePanel = new PausePanel(PausePanelPrefab, transform);
-                    isPausePanelOpen = true;
-                }
+                Time.timeScale = 0;
+                Cursor.visible = true;
+                pausePanel = new PausePanel(PausePanelPrefab, transform);
+                isPausePanelOpen = true;
             }
         }
 
         private void HandleGameEndedEvent()
         {
             Cursor.visible = true;
+            playerDead = false;
             Debug.Log("-----[Game Over]-----");
 
             if (gameOverPanel == null)
