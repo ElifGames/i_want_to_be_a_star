@@ -12,7 +12,7 @@ namespace IWantToBeAStar.MainGame.GameStage
 
         protected override IEnumerator StageMain()
         {
-            GameData.BackgroundScrollSpeed = 4;
+            GameData.BackgroundScrollSpeed = 3;
             var patterns = new List<IEnumerator>
             {
                 Pattern1(),
@@ -33,7 +33,6 @@ namespace IWantToBeAStar.MainGame.GameStage
             {
                 int num = random.Next(3);
                 yield return StartCoroutine(patterns[num]);
-
                 yield return StartCoroutine(hazardManager.WaitForAllHazardRemoved());
                 yield return StartCoroutine(Countdown());
             }
@@ -59,13 +58,14 @@ namespace IWantToBeAStar.MainGame.GameStage
 
         private IEnumerator Pattern3()
         {
-            var meteoTimer = new SpawnTimer(0.6f, 0.2f, 5, 12);
+            var meteoTimer = new SpawnTimer(0.6f, 0.3f, 5, 12);
             IEnumerator meteo = SpawningMeteo(meteoTimer);
             var ufoTimer = new SpawnTimer(1f, 0.8f, 10, 6);
             IEnumerator ufo = SpawningUFO(ufoTimer);
 
             StartCoroutine(meteo);
-            StopCoroutine(ufo);
+            StartCoroutine(ufo);
+            StartCoroutine(ufoTimer.StartReduceSpawnTimer());
             yield return StartCoroutine(meteoTimer.StartReduceSpawnTimer());
             StopCoroutine(meteo);
             StopCoroutine(ufo);

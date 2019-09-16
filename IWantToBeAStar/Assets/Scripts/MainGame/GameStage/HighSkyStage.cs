@@ -5,8 +5,6 @@ namespace IWantToBeAStar.MainGame.GameStage
 {
     public class HighSkyStage : Stage
     {
-        private SpawnTimer timer;
-
         public HighSkyStage() : base(StageType.HighSky)
         {
         }
@@ -14,19 +12,18 @@ namespace IWantToBeAStar.MainGame.GameStage
         protected override IEnumerator StageMain()
         {
             GameData.BackgroundScrollSpeed = 15;
-            timer = new SpawnTimer(1f, 0.2f, 10, 5);
-            IEnumerator spawnAirplane = SpawningAirplane();
+            SpawnTimer airplaneTimer = new SpawnTimer(1f, 0.35f, 10, 5);
+            IEnumerator spawnAirplane = SpawningAirplane(airplaneTimer);
             StartCoroutine(spawnAirplane);
-            yield return StartCoroutine(timer.StartReduceSpawnTimer());
-            StopCoroutine(spawnAirplane);
 
-            yield return StartCoroutine(hazardManager.WaitForAllHazardRemoved());
-            yield return StartCoroutine(Warning());
-
-            timer = new SpawnTimer(0.8f, 0.2f, 5, 10);
-            IEnumerator spawnLightning = SpawningLightning();
+            SpawnTimer lightningTimer = new SpawnTimer(1f, 0.85f, 5, 10);
+            IEnumerator spawnLightning = SpawningLightning(lightningTimer);
             StartCoroutine(spawnLightning);
-            yield return StartCoroutine(timer.StartReduceSpawnTimer());
+
+            StartCoroutine(lightningTimer.StartReduceSpawnTimer());
+            yield return StartCoroutine(airplaneTimer.StartReduceSpawnTimer());
+
+            StopCoroutine(spawnAirplane);
             StopCoroutine(spawnLightning);
         }
 
@@ -43,7 +40,7 @@ namespace IWantToBeAStar.MainGame.GameStage
             UIManager.GameUI.SetDefaultToReadyText();
         }
 
-        private IEnumerator SpawningAirplane()
+        private IEnumerator SpawningAirplane(SpawnTimer timer)
         {
             while (true)
             {
@@ -52,7 +49,7 @@ namespace IWantToBeAStar.MainGame.GameStage
             }
         }
 
-        private IEnumerator SpawningLightning()
+        private IEnumerator SpawningLightning(SpawnTimer timer)
         {
             while (true)
             {
