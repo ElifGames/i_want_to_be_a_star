@@ -117,13 +117,20 @@ namespace IWantToBeAStar.MainGame
 
         private void Update()
         {
-            // TODO: esc누르면 일시정지 창 사라지고 Resume
-            if (!playerDead && !isPausePanelOpen && Input.GetKeyDown(KeyCode.Escape))
+            if (!playerDead && Input.GetKeyDown(KeyCode.Escape))
             {
-                Time.timeScale = 0;
-                Cursor.visible = true;
-                pausePanel = new PausePanel(PausePanelPrefab, transform);
-                isPausePanelOpen = true;
+                if (!isPausePanelOpen)
+                {
+                    Time.timeScale = 0;
+                    Cursor.visible = true;
+                    pausePanel = new PausePanel(PausePanelPrefab, transform);
+                    isPausePanelOpen = true;
+                }
+                else
+                {
+                    Time.timeScale = 1;
+                    Resume();
+                }
             }
         }
 
