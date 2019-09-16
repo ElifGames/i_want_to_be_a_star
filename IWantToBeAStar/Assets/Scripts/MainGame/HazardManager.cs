@@ -69,8 +69,8 @@ namespace IWantToBeAStar.MainGame
         /// <param name="hazard"></param>
         private void SpawnLeftOrRight(GameObject hazard)
         {
-            int i = new System.Random().Next(0, 101);
-            if (i <= 50)
+            int i = new System.Random().Next(2);
+            if (i == 0)
             {
                 SpawnHazard(hazard, Direction.Left);
             }
@@ -139,8 +139,15 @@ namespace IWantToBeAStar.MainGame
             bool complete = false;
             while (!complete)
             {
+                //random.NextDouble()로 나온 값에서 MaxRandomNumber를 곱한 뒤, 1/2 확률로 음수, 양수 값 정하기
+                // System.Random
+                var random = new System.Random();
+                float num = (float)(random.NextDouble() * MaxRandomNumber);
+                float randomNumber = random.Next(2) == 0 ? -num : num; // 0, 1
 
-                float randomNumber = Random.Range(-MaxRandomNumber, MaxRandomNumber);
+                // Unity.Random
+                // float randomNumber = Random.Range(-MaxRandomNumber, MaxRandomNumber);
+
                 IEnumerable<Vector2> result = null;
                 switch (pos)
                 {
