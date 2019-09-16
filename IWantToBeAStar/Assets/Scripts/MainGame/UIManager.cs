@@ -127,7 +127,7 @@ namespace IWantToBeAStar.MainGame
         private void HandleGameEndedEvent()
         {
             Cursor.visible = true;
-            playerDead = false;
+            playerDead = true;
             Debug.Log("-----[Game Over]-----");
 
             if (gameOverPanel == null)
