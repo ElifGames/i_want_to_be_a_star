@@ -69,7 +69,7 @@ namespace IWantToBeAStar.MainGame
         /// <param name="hazard"></param>
         private void SpawnLeftOrRight(GameObject hazard)
         {
-            int i = Random.Range(0, 100);
+            int i = new System.Random().Next(0, 101);
             if (i <= 50)
             {
                 SpawnHazard(hazard, Direction.Left);
@@ -139,6 +139,7 @@ namespace IWantToBeAStar.MainGame
             bool complete = false;
             while (!complete)
             {
+
                 float randomNumber = Random.Range(-MaxRandomNumber, MaxRandomNumber);
                 IEnumerable<Vector2> result = null;
                 switch (pos)
