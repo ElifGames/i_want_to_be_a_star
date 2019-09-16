@@ -128,7 +128,6 @@ namespace IWantToBeAStar.MainGame
                 }
                 else
                 {
-                    Time.timeScale = 1;
                     Resume();
                 }
             }
