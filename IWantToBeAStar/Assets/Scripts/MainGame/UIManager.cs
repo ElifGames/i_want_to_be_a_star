@@ -116,6 +116,7 @@ namespace IWantToBeAStar.MainGame
                 if (!isPausePanelOpen)
                 {
                     Time.timeScale = 0;
+                    Cursor.visible = true;
                     pausePanel = new PausePanel(PausePanelPrefab, transform);
                     isPausePanelOpen = true;
                 }
@@ -164,6 +165,7 @@ namespace IWantToBeAStar.MainGame
             pausePanel = null;
             Time.timeScale = 1;
             isPausePanelOpen = false;
+            Cursor.visible = false;
         }
 
         public void Restart()
