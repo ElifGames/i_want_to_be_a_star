@@ -37,29 +37,29 @@ namespace IWantToBeAStar.MainGame
             leftRightRandom = new System.Random();
         }
 
-        public void SpawnBird()
+        public void RandomSpawnBird()
         {
-            SpawnLeftOrRight(Bird);
+            RandomSpawnLeftOrRight(Bird);
         }
 
-        public void SpawnAirplane()
+        public void RandomSpawnAirplane()
         {
-            SpawnLeftOrRight(Airplane);
+            RandomSpawnLeftOrRight(Airplane);
         }
 
-        public void SpawnLightning(int count)
+        public void RandomSpawnLightning(int count)
         {
-            SpawnHazard(Lightning, Direction.Center, count);
+            RandomSpawnHazard(Lightning, Direction.Center, count);
         }
 
-        public void SpawnMeteo()
+        public void RandomSpawnMeteo()
         {
-            SpawnHazard(Meteo, Direction.Up);
+            RandomSpawnHazard(Meteo, Direction.Up);
         }
 
-        public void SpawnUFO()
+        public void RandomSpawnUFO()
         {
-            SpawnLeftOrRight(UFO);
+            RandomSpawnLeftOrRight(UFO);
         }
 
         /// <summary>
@@ -74,16 +74,16 @@ namespace IWantToBeAStar.MainGame
         /// 왼쪽 과 오른족 중 랜덤으로 하나를 골라 스폰합니다.
         /// </summary>
         /// <param name="hazard"></param>
-        private void SpawnLeftOrRight(GameObject hazard)
+        private void RandomSpawnLeftOrRight(GameObject hazard)
         {
             int i = leftRightRandom.Next(2);
             if (i == 0)
             {
-                SpawnHazard(hazard, Direction.Left);
+                RandomSpawnHazard(hazard, Direction.Left);
             }
             else
             {
-                SpawnHazard(hazard, Direction.Right);
+                RandomSpawnHazard(hazard, Direction.Right);
             }
         }
 
@@ -95,7 +95,7 @@ namespace IWantToBeAStar.MainGame
         /// <param name="spawnCount">
         /// <paramref name="spawnCount"/>가 2개 이상일 경우 서로 겹치지 않게 생성합니다.
         /// </param>
-        private void SpawnHazard(GameObject hazard, Direction direction, int spawnCount = 1)
+        private void RandomSpawnHazard(GameObject hazard, Direction direction, int spawnCount = 1)
         {
             // Array를 쓸 경우 값을 미리 초기화해야되기 때문에 초기화된 값때문에 [0, 0, 0]이 먼저 입력되어버림
             List<Vector2> spawnedPositions = new List<Vector2>();

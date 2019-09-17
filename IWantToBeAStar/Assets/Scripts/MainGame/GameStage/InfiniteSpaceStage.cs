@@ -75,7 +75,7 @@ namespace IWantToBeAStar.MainGame.GameStage
         {
             while (true)
             {
-                hazardManager.SpawnMeteo();
+                hazardManager.RandomSpawnMeteo();
                 yield return new WaitForSeconds(timer.SpawnWait);
             }
         }
@@ -84,7 +84,7 @@ namespace IWantToBeAStar.MainGame.GameStage
         {
             while (true)
             {
-                hazardManager.SpawnUFO();
+                hazardManager.RandomSpawnUFO();
                 yield return new WaitForSeconds(timer.SpawnWait);
             }
         }

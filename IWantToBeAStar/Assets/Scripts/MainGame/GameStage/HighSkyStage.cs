@@ -44,7 +44,7 @@ namespace IWantToBeAStar.MainGame.GameStage
         {
             while (true)
             {
-                hazardManager.SpawnAirplane();
+                hazardManager.RandomSpawnAirplane();
                 yield return new WaitForSeconds(timer.SpawnWait);
             }
         }
@@ -53,7 +53,7 @@ namespace IWantToBeAStar.MainGame.GameStage
         {
             while (true)
             {
-                hazardManager.SpawnLightning(1);
+                hazardManager.RandomSpawnLightning(1);
                 yield return new WaitForSeconds(timer.SpawnWait);
             }
         }
