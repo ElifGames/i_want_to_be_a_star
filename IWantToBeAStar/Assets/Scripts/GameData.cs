@@ -42,7 +42,7 @@ namespace IWantToBeAStar
         internal static float ScoreTimeGain { get; set; }
 
         /// <summary>
-        /// 해당 값의 점수대마다 스폰 시간 감소
+        /// 해당 값의 점수대마다 생성 시간 감소
         /// </summary>
         internal static int ReduceSpawnGainScore { get; set; }
 
@@ -55,7 +55,7 @@ namespace IWantToBeAStar
         /// </summary>
         internal static SpaceHazards SpawnSpaceHazard { get; set; }
 
-        internal static Charactors Charactor { get; set; }
+        internal static Characters Charactor { get; set; }
         internal static Controllers Controller { get; set; }
     }
 }

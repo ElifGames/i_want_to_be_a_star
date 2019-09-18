@@ -2,7 +2,10 @@
 
 namespace IWantToBeAStar.MainGame
 {
-    public class UIEvent : MonoBehaviour
+    /// <summary>
+    /// UI에 등록되는 이벤트 모음
+    /// </summary>
+    internal class UIEvent : MonoBehaviour
     {
         public void OnWriteInfoButtonClick()
         {

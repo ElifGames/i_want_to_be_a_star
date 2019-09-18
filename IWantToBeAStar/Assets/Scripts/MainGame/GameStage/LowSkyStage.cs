@@ -9,7 +9,7 @@ namespace IWantToBeAStar.MainGame.GameStage
     {
         private SpawnTimer timer;
 
-        public LowSkyStage() : base(StageType.LowSky)
+        public LowSkyStage() : base(StageTypes.LowSky)
         {
         }
 

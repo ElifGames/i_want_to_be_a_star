@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace IWantToBeAStar.MainGame
+namespace IWantToBeAStar.MainGame.MapObjects
 {
     public class DestroyByBoundary : MonoBehaviour
     {

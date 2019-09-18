@@ -17,17 +17,18 @@ namespace IWantToBeAStar.MainGame
             public Sprite Fox;
         }
 
-        #region 유니티 세팅 값
-
+        #region Unity Settings
         public int GiftScore;
 
         public PlayerSkins PlayerSkin;
         private GameObject Player;
+        #endregion
 
-        #endregion 유니티 세팅 값
-
+        #region Coroutines
         private IEnumerator RunGameCoroutine;
+        #endregion
 
+        #region Events
         public delegate void GameEnded();
 
         public event GameEnded GameEndEvent;
@@ -36,19 +37,15 @@ namespace IWantToBeAStar.MainGame
 
         public event GameStarted GameStartEvent;
 
-        public delegate void StageChanged(StageType changedStage);
+        public delegate void StageChanged(StageTypes changedStage);
 
         public event StageChanged StageChangedEvent;
+        #endregion
 
         private HazardManager hazardManager;
         private GameObject stageManager;
 
         private List<Stage> stages;
-
-        public void PlayerHasDead()
-        {
-            GameEndEvent?.Invoke();
-        }
 
         private void Awake()
         {
@@ -63,24 +60,29 @@ namespace IWantToBeAStar.MainGame
 
             switch (GameData.Charactor)
             {
-                case Charactors.Cat:
+                case Characters.Cat:
                     Player.GetComponent<SpriteRenderer>().sprite = PlayerSkin.Cat;
                     break;
 
-                case Charactors.Dog:
+                case Characters.Dog:
                     Player.GetComponent<SpriteRenderer>().sprite = PlayerSkin.Dog;
                     break;
 
-                case Charactors.Racoon:
+                case Characters.Racoon:
                     Player.GetComponent<SpriteRenderer>().sprite = PlayerSkin.Racoon;
                     break;
 
-                case Charactors.Fox:
+                case Characters.Fox:
                     Player.GetComponent<SpriteRenderer>().sprite = PlayerSkin.Fox;
                     break;
             }
 
             StartCoroutine(WaitAndStart());
+        }
+
+        public void PlayerHasDead()
+        {
+            GameEndEvent?.Invoke();
         }
 
         private IEnumerator WaitAndStart()
@@ -114,7 +116,7 @@ namespace IWantToBeAStar.MainGame
             GameData.BackgroundScrollSpeed = GameData.DefaultBackgroundScrollSpeed;
 
             GameData.CurrentStage = stage;
-            StageChangedEvent?.Invoke(stage.stageType);
+            StageChangedEvent?.Invoke(stage.StageType);
 
             yield return StartCoroutine(GameData.CurrentStage.Run());
             Debug.Log("RunTargetStage종료");
@@ -134,7 +136,7 @@ namespace IWantToBeAStar.MainGame
             foreach (var stage in stages)
             {
                 yield return StartCoroutine(RunTargetStage(stage));
-                Debug.Log($"{stage.stageType}스테이지 종료");
+                Debug.Log($"{stage.StageType}스테이지 종료");
             }
         }
     }

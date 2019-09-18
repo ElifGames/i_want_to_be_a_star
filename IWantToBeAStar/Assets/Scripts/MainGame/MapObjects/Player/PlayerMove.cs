@@ -4,9 +4,11 @@ namespace IWantToBeAStar.MainGame.MapObjects.Player
 {
     public class PlayerMove : MonoBehaviour
     {
+        #region Unity Settings
         public MapSize MapSize;
         public float CursorSpeed;
         public float KeyboardSpeed;
+        #endregion
 
         private Rigidbody2D rigidbody2d;
 

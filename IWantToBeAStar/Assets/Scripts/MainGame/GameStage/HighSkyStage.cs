@@ -5,7 +5,7 @@ namespace IWantToBeAStar.MainGame.GameStage
 {
     public class HighSkyStage : Stage
     {
-        public HighSkyStage() : base(StageType.HighSky)
+        public HighSkyStage() : base(StageTypes.HighSky)
         {
         }
 

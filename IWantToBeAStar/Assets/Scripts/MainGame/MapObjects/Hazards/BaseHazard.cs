@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
 
-public class BaseHazard : MonoBehaviour
+/// <summary>
+/// Hazard 기본 클래스입니다.
+/// </summary>
+public abstract class BaseHazard : MonoBehaviour
 {
     private void Start()
     {
+        // Hazard 공통으로 실행되는 코드 추가하기
         HazardStart();
     }
 
@@ -12,14 +16,21 @@ public class BaseHazard : MonoBehaviour
         HazardAwake();
     }
 
-    /// <summary>
-    /// base.HazardStart()를 먼저 사용 후 사용하세요.
-    /// </summary>
-    protected virtual void HazardStart()
+    private void Update()
     {
+        HazardUpdate();
     }
 
-    protected virtual void HazardAwake()
+    private void FixedUpdate()
     {
+        HazardFixedUpdate();
     }
+
+    protected abstract void HazardStart();
+
+    protected abstract void HazardAwake();
+
+    protected abstract void HazardUpdate();
+
+    protected abstract void HazardFixedUpdate();
 }

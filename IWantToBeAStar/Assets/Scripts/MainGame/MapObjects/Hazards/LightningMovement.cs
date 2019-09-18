@@ -8,17 +8,23 @@ public class LightningMovement : BaseHazard
 
     protected override void HazardAwake()
     {
-        base.HazardAwake();
         lightningWarning = gameObject.transform.Find("LightningWarning").gameObject;
         lightningHazard = gameObject.transform.Find("LightningHazard").gameObject;
         lightningHazard.SetActive(false);
         lightningWarning.SetActive(false);
     }
 
+    protected override void HazardFixedUpdate()
+    {
+    }
+
     protected override void HazardStart()
     {
-        base.HazardStart();
         StartCoroutine(SpawnLightning());
+    }
+
+    protected override void HazardUpdate()
+    {
     }
 
     private IEnumerator SpawnLightning()
@@ -30,15 +36,5 @@ public class LightningMovement : BaseHazard
         yield return new WaitForSeconds(0.1f);
         lightningHazard.SetActive(false);
         Destroy(gameObject);
-        /*
-        while (true)
-        {
-            if (!Sound?.IsPlaying ?? false)
-            {
-                Destroy(gameObject);
-            }
-            yield return new WaitForSeconds(0.1f);
-        }
-        */
     }
 }

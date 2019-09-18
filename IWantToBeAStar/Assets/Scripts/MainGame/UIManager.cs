@@ -9,7 +9,7 @@ namespace IWantToBeAStar.MainGame
 {
     public class UIManager : MonoBehaviour
     {
-        #region 패널 클래스
+        #region Panel Class
 
         public class BasePanel
         {
@@ -66,9 +66,11 @@ namespace IWantToBeAStar.MainGame
             }
         }
 
-        #endregion 패널 클래스
+        #endregion
 
         public static UIManager GameUI;
+
+        public Text ReadyText { get; private set; }
 
         public GameObject GameOverPanelPrefab;
         public GameObject WriteInfoPanelPrefab;
@@ -78,7 +80,6 @@ namespace IWantToBeAStar.MainGame
         private string userName;
         private bool sentInfo = false;
 
-        public Text ReadyText { get; private set; }
 
         private GameOverPanel gameOverPanel;
         private WriteInfoPanel writeInfoPanel;
@@ -89,12 +90,6 @@ namespace IWantToBeAStar.MainGame
         private bool isPausePanelOpen = false;
 
         private bool isGameRunning;
-
-        public void SetDefaultToReadyText()
-        {
-            ReadyText.text = string.Empty;
-            ReadyText.color = Color.white;
-        }
 
         private void Awake()
         {
@@ -180,7 +175,11 @@ namespace IWantToBeAStar.MainGame
             gameOverPanel.ResultScore.text = GameData.Score.ToString();
         }
 
-        #region 유니티 UGUI 이벤트
+        public void SetDefaultToReadyText()
+        {
+            ReadyText.text = string.Empty;
+            ReadyText.color = Color.white;
+        }
 
         public void Resume()
         {
@@ -245,12 +244,10 @@ namespace IWantToBeAStar.MainGame
             Debug.Log("게임오버패널 열림");
         }
 
-        #endregion 유니티 UGUI 이벤트
-
         /// <summary>
         /// game over panel과 write info panel중 하나만 띄웁니다.
         /// </summary>
-        public void OpenSinglePanel(BasePanel target)
+        private void OpenSinglePanel(BasePanel target)
         {
             if (target == gameOverPanel)
             {

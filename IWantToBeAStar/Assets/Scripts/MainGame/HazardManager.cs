@@ -8,8 +8,7 @@ namespace IWantToBeAStar.MainGame
 {
     public class HazardManager : MonoBehaviour
     {
-        #region 유니티 세팅 값
-
+        #region Unity Settings
         public Vector2 UpPosition;
         public Vector2 LeftPosition;
         public Vector2 RightPosition;
@@ -19,8 +18,7 @@ namespace IWantToBeAStar.MainGame
         public GameObject Lightning;
         public GameObject UFO;
         public GameObject Meteo;
-
-        #endregion 유니티 세팅 값
+        #endregion
 
         public int SpawnedHazardsCount => transform.childCount;
 
@@ -71,7 +69,7 @@ namespace IWantToBeAStar.MainGame
         }
 
         /// <summary>
-        /// 왼쪽 과 오른족 중 랜덤으로 하나를 골라 스폰합니다.
+        /// 왼쪽 과 오른족 중 랜덤으로 하나를 골라 생성합니다.
         /// </summary>
         /// <param name="hazard"></param>
         private void RandomSpawnLeftOrRight(GameObject hazard)
@@ -97,7 +95,6 @@ namespace IWantToBeAStar.MainGame
         /// </param>
         private void RandomSpawnHazard(GameObject hazard, Direction direction, int spawnCount = 1)
         {
-            // Array를 쓸 경우 값을 미리 초기화해야되기 때문에 초기화된 값때문에 [0, 0, 0]이 먼저 입력되어버림
             List<Vector2> spawnedPositions = new List<Vector2>();
             for (int i = 0; i < spawnCount; i++)
             {
@@ -136,8 +133,8 @@ namespace IWantToBeAStar.MainGame
         /// <paramref name="positions"/>에서 +1 -1 위치 까지 겹치지 않는 랜덤 숫자를 뽑아서 반환합니다.
         /// </summary>
         /// <param name="positions">대조해볼 값들</param>
-        /// <param name="pos">x 위치인지 y위치인지를 알려줌</param>
-        /// <param name="MaxRandomNumber">최대 랜덤 숫자. 최소 랜덤 숫자는 최대 랜덤 숫자의 음수 값</param>
+        /// <param name="pos">x 위치인지 y위치인지를 알려줍니다.</param>
+        /// <param name="MaxRandomNumber">최대 랜덤 숫자. 최소 랜덤 숫자는 최대 랜덤 숫자의 음수 값이 됩니다.</param>
         /// <returns></returns>
         private float GetNotOverlappedRandomPosition(List<Vector2> positions, PositionType pos, float MaxRandomNumber)
         {

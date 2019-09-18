@@ -6,7 +6,7 @@ namespace IWantToBeAStar.MainGame.GameStage
 {
     public class InfiniteSpaceStage : Stage
     {
-        public InfiniteSpaceStage() : base(StageType.Space)
+        public InfiniteSpaceStage() : base(StageTypes.Space)
         {
         }
 

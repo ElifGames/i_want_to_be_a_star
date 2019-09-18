@@ -1,6 +1,6 @@
 ﻿namespace IWantToBeAStar
 {
-    public enum Charactors
+    public enum Characters
     {
         Cat, Dog, Racoon, Fox
     }

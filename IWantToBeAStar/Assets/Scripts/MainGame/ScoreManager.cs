@@ -12,19 +12,25 @@ namespace IWantToBeAStar.MainGame
         public float ScoreTimeGain;
 
         /// <summary>
-        /// 해당 값의 점수대마다 스폰 시간 감소
+        /// 해당 값의 점수대마다 생성 시간 감소
         /// </summary>
         public int ReduceSpawnGainScore;
 
-        private TextMeshPro playerScore;
-
+        #region Events
         public delegate void ScoreAdded(int score);
 
+        /// <summary>
+        /// 점수가 변경될 때마다 이벤트가 발생합니다.
+        /// </summary>
+        /// <param name="score"></param>
         public event ScoreAdded ScoreAddedEvent;
+        #endregion
 
         private GameManager gameManager;
 
         private IEnumerator ScoringCoroutine;
+
+        private TextMeshPro playerScore;
 
         private void Awake()
         {

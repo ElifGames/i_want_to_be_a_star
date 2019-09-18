@@ -4,7 +4,9 @@ namespace IWantToBeAStar.MainGame.MapObjects.Player
 {
     public class DestroyByContact : MonoBehaviour
     {
+        #region Unity Settigns
         public bool Invincibility = false;
+        #endregion
 
         private GameManager gameManager;
 

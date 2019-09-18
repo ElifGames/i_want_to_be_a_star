@@ -8,13 +8,15 @@ namespace IWantToBeAStar.Settings
 {
     public class SettingsManager : MonoBehaviour
     {
+        #region Unity Settings
         public List<Toggle> CharactorToggles;
         public List<Toggle> ControllerToggles;
+        #endregion
 
-        public Charactors FindPickedCharactor()
+        public Characters FindPickedCharactor()
         {
             var result = CharactorToggles.Find(x => x.isOn);
-            return (Charactors)Enum.Parse(typeof(Charactors), result.name);
+            return (Characters)Enum.Parse(typeof(Characters), result.name);
         }
 
         public Controllers FindPickedController()
