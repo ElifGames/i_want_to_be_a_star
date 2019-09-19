@@ -13,28 +13,30 @@ namespace IWantToBeAStar.MainGame.GameStage
         protected override IEnumerator StageMain()
         {
             GameData.BackgroundScrollSpeed = 3;
-            var patterns = new List<IEnumerator>
-            {
-                Pattern1(),
-                Pattern2(),
-                Pattern3()
-            };
-
+            var patterns = GetNewPatterns();
             for (int i = 0; i < 3; i++)
             {
                 yield return StartCoroutine(patterns[i]);
                 yield return StartCoroutine(hazardManager.WaitForAllHazardRemoved());
-                yield return StartCoroutine(Countdown()); // 스테이지 처음에 이미 카운트다운 했음
             }
 
             //모든 패턴 끝난 후에 패턴 랜덤으로 정해서 무한반복
             while (true)
             {
-                int num = Random.Range(0, 3);
-                yield return StartCoroutine(patterns[num]);
+                patterns = GetNewPatterns();
+                int idx = Random.Range(0, 3);
+                yield return StartCoroutine(patterns[idx]);
                 yield return StartCoroutine(hazardManager.WaitForAllHazardRemoved());
-                yield return StartCoroutine(Countdown());
             }
+        }
+        private IEnumerator[] GetNewPatterns()
+        {
+            return new IEnumerator[]
+            {
+                Pattern1(),
+                Pattern2(),
+                Pattern3()
+            };
         }
 
         private IEnumerator Pattern1()
@@ -57,9 +59,9 @@ namespace IWantToBeAStar.MainGame.GameStage
 
         private IEnumerator Pattern3()
         {
-            var meteoTimer = new SpawnTimer(0.6f, 0.3f, 5, 12);
+            var meteoTimer = new SpawnTimer(0.6f, 0.3f, 2, 15);
             IEnumerator meteo = SpawningMeteo(meteoTimer);
-            var ufoTimer = new SpawnTimer(1f, 0.8f, 10, 6);
+            var ufoTimer = new SpawnTimer(1f, 0.8f, 3, 10);
             IEnumerator ufo = SpawningUFO(ufoTimer);
 
             StartCoroutine(meteo);

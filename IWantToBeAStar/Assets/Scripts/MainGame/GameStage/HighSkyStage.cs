@@ -53,7 +53,7 @@ namespace IWantToBeAStar.MainGame.GameStage
         {
             while (true)
             {
-                hazardManager.RandomSpawnLightning(1);
+                hazardManager.RandomSpawnLightning(Random.Range(0, 3));
                 yield return new WaitForSeconds(timer.SpawnWait);
             }
         }
