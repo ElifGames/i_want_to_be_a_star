@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace IWantToBeAStar.MainGame
 {
@@ -22,17 +23,12 @@ namespace IWantToBeAStar.MainGame
 
         public int SpawnedHazardsCount => transform.childCount;
 
-        private System.Random positionRandom;
-        private System.Random leftRightRandom;
-
         private void Awake()
         {
             GameData.UpPosition = UpPosition;
             GameData.LeftPosition = LeftPosition;
             GameData.RightPosition = RightPosition;
 
-            positionRandom = new System.Random();
-            leftRightRandom = new System.Random();
         }
 
         public void RandomSpawnBird()
@@ -74,7 +70,7 @@ namespace IWantToBeAStar.MainGame
         /// <param name="hazard"></param>
         private void RandomSpawnLeftOrRight(GameObject hazard)
         {
-            int i = leftRightRandom.Next(2);
+            int i = Random.Range(0, 2);
             if (i == 0)
             {
                 RandomSpawnHazard(hazard, Direction.Left);
@@ -145,11 +141,11 @@ namespace IWantToBeAStar.MainGame
             {
                 //random.NextDouble()로 나온 값에서 MaxRandomNumber를 곱한 뒤, 1/2 확률로 음수, 양수 값 정하기
                 // System.Random
-                float num = (float)(positionRandom.NextDouble() * MaxRandomNumber);
-                float randomNumber = leftRightRandom.Next(2) == 0 ? -num : num; // 0, 1
+                // float num = (float)(positionRandom.NextDouble() * MaxRandomNumber);
+                // float randomNumber = leftRightRandom.Next(2) == 0 ? -num : num; // 0, 1
 
                 // Unity.Random
-                // float randomNumber = Random.Range(-MaxRandomNumber, MaxRandomNumber);
+                float randomNumber = Random.Range(-MaxRandomNumber, MaxRandomNumber);
 
                 IEnumerable<Vector2> result = null;
                 switch (pos)

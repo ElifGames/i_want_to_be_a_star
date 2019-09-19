@@ -23,8 +23,7 @@ namespace IWantToBeAStar.MainGame.MapObjects.Hazards
 
             if (IsRandomSpeed)
             {
-                System.Random random = new System.Random();
-                Speed = random.Next(3, 10);
+                Speed = Random.Range(3f, 10f);
             }
 
             if (transform.position.x == GameData.LeftPosition.x)
