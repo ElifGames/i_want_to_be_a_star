@@ -66,7 +66,7 @@ namespace IWantToBeAStar.MainGame
             bgRotateCount = 0;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             if (isGameStarted)
             {

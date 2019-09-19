@@ -1201,7 +1201,7 @@ PrefabInstance:
     - target: {fileID: 4844568826853804930, guid: b661b6868e2fc9f4d8725a65d1404fed,
         type: 3}
       propertyPath: Invincibility
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b661b6868e2fc9f4d8725a65d1404fed, type: 3}
