@@ -46,7 +46,7 @@ namespace IWantToBeAStar.MainGame
 
             playerScore = GameObject.Find("PlayerScore").GetComponent<TextMeshPro>();
             GameData.Score = 0;
-            playerScore.text = "0";
+            playerScore.text = "0m";
         }
 
         private void HandleGameStartEvent()
@@ -64,7 +64,7 @@ namespace IWantToBeAStar.MainGame
         {
             while (true)
             {
-                AddScore(1);
+                AddScore(60);
                 yield return new WaitForSeconds(0.1f);
             }
         }
@@ -74,7 +74,7 @@ namespace IWantToBeAStar.MainGame
             GameData.Score += score;
             var currentScore = GameData.Score;
             ScoreAddedEvent?.Invoke(currentScore);
-            playerScore.text = currentScore.ToString();
+            playerScore.text = string.Format("{0:#,###}m", currentScore);
         }
     }
 }
