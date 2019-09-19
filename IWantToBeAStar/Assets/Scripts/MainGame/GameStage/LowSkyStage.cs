@@ -1,5 +1,6 @@
 ﻿using IWantToBeAStar.MainGame;
 using IWantToBeAStar.MainGame.GameStage;
+using IWantToBeAStar.Tools;
 using System.Collections;
 using UnityEngine;
 

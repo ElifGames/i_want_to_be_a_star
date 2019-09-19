@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using IWantToBeAStar.Tools;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,13 +17,14 @@ namespace IWantToBeAStar.MainGame.GameStage
             var patterns = GetNewPatterns();
             for (int i = 0; i < 3; i++)
             {
+                RandomSeed.SetRandomSeed();
                 yield return StartCoroutine(patterns[i]);
                 yield return StartCoroutine(hazardManager.WaitForAllHazardRemoved());
             }
-
             //모든 패턴 끝난 후에 패턴 랜덤으로 정해서 무한반복
             while (true)
             {
+                RandomSeed.SetRandomSeed();
                 patterns = GetNewPatterns();
                 int idx = Random.Range(0, 3);
                 yield return StartCoroutine(patterns[idx]);

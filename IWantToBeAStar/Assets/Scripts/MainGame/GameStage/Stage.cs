@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using IWantToBeAStar.Tools;
+using System.Collections;
 using UnityEngine;
 
 namespace IWantToBeAStar.MainGame.GameStage
@@ -54,6 +55,7 @@ namespace IWantToBeAStar.MainGame.GameStage
             yield return StartCoroutine(Countdown());
             gameManager.GameEndEvent += HandleGameEndEvent;
 
+            RandomSeed.SetRandomSeed();
             stageMainCoroutine = StageMain();
             yield return StartCoroutine(stageMainCoroutine);
 

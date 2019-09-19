@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using IWantToBeAStar.Tools;
+using System.Collections;
 using UnityEngine;
 
 namespace IWantToBeAStar.MainGame.GameStage
@@ -16,11 +17,9 @@ namespace IWantToBeAStar.MainGame.GameStage
             IEnumerator spawnAirplane = SpawningAirplane(airplaneTimer);
             StartCoroutine(spawnAirplane);
 
-            SpawnTimer lightningTimer = new SpawnTimer(1f, 0.85f, 5, 10);
-            IEnumerator spawnLightning = SpawningLightning(lightningTimer);
+            IEnumerator spawnLightning = SpawningLightning();
             StartCoroutine(spawnLightning);
 
-            StartCoroutine(lightningTimer.StartReduceSpawnTimer());
             yield return StartCoroutine(airplaneTimer.StartReduceSpawnTimer());
 
             StopCoroutine(spawnAirplane);
@@ -49,12 +48,12 @@ namespace IWantToBeAStar.MainGame.GameStage
             }
         }
 
-        private IEnumerator SpawningLightning(SpawnTimer timer)
+        private IEnumerator SpawningLightning()
         {
             while (true)
             {
-                hazardManager.RandomSpawnLightning(Random.Range(0, 3));
-                yield return new WaitForSeconds(timer.SpawnWait);
+                hazardManager.RandomSpawnLightning(1);
+                yield return new WaitForSeconds(Random.Range(0.3f, 1f));
             }
         }
     }
