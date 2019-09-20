@@ -1,12 +1,17 @@
 ﻿using IWantToBeAStar.Tools;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace IWantToBeAStar.MainGame.GameStage
 {
     public class InfiniteSpaceStage : Stage
     {
+        private float pattern1SpawnWait = 0.6f;
+        private float pattern2SpawnWait = 0.8f;
+        private float pattern3SpawnWait = 1f;
+
+        private const float patternSpawnGain = 0.07f;
+
         public InfiniteSpaceStage() : base(StageTypes.Space)
         {
         }
@@ -22,13 +27,22 @@ namespace IWantToBeAStar.MainGame.GameStage
                 yield return StartCoroutine(hazardManager.WaitForAllHazardRemoved());
             }
             //모든 패턴 끝난 후에 패턴 랜덤으로 정해서 무한반복
+
+            int beforeIdx = -1;
+            int idx;
             while (true)
             {
                 RandomSeed.SetRandomSeed();
                 patterns = GetNewPatterns();
-                int idx = Random.Range(0, 3);
+                do
+                {
+                    idx = Random.Range(0, 3);
+                }
+                while (idx == beforeIdx);
+
                 yield return StartCoroutine(patterns[idx]);
                 yield return StartCoroutine(hazardManager.WaitForAllHazardRemoved());
+                beforeIdx = idx;
             }
         }
         private IEnumerator[] GetNewPatterns()
@@ -43,7 +57,10 @@ namespace IWantToBeAStar.MainGame.GameStage
 
         private IEnumerator Pattern1()
         {
-            var timer = new SpawnTimer(0.6f, 0.2f, 3, 10);
+            const float minSpawnWait = 0.2f;
+            pattern1SpawnWait = ReducePatternSpawnWait(pattern1SpawnWait, minSpawnWait);
+
+            var timer = new SpawnTimer(pattern1SpawnWait, minSpawnWait, 3, 10);
             IEnumerator spawn = SpawningMeteo(timer);
             StartCoroutine(spawn);
             yield return StartCoroutine(timer.StartReduceSpawnTimer());
@@ -52,7 +69,10 @@ namespace IWantToBeAStar.MainGame.GameStage
 
         private IEnumerator Pattern2()
         {
-            var timer = new SpawnTimer(0.8f, 0.3f, 3, 10);
+            const float minSpawnWait = 0.3f;
+            pattern2SpawnWait = ReducePatternSpawnWait(pattern2SpawnWait, minSpawnWait);
+
+            var timer = new SpawnTimer(pattern2SpawnWait, minSpawnWait, 3, 10);
             IEnumerator spawn = SpawningUFO(timer);
             StartCoroutine(spawn);
             yield return StartCoroutine(timer.StartReduceSpawnTimer());
@@ -61,7 +81,10 @@ namespace IWantToBeAStar.MainGame.GameStage
 
         private IEnumerator Pattern3()
         {
-            var meteoTimer = new SpawnTimer(0.6f, 0.3f, 2, 15);
+            const float minSpawnWait = 0.3f;
+            pattern3SpawnWait = ReducePatternSpawnWait(pattern3SpawnWait, minSpawnWait);
+
+            var meteoTimer = new SpawnTimer(pattern3SpawnWait, minSpawnWait, 2, 15);
             IEnumerator meteo = SpawningMeteo(meteoTimer);
             var ufoTimer = new SpawnTimer(1f, 0.8f, 3, 10);
             IEnumerator ufo = SpawningUFO(ufoTimer);
@@ -90,6 +113,18 @@ namespace IWantToBeAStar.MainGame.GameStage
                 hazardManager.RandomSpawnUFO();
                 yield return new WaitForSeconds(timer.SpawnWait);
             }
+        }
+
+        private float ReducePatternSpawnWait(float patternSpawnWait, float minSpawnWait)
+        {
+            patternSpawnWait -= patternSpawnGain;
+            var check = minSpawnWait + patternSpawnGain;
+            if (patternSpawnWait <= check)
+            {
+                patternSpawnWait = check;
+            }
+
+            return patternSpawnWait;
         }
     }
 }
