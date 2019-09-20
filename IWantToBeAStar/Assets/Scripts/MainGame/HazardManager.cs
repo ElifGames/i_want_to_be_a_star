@@ -97,25 +97,29 @@ namespace IWantToBeAStar.MainGame
             {
                 float posX = 0f;
                 float posY = 0f;
+                var positionsX = (from position in spawnedPositions select position.x).ToArray();
+                var positionsY = (from position in spawnedPositions select position.y).ToArray();
+
                 switch (direction)
                 {
                     case Direction.Up:
-                        posX = GetNotOverlappedRandomPosition(spawnedPositions, PositionType.X, UpPosition.x);
+
+                        posX = GetNotOverlappedRandomPosition(positionsX, UpPosition.x);
                         posY = UpPosition.y;
                         break;
 
                     case Direction.Left:
                         posX = LeftPosition.x;
-                        posY = GetNotOverlappedRandomPosition(spawnedPositions, PositionType.Y, LeftPosition.y);
+                        posY = GetNotOverlappedRandomPosition(positionsY, LeftPosition.y);
                         break;
 
                     case Direction.Right:
                         posX = RightPosition.x;
-                        posY = GetNotOverlappedRandomPosition(spawnedPositions, PositionType.Y, RightPosition.y);
+                        posY = GetNotOverlappedRandomPosition(positionsY, RightPosition.y);
                         break;
 
                     case Direction.Center:
-                        posX = GetNotOverlappedRandomPosition(spawnedPositions, PositionType.X, UpPosition.x);
+                        posX = GetNotOverlappedRandomPosition(positionsX, UpPosition.x);
                         posY = 0f;
                         break;
                 }
@@ -127,50 +131,25 @@ namespace IWantToBeAStar.MainGame
         }
 
         /// <summary>
-        /// <paramref name="positions"/>에서 +1 -1 위치 까지 겹치지 않는 랜덤 숫자를 뽑아서 반환합니다.
+        /// <paramref name="positions"/>에서 일정 위치 까지 겹치지 않는 랜덤 숫자를 뽑아서 반환합니다.
         /// </summary>
         /// <param name="positions">대조해볼 값들</param>
-        /// <param name="pos">x 위치인지 y위치인지를 알려줍니다.</param>
         /// <param name="MaxRandomNumber">최대 랜덤 숫자. 최소 랜덤 숫자는 최대 랜덤 숫자의 음수 값이 됩니다.</param>
         /// <returns></returns>
-        private float GetNotOverlappedRandomPosition(List<Vector2> positions, PositionType pos, float MaxRandomNumber)
+        private float GetNotOverlappedRandomPosition(float[] positions, float MaxRandomNumber)
         {
             float border = 1f;
             float goodNumber = 0f;
             bool complete = false;
             while (!complete)
             {
-                //random.NextDouble()로 나온 값에서 MaxRandomNumber를 곱한 뒤, 1/2 확률로 음수, 양수 값 정하기
-                // System.Random
-                // float num = (float)(positionRandom.NextDouble() * MaxRandomNumber);
-                // float randomNumber = leftRightRandom.Next(2) == 0 ? -num : num; // 0, 1
-
-                // Unity.Random
                 float randomNumber = Random.Range(-MaxRandomNumber, MaxRandomNumber);
 
-                IEnumerable<Vector2> result = null;
-                switch (pos)
-                {
-                    case PositionType.X:
-                        result = from position in positions
-                                 where (randomNumber > position.x - border) && (randomNumber < position.x + border)
-                                 select position;
-                        break;
+                float[] searchResult = (from position in positions
+                                where (randomNumber > position - border) && (randomNumber < position + border)
+                                select position).ToArray();
 
-                    case PositionType.Y:
-                        result = from position in positions
-                                 where (randomNumber > position.y - border) && (randomNumber < position.y + border)
-                                 select position;
-                        break;
-
-                    default:
-                        break;
-                }
-                if (result == null)
-                {
-                    throw new NullReferenceException();
-                }
-                if (result.Count() == 0)
+                if (searchResult.Length == 0)
                 {
                     goodNumber = randomNumber;
                     complete = true;
