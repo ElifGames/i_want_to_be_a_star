@@ -80,7 +80,7 @@ namespace IWantToBeAStar.MainGame.GameStage
         /// <summary>
         /// 3초 카운트다운을 하는 동안 기다립니다.
         /// </summary>
-        protected IEnumerator Countdown()
+        private IEnumerator Countdown()
         {
             UIManager.GameUI.ReadyText.color = Color.yellow;
             for (int i = 3; i > 0; i--)
