@@ -89,14 +89,11 @@ namespace IWantToBeAStar.MainGame.GameStage
             {
                 throw new System.NullReferenceException("필수 변수가 null값을 가지고 있습니다.");
             }
-            else
+            for (int i = 0; i < ReduceCount; i++)
             {
-                for (int i = 0; i < ReduceCount; i++)
-                {
-                    yield return new WaitForSeconds(WaitSecond);
-                    SpawnWait -= SpawnGain;
-                    Debug.Log($"현재 생성주기: {SpawnWait}");
-                }
+                yield return new WaitForSeconds(WaitSecond);
+                SpawnWait -= SpawnGain;
+                Debug.Log($"현재 생성주기: {SpawnWait}");
             }
             yield return new WaitForSeconds(WaitSecond);
         }
