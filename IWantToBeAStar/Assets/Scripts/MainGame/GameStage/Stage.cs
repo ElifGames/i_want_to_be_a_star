@@ -15,11 +15,6 @@ namespace IWantToBeAStar.MainGame.GameStage
         public readonly StageTypes StageType;
 
         /// <summary>
-        /// 게임 내의 <see cref="MainGame.ScoreManager"/>를 제공합니다.
-        /// </summary>
-        protected ScoreManager ScoreManager { get; private set; }
-
-        /// <summary>
         /// 게임 내의 <see cref="MainGame.HazardManager"/>를 제공합니다.
         /// </summary>
         protected HazardManager HazardManager { get; private set; }
@@ -48,7 +43,6 @@ namespace IWantToBeAStar.MainGame.GameStage
         /// </summary>
         public IEnumerator Run()
         {
-            ScoreManager = GameObject.Find("Score Manager").GetComponent<ScoreManager>();
             HazardManager = GameObject.Find("Hazard Manager").GetComponent<HazardManager>();
             GameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
 
