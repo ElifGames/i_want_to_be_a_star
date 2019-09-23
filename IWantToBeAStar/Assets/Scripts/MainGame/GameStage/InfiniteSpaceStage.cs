@@ -18,7 +18,7 @@ namespace IWantToBeAStar.MainGame.GameStage
 
         protected override IEnumerator StageMain()
         {
-            GameData.BackgroundScrollSpeed = 3;
+            GameData.BackgroundScrollSpeed = 3.0f;
             var patterns = GetNewPatterns();
             for (int i = 0; i < 3; i++)
             {
