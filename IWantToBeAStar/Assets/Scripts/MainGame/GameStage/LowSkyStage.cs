@@ -27,7 +27,7 @@ namespace IWantToBeAStar.MainGame.GameStage
         {
             while (true)
             {
-                hazardManager.RandomSpawnBird();
+                HazardManager.RandomSpawnBird();
                 yield return new WaitForSeconds(timer.SpawnWait);
             }
         }

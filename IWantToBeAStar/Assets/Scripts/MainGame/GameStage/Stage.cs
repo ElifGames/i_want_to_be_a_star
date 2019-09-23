@@ -15,19 +15,19 @@ namespace IWantToBeAStar.MainGame.GameStage
         public readonly StageTypes StageType;
 
         /// <summary>
-        /// 게임 내의 <see cref="ScoreManager"/>를 제공합니다.
+        /// 게임 내의 <see cref="MainGame.ScoreManager"/>를 제공합니다.
         /// </summary>
-        protected ScoreManager scoreManager;
+        protected ScoreManager ScoreManager { get; private set; }
 
         /// <summary>
-        /// 게임 내의 <see cref="HazardManager"/>를 제공합니다.
+        /// 게임 내의 <see cref="MainGame.HazardManager"/>를 제공합니다.
         /// </summary>
-        protected HazardManager hazardManager;
+        protected HazardManager HazardManager { get; private set; }
 
         /// <summary>
-        /// 게임 내의 <see cref="GameManager"/>를 제공합니다.
+        /// 게임 내의 <see cref="MainGame.GameManager"/>를 제공합니다.
         /// </summary>
-        protected GameManager gameManager;
+        protected GameManager GameManager { get; private set; }
 
         #region Coroutines
         private IEnumerator stageMainCoroutine;
@@ -48,18 +48,18 @@ namespace IWantToBeAStar.MainGame.GameStage
         /// </summary>
         public IEnumerator Run()
         {
-            scoreManager = GameObject.Find("Score Manager").GetComponent<ScoreManager>();
-            hazardManager = GameObject.Find("Hazard Manager").GetComponent<HazardManager>();
-            gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+            ScoreManager = GameObject.Find("Score Manager").GetComponent<ScoreManager>();
+            HazardManager = GameObject.Find("Hazard Manager").GetComponent<HazardManager>();
+            GameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
 
             yield return StartCoroutine(Countdown());
-            gameManager.GameEndEvent += HandleGameEndEvent;
+            GameManager.GameEndEvent += HandleGameEndEvent;
 
             RandomSeed.SetRandomSeed();
             stageMainCoroutine = StageMain();
             yield return StartCoroutine(stageMainCoroutine);
 
-            gameManager.GameEndEvent -= HandleGameEndEvent;
+            GameManager.GameEndEvent -= HandleGameEndEvent;
             Debug.Log("스테이지 종료");
         }
 

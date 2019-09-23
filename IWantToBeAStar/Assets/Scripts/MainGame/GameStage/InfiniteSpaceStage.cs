@@ -24,7 +24,7 @@ namespace IWantToBeAStar.MainGame.GameStage
             {
                 RandomSeed.SetRandomSeed();
                 yield return StartCoroutine(patterns[i]);
-                yield return StartCoroutine(hazardManager.WaitForAllHazardRemoved());
+                yield return StartCoroutine(HazardManager.WaitForAllHazardRemoved());
             }
             //모든 패턴 끝난 후에 패턴 랜덤으로 정해서 무한반복
 
@@ -41,7 +41,7 @@ namespace IWantToBeAStar.MainGame.GameStage
                 while (idx == beforeIdx);
 
                 yield return StartCoroutine(patterns[idx]);
-                yield return StartCoroutine(hazardManager.WaitForAllHazardRemoved());
+                yield return StartCoroutine(HazardManager.WaitForAllHazardRemoved());
                 beforeIdx = idx;
             }
         }
@@ -101,7 +101,7 @@ namespace IWantToBeAStar.MainGame.GameStage
         {
             while (true)
             {
-                hazardManager.RandomSpawnMeteo();
+                HazardManager.RandomSpawnMeteo();
                 yield return new WaitForSeconds(timer.SpawnWait);
             }
         }
@@ -110,7 +110,7 @@ namespace IWantToBeAStar.MainGame.GameStage
         {
             while (true)
             {
-                hazardManager.RandomSpawnUFO();
+                HazardManager.RandomSpawnUFO();
                 yield return new WaitForSeconds(timer.SpawnWait);
             }
         }
