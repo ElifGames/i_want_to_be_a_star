@@ -100,31 +100,24 @@ namespace IWantToBeAStar.MainGame
 
                 Sprite ChangeSprite = null;
 
-                #region 배경 전환이 필요한 경우
-
                 if (hasStageChanged)
                 {
                     switch (ChangingTarget)
                     {
                         case StageTypes.LowSky:
                             ChangeSprite = GetBackgroundRotate(BackgroundList.LowSky);
-                            hasStageChanged = false;
                             break;
 
                         case StageTypes.HighSky:
                             ChangeSprite = BackgroundList.LowSkyToHighSky;
-                            hasStageChanged = false;
                             break;
 
                         case StageTypes.Space:
                             ChangeSprite = BackgroundList.HighSkyToSpace;
-                            hasStageChanged = false;
                             break;
                     }
+                    hasStageChanged = false;
                 }
-
-                #endregion 배경 전환이 필요한 경우
-
                 else
                 {
                     if (GameData.CurrentStage == null)
