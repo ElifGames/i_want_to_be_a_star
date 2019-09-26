@@ -20,9 +20,9 @@ namespace IWantToBeAStar.MainGame
         #endregion
 
         /// <summary>
-        /// 스프라이트가 화면의 최상단에 위치되는 지점
+        /// 1번 스프라이트의 위쪽 끝이 화면 위쪽 끝과 맞닿는 지점
         /// </summary>
-        private readonly float tileChangeLine = 16f;
+        private const float tileChangeLine = 16.2f;
 
         /// <summary>
         /// 스프라이트가 다시 최초 위치로 이동하는데 사용됩니다.
@@ -66,7 +66,7 @@ namespace IWantToBeAStar.MainGame
             bgRotateCount = 0;
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             if (isGameStarted)
             {
@@ -89,7 +89,7 @@ namespace IWantToBeAStar.MainGame
 
         private void BackgroundScroll()
         {
-            // 만약 스프라이트의 상단이 화면 상단에 도달했을 때
+            // 만약 1번 스프라이트의 상단이 화면 상단에 도달했을 때
             if (transform.position.y <= -tileChangeLine)
             {
                 // 2번 스프라이트를 1번 스프라이트로 옮기기
@@ -145,8 +145,10 @@ namespace IWantToBeAStar.MainGame
 
                 SecondSprite.sprite = ChangeSprite;
             }
-            // 스프라이트를 아래로 스크롤
-            transform.Translate(new Vector3(0, Time.deltaTime * GameData.BackgroundScrollSpeed * -1, startPosition.z));
+
+            var move = new Vector3(0, Time.deltaTime * -GameData.BackgroundScrollSpeed, startPosition.z);
+            // 스프라이트를 아래로 이동
+            transform.Translate(move);
         }
 
         /// <summary>
