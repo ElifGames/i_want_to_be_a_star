@@ -20,9 +20,9 @@ namespace IWantToBeAStar.MainGame
         #endregion
 
         /// <summary>
-        /// 1번 스프라이트의 위쪽 끝이 화면 위쪽 끝과 맞닿는 지점
+        /// 1번 스프라이트의 위쪽 끝이 화면 아래쪽 끝과 맞닿는 지점
         /// </summary>
-        private const float tileChangeLine = 16.2f;
+        private const float tileChangeLine = -16.2f;
 
         /// <summary>
         /// 스프라이트가 다시 최초 위치로 이동하는데 사용됩니다.
@@ -90,7 +90,7 @@ namespace IWantToBeAStar.MainGame
         private void BackgroundScroll()
         {
             // 만약 1번 스프라이트의 상단이 화면 상단에 도달했을 때
-            if (transform.position.y <= -tileChangeLine)
+            if (transform.position.y <= tileChangeLine)
             {
                 // 2번 스프라이트를 1번 스프라이트로 옮기기
                 FirstSprite.sprite = SecondSprite.sprite;
