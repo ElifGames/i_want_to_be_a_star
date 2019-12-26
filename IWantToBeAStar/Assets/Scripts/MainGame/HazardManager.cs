@@ -1,4 +1,5 @@
-﻿using IWantToBeAStar.Tools;
+﻿using IWantToBeAStar.MainGame.MapObjects.Hazards;
+using IWantToBeAStar.Tools;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace IWantToBeAStar.MainGame
         public GameObject Lightning;
         public GameObject UFO;
         public GameObject Meteo;
+        public GameObject Star;
         #endregion
 
         public int SpawnedHazardsCount => transform.childCount;
@@ -57,6 +59,27 @@ namespace IWantToBeAStar.MainGame
             RandomSpawnLeftOrRight(UFO);
         }
 
+        public void RandomSpawnStar()
+        {
+            // Center를 빼기위해 0~3까지의 숫자를 뽑음
+            int randomNumber = Random.Range(0, 4);
+            var direction = (Direction)randomNumber;
+            var obj = RandomSpawnHazard(Star, direction);
+            switch (direction)
+            {
+                case Direction.Up:
+                    obj.AddComponent<DownMovement>().Speed = 8;
+                    break;
+                case Direction.Down:
+                    obj.AddComponent<UpMovement>().Speed = 8;
+                    break;
+                case Direction.Left:
+                case Direction.Right:
+                    obj.AddComponent<LeftRightMovement>().Speed = 8;
+                    break;
+            }
+        }
+
         /// <summary>
         /// 게임 상의 모든 위험요소들이 사라질때까지 기다립니다.
         /// </summary>
@@ -90,9 +113,16 @@ namespace IWantToBeAStar.MainGame
         /// <param name="spawnCount">
         /// <paramref name="spawnCount"/>가 2개 이상일 경우 서로 겹치지 않게 생성합니다.
         /// </param>
-        private void RandomSpawnHazard(GameObject hazard, Direction direction, int spawnCount = 1)
+        private GameObject RandomSpawnHazard(GameObject hazard, Direction direction)
+        {
+            return RandomSpawnHazard(hazard, direction, 1)[0];
+        }
+
+        private List<GameObject> RandomSpawnHazard(GameObject hazard, Direction direction, int spawnCount)
         {
             List<Vector2> spawnedPositions = new List<Vector2>();
+
+            List<GameObject> result = new List<GameObject>();
             for (int i = 0; i < spawnCount; i++)
             {
                 float posX = 0f;
@@ -103,9 +133,13 @@ namespace IWantToBeAStar.MainGame
                 switch (direction)
                 {
                     case Direction.Up:
-
                         posX = GetNotOverlappedRandomPosition(positionsX, UpPosition.x);
                         posY = UpPosition.y;
+                        break;
+
+                    case Direction.Down:
+                        posX = GetNotOverlappedRandomPosition(positionsX, UpPosition.x);
+                        posY = -UpPosition.y;
                         break;
 
                     case Direction.Left:
@@ -125,9 +159,11 @@ namespace IWantToBeAStar.MainGame
                 }
                 var spawnPosition = new Vector2(posX, posY);
                 Quaternion spawnRotation = Quaternion.identity;
-                Instantiate(hazard, spawnPosition, spawnRotation, transform);
+                result.Add(Instantiate(hazard, spawnPosition, spawnRotation, transform));
                 spawnedPositions.Add(spawnPosition);
             }
+
+            return result;
         }
 
         /// <summary>

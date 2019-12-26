@@ -427,36 +427,6 @@ MonoBehaviour:
     type: 3}
   PausePanelPrefab: {fileID: 5534112179675831346, guid: b8acd51d35b63fd4a976e6e577174c8f,
     type: 3}
---- !u!1 &986989145
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 986989146}
-  m_Layer: 0
-  m_Name: Stage Manager
-  m_TagString: GameController
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &986989146
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 986989145}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.6479008, y: 0.59740806, z: -14.376587}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1014341324
 GameObject:
   m_ObjectHideFlags: 0
@@ -545,6 +515,7 @@ MonoBehaviour:
     type: 3}
   UFO: {fileID: 6795943654162564450, guid: b30203e1a9cbbbb42948f94b78d215bc, type: 3}
   Meteo: {fileID: 7743204055050192406, guid: e8148d46b7a1a6e4e897b48303a10fac, type: 3}
+  Star: {fileID: 2073678070030304299, guid: 22b2b92a6ca147e4397c89378ab673df, type: 3}
 --- !u!4 &1041791755
 Transform:
   m_ObjectHideFlags: 0
@@ -901,6 +872,36 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &1482548127
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1482548128}
+  m_Layer: 0
+  m_Name: Stage Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1482548128
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1482548127}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1773472784
 GameObject:
   m_ObjectHideFlags: 0
@@ -1093,6 +1094,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 64272726016724080, guid: b661b6868e2fc9f4d8725a65d1404fed,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 646176712511488037, guid: b661b6868e2fc9f4d8725a65d1404fed,
+        type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1090932097867506078, guid: b661b6868e2fc9f4d8725a65d1404fed,
+        type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4844568826853804928, guid: b661b6868e2fc9f4d8725a65d1404fed,
         type: 3}
       propertyPath: m_Name
@@ -1102,6 +1118,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844568826853804930, guid: b661b6868e2fc9f4d8725a65d1404fed,
+        type: 3}
+      propertyPath: Invincibility
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844568826853804931, guid: b661b6868e2fc9f4d8725a65d1404fed,
+        type: 3}
+      propertyPath: CursorSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4844568826853804931, guid: b661b6868e2fc9f4d8725a65d1404fed,
+        type: 3}
+      propertyPath: KeyboardSpeed
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4844568826853804958, guid: b661b6868e2fc9f4d8725a65d1404fed,
         type: 3}
@@ -1158,15 +1189,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 646176712511488037, guid: b661b6868e2fc9f4d8725a65d1404fed,
+    - target: {fileID: 8110807830155723502, guid: b661b6868e2fc9f4d8725a65d1404fed,
         type: 3}
-      propertyPath: m_CullTransparentMesh
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 64272726016724080, guid: b661b6868e2fc9f4d8725a65d1404fed,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8658830113444610533, guid: b661b6868e2fc9f4d8725a65d1404fed,
         type: 3}
@@ -1182,31 +1208,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SortingLayer
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8110807830155723502, guid: b661b6868e2fc9f4d8725a65d1404fed,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1090932097867506078, guid: b661b6868e2fc9f4d8725a65d1404fed,
-        type: 3}
-      propertyPath: m_CullTransparentMesh
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4844568826853804931, guid: b661b6868e2fc9f4d8725a65d1404fed,
-        type: 3}
-      propertyPath: CursorSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4844568826853804931, guid: b661b6868e2fc9f4d8725a65d1404fed,
-        type: 3}
-      propertyPath: KeyboardSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4844568826853804930, guid: b661b6868e2fc9f4d8725a65d1404fed,
-        type: 3}
-      propertyPath: Invincibility
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b661b6868e2fc9f4d8725a65d1404fed, type: 3}

@@ -17,7 +17,7 @@ namespace IWantToBeAStar.MainGame.MapObjects.Player
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!Invincibility && other.tag == "Hazard")
+            if (!Invincibility && other.CompareTag("Hazard"))
             {
                 gameManager.PlayerHasDead();
                 Destroy(gameObject);

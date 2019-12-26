@@ -2,6 +2,6 @@
 {
     public enum SpaceHazards
     {
-        Meteo, UFO
+        Meteo, UFO, Star
     }
 }

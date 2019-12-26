@@ -26,6 +26,7 @@ namespace IWantToBeAStar.MainGame.GameStage
             StopCoroutine(spawnLightning);
         }
 
+        /*
         private IEnumerator Warning()
         {
             UIManager.GameUI.ReadyText.color = Color.red;
@@ -38,6 +39,7 @@ namespace IWantToBeAStar.MainGame.GameStage
             }
             UIManager.GameUI.SetDefaultToReadyText();
         }
+        */
 
         private IEnumerator SpawningAirplane(SpawnTimer timer)
         {
@@ -50,10 +52,11 @@ namespace IWantToBeAStar.MainGame.GameStage
 
         private IEnumerator SpawningLightning()
         {
+            yield return new WaitForSeconds(3);
             while (true)
             {
                 HazardManager.RandomSpawnLightning(1);
-                yield return new WaitForSeconds(Random.Range(0.3f, 1f));
+                yield return new WaitForSeconds(Random.Range(0.8f, 1.5f));
             }
         }
     }
