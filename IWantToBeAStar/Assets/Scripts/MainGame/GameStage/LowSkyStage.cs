@@ -16,7 +16,7 @@ namespace IWantToBeAStar.MainGame.GameStage
 
         protected override IEnumerator StageMain()
         {
-            timer = new SpawnTimer(1f, 0.2f, 10, 5);
+            timer = new SpawnTimer(1f, 0.38f, 10, 5);
             IEnumerator spawn = SpawningBird();
             StartCoroutine(spawn);
             yield return StartCoroutine(timer.StartReduceSpawnTimer());
